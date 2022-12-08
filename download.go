@@ -35,10 +35,10 @@ func verify() {
 		return
 	}
 
-	match, err := regexp.MatchString(`^\d\.\d(\.\d)?(-pre\d)?$`, PaperVersionInput)
+	match, err := regexp.MatchString(`^\d\.\d{1,2}(\.\d)?(-pre\d)?$`, PaperVersionInput)
 	Error(err, "an error occurred while verifying version")
 	if !match {
-		CustomError("version is not valid")
+		CustomError("version %s is not valid", PaperVersionInput)
 	}
 
 	if PaperBuildInput == "latest" {
@@ -48,7 +48,7 @@ func verify() {
 	match, err = regexp.MatchString(`^\d+$`, PaperBuildInput)
 	Error(err, "an error occurred while verifying build")
 	if !match {
-		CustomError("build is not valid")
+		CustomError("build %s is not valid", PaperBuildInput)
 	}
 }
 
