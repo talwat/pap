@@ -6,8 +6,6 @@ import (
 	"time"
 )
 
-var version = "0.1"
-
 //nolint:gochecknoglobals
 var (
 	PaperVersionInput = "latest"
@@ -18,7 +16,7 @@ var (
 	GUIInput          = false
 )
 
-func RunCommand() {
+func ScriptCommand() {
 	gui := " --nogui"
 
 	if GUIInput {

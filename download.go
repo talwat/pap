@@ -29,7 +29,6 @@ func DownloadCommand() {
 
 	calculatedChecksum := download(url)
 	checksum(calculatedChecksum)
-	os.Exit(0)
 }
 
 func verify() {

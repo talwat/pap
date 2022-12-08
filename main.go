@@ -6,6 +6,8 @@ import (
 	"github.com/urfave/cli/v2"
 )
 
+var version = "0.2"
+
 //nolint:funlen,exhaustruct
 func main() {
 	app := &cli.App{
@@ -50,11 +52,11 @@ func main() {
 				},
 			},
 			{
-				Name:    "run",
-				Aliases: []string{"r"},
-				Usage:   "Makes script to run the jarfile",
+				Name:    "script",
+				Aliases: []string{"sc"},
+				Usage:   "Generates a script to run the jarfile",
 				Action: func(cCtx *cli.Context) error {
-					RunCommand()
+					ScriptCommand()
 
 					return nil
 				},
@@ -87,7 +89,7 @@ func main() {
 			},
 			{
 				Name:    "sign",
-				Aliases: []string{"s"},
+				Aliases: []string{"si"},
 				Usage:   "Signs the EULA",
 				Action: func(cCtx *cli.Context) error {
 					EulaCommand()
