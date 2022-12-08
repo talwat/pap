@@ -50,16 +50,6 @@ func main() {
 				},
 			},
 			{
-				Name:    "version",
-				Aliases: []string{"v"},
-				Usage:   "Shows version",
-				Action: func(cCtx *cli.Context) error {
-					cli.ShowVersion(cCtx)
-
-					return nil
-				},
-			},
-			{
 				Name:    "run",
 				Aliases: []string{"r"},
 				Usage:   "Makes script to run the jarfile",
@@ -110,6 +100,16 @@ func main() {
 				Aliases: []string{"h"},
 				Usage:   "Help menu",
 				Action:  cli.ShowAppHelp,
+			},
+			{
+				Name:    "version",
+				Aliases: []string{"v"},
+				Usage:   "Shows version",
+				Action: func(cCtx *cli.Context) error {
+					cli.ShowVersion(cCtx)
+
+					return nil
+				},
 			},
 		},
 	}
