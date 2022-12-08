@@ -1,0 +1,20 @@
+linters:
+  disable:
+    - maligned
+    - scopelint
+    - varcheck
+    - ifshort
+    - golint
+    - interfacer
+    - deadcode
+    - nosnakecase
+    - exhaustivestruct
+    - rowserrcheck
+    - sqlclosecheck
+    - wastedassign
+    - structcheck
+    - tagliatelle
+
+    - gomnd
+
+  enable-all: true
