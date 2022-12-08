@@ -13,35 +13,21 @@ builds:
       - solaris
       - openbsd
       - netbsd
-      - illumos
       - dragonfly
-      - aix
     goarch:
       - amd64
       - arm64
       - arm
       - "386"
-      - ppc64le
-      - ppc64
-      - riscv64
-      - s390x
-      - loong64
-      - mips
-      - mips64
-      - mipsle
-      - mips64le
-      - riscv64
-    goarm:
-      - "6"
-      - "7"
     env:
       - CGO_ENABLED=0
 
 archives:
-  - replacements:
-      darwin: Darwin
-      linux: Linux
-      windows: Windows
+  - format: binary
+    replacements:
+      darwin: macos
+      linux: linux
+      windows: windows
       386: i386
       amd64: x86_64
 
