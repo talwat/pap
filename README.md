@@ -14,7 +14,7 @@ A simplistic **pa**permc hel**p**er.
 
 ### Generate a script to run the jarfile
 
-`pap run --jar server.jar`
+`pap script --jar server.jar`
 
 ## Why though?
 
