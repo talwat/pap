@@ -19,3 +19,4 @@ go.work
 
 # Custom
 test/
+dist/
