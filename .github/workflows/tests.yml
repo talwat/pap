@@ -37,7 +37,7 @@ jobs:
       - run: "./pap download --version 1.12.2"
       - run: "./pap download --version latest --build latest"
       - run: "./pap download --version 1.12.2 --build latest"
-      - run: "./pap eula"
+      - run: "./pap sign"
       - run: "./pap run"
       - run: "./pap run -xmx 2G"
       - run: "./pap run -xms 2G"
