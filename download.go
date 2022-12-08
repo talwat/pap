@@ -14,6 +14,8 @@ import (
 	"github.com/schollz/progressbar/v3"
 )
 
+const latest = "latest"
+
 //nolint:gochecknoglobals
 var (
 	PaperBuild   PaperBuildStruct
@@ -31,22 +33,24 @@ func DownloadCommand() {
 }
 
 func verify() {
-	if PaperVersionInput == "latest" {
+	if PaperVersionInput == latest {
 		return
 	}
 
 	match, err := regexp.MatchString(`^\d\.\d{1,2}(\.\d)?(-pre\d)?$`, PaperVersionInput)
 	Error(err, "an error occurred while verifying version")
+
 	if !match {
 		CustomError("version %s is not valid", PaperVersionInput)
 	}
 
-	if PaperBuildInput == "latest" {
+	if PaperBuildInput == latest {
 		return
 	}
 
 	match, err = regexp.MatchString(`^\d+$`, PaperBuildInput)
 	Error(err, "an error occurred while verifying build")
+
 	if !match {
 		CustomError("build %s is not valid", PaperBuildInput)
 	}
@@ -70,7 +74,7 @@ func checksum(rawCalculatedChecksum []byte) {
 }
 
 func getURL() string {
-	if PaperVersionInput == "latest" {
+	if PaperVersionInput == latest {
 		PaperVersion = GetLatestVersion()
 	} else {
 		PaperVersion = PaperVersionInput
