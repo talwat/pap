@@ -85,7 +85,7 @@ chmod +x ~/.local/bin/pap
 
 ### From Source
 
-#### Dependencies
+#### Build Dependencies
 
 * [Go](https://go.dev/) 1.18 or later
 * [Git](https://git-scm.com/)
@@ -119,3 +119,8 @@ chmod +x ~/.local/bin/pap
 ## Contributing
 
 Anyone is welcome to contribute, and if someone can port pap to various package managers, it would be greatly appreciated.
+
+## Dependencies
+
+* [schollz/progressbar](https://github.com/schollz/progressbar)
+* [urfave/cli](https://github.com/urfave/cli)
