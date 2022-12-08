@@ -30,7 +30,7 @@ pap looks at the papermc api, and gets the latest version automatically, without
 
 #### Dependencies
 
-* [Go](https://go.dev/) 1.17 or later
+* [Go](https://go.dev/) 1.18 or later
 * [Git](https://git-scm.com/)
 
 #### Unix-like
