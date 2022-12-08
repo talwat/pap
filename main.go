@@ -84,6 +84,7 @@ func main() {
 					},
 					&cli.BoolFlag{
 						Name:        "use-gui",
+						Aliases:     []string{"gui"},
 						Usage:       "Whether to use the GUI or not",
 						Destination: &GUIInput,
 					},
