@@ -11,12 +11,10 @@ builds:
       - linux
       - freebsd
       - solaris
-      - plan9
       - openbsd
       - netbsd
       - illumos
       - dragonfly
-      - android
       - aix
     goarch:
       - amd64
