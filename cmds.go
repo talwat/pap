@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"os"
 	"runtime"
 	"time"
 )
@@ -18,23 +17,6 @@ var (
 	JarInput          = "paper.jar"
 	GUIInput          = false
 )
-
-func GlobalHelp() {
-	RawLog(`pap help
-commands:
-  help        displays this menu
-  version     displays the version
-  run         generates a script to run the server
-  download    downloads the latest paper.jar file
-  sign        signs the eula
-`)
-	os.Exit(0)
-}
-
-func VersionCommand() {
-	RawLog("pap %s %s\nby talwat\n", version, runtime.GOOS)
-	os.Exit(0)
-}
 
 func RunCommand() {
 	gui := " --nogui"

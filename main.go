@@ -9,10 +9,15 @@ import (
 //nolint:funlen,exhaustruct
 func main() {
 	app := &cli.App{
-		Name:     "pap",
-		Usage:    "a helper for papermc",
-		HideHelp: true,
-		OnUsageError: func(cCtx *cli.Context, err error, isSubcommand bool) error {
+		Name:        "pap",
+		Usage:       "a helper for papermc",
+		Version:     version,
+		HideHelp:    true,
+		HideVersion: true,
+		CommandNotFound: func(ctx *cli.Context, command string) {
+			CustomError("command not found: %s", command)
+		},
+		OnUsageError: func(ctx *cli.Context, err error, isSubcommand bool) error {
 			CustomError("%s", err)
 
 			return nil
@@ -49,7 +54,7 @@ func main() {
 				Aliases: []string{"v"},
 				Usage:   "Shows version",
 				Action: func(cCtx *cli.Context) error {
-					VersionCommand()
+					cli.ShowVersion(cCtx)
 
 					return nil
 				},
