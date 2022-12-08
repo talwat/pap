@@ -33,7 +33,10 @@ builds:
       - mipsle
       - mips64le
       - riscv64
-  - env:
+    goarm:
+      - "6"
+      - "7"
+    env:
       - CGO_ENABLED=0
 
 archives:
@@ -45,7 +48,7 @@ archives:
       amd64: x86_64
 
 checksum:
-  name_template: 'checksums.txt'
+  name_template: "checksums.txt"
 
 snapshot:
   name_template: "{{ incpatch .Version }}-next"
@@ -54,5 +57,5 @@ changelog:
   sort: asc
   filters:
     exclude:
-      - '^docs:'
-      - '^test:'
+      - "^docs:"
+      - "^test:"
