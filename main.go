@@ -82,6 +82,11 @@ func main() {
 						Usage:       "The name for the server jarfile",
 						Destination: &JarInput,
 					},
+					&cli.BoolFlag{
+						Name:        "use-gui",
+						Usage:       "Whether to use the GUI or not",
+						Destination: &GUIInput,
+					},
 				},
 			},
 			{

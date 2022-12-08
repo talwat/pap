@@ -16,6 +16,7 @@ var (
 	XMSInput          = "2G"
 	XMXInput          = "2G"
 	JarInput          = "paper.jar"
+	GUIInput          = false
 )
 
 func GlobalHelp() {
@@ -36,7 +37,13 @@ func VersionCommand() {
 }
 
 func RunCommand() {
-	command := fmt.Sprintf("java -Xms%s -Xmx%s -jar %s --nogui", XMSInput, XMXInput, JarInput)
+	gui := " --nogui"
+
+	if GUIInput {
+		gui = ""
+	}
+
+	command := fmt.Sprintf("java -Xms%s -Xmx%s -jar %s%s", XMSInput, XMXInput, JarInput, gui)
 
 	if runtime.GOOS == "windows" {
 		WriteFile("run.bat", command, 0o700)
