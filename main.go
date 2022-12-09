@@ -6,16 +6,45 @@ import (
 	"github.com/urfave/cli/v2"
 )
 
-var version = "0.2.0"
+var version = "0.2.1"
 
 //nolint:funlen,exhaustruct
 func main() {
 	app := &cli.App{
-		Name:        "pap",
-		Usage:       "a helper for papermc",
-		Version:     version,
+		Name:    "pap",
+		Usage:   "a helper for papermc",
+		Version: version,
+		Authors: []*cli.Author{
+			{
+				Name: "talwat",
+			},
+		},
 		HideHelp:    true,
 		HideVersion: true,
+		CustomAppHelpTemplate: `NAME:
+   {{template "helpNameTemplate" .}}
+
+USAGE:
+   {{if .UsageText}}{{wrap .UsageText 3}}{{else}}{{.HelpName}} {{if .VisibleFlags}}[global options]{{end}}{{if .Commands}} command [command options]{{end}} {{if .ArgsUsage}}{{.ArgsUsage}}{{else}}[arguments...]{{end}}{{end}}
+
+VERSION:
+   {{.Version}}{{if .Description}}
+
+DESCRIPTION:
+   {{template "descriptionTemplate" .}}{{end}}
+{{- if len .Authors}}
+
+AUTHOR{{template "authorsTemplate" .}}{{end}}{{if .VisibleCommands}}
+
+COMMANDS:{{template "visibleCommandCategoryTemplate" .}}{{end}}{{if .VisibleFlagCategories}}
+
+GLOBAL OPTIONS:{{template "visibleFlagCategoryTemplate" .}}{{else if .VisibleFlags}}
+
+GLOBAL OPTIONS:{{template "visibleFlagTemplate" .}}{{end}}{{if .Copyright}}
+
+COPYRIGHT:
+   {{template "copyrightTemplate" .}}{{end}}
+`,
 		CommandNotFound: func(ctx *cli.Context, command string) {
 			CustomError("command not found: %s", command)
 		},
