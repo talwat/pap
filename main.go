@@ -21,6 +21,7 @@ func main() {
 		},
 		HideHelp:    true,
 		HideVersion: true,
+		//nolint:lll
 		CustomAppHelpTemplate: `NAME:
    {{template "helpNameTemplate" .}}
 
