@@ -10,10 +10,7 @@ builds:
       - windows
       - linux
       - freebsd
-      - solaris
       - openbsd
-      - netbsd
-      - dragonfly
     goarch:
       - amd64
       - arm64
