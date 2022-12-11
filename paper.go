@@ -34,12 +34,12 @@ func GetLatestBuild(paperVersion string) PaperBuildStruct {
 
 	// iterate through paperBuilds.Builds backwards
 	for i := len(paperBuilds.Builds) - 1; i >= 0; i-- {
-		if paperBuilds.Builds[i].Channel == "stable" {
+		if paperBuilds.Builds[i].Channel == "default" { // default = stable
 			return paperBuilds.Builds[i]
 		}
 	}
 
-	Warn("no stable build found, defaulting to latest experimental build")
+	Continue("warning: no stable build found, would you like to use the latest experimental build?")
 
 	return latestBuild
 }
@@ -63,7 +63,7 @@ func GetBuild(paperVersion string, paperBuildID string) PaperBuildStruct {
 	}
 
 	if paperBuild.Channel == "experimental" && !ExperimentalBuildInput {
-		Continue("build %d has been flagged as experimental, are you sure you would like to download it?", paperBuild.Build)
+		Continue("warning: build %d has been flagged as experimental, are you sure you would like to download it?", paperBuild.Build)
 	}
 
 	return paperBuild
