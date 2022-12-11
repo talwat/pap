@@ -35,7 +35,7 @@ func GetLatestBuild(paperVersion string) PaperBuildStruct {
 	// iterate through paperBuilds.Builds backwards
 	for i := len(paperBuilds.Builds) - 1; i >= 0; i-- {
 		if paperBuilds.Builds[i].Channel == "default" { // default = stable
-			return paperBuilds.Builds[i]
+			return paperBuilds.Builds[i] // stable build found, return it
 		}
 	}
 
@@ -44,22 +44,26 @@ func GetLatestBuild(paperVersion string) PaperBuildStruct {
 	return latestBuild
 }
 
-func GetBuild(paperVersion string, paperBuildID string) PaperBuildStruct {
+func GetSpecificBuild(paperVersion string, paperBuildID string) PaperBuildStruct {
 	var paperBuild PaperBuildStruct
 
-	var statusCode int
+	url := fmt.Sprintf("https://api.papermc.io/v2/projects/paper/versions/%s/builds/%s", paperVersion, paperBuildID)
+	statusCode := Get(url, &paperBuild)
 
-	var url string
+	if paperBuild.Error != "" {
+		CustomError("api returned an error with status code %d: %s", statusCode, paperBuild.Error)
+	}
+
+	return paperBuild
+}
+
+func GetBuild(paperVersion string, paperBuildID string) PaperBuildStruct {
+	var paperBuild PaperBuildStruct
 
 	if paperBuildID == "latest" {
 		paperBuild = GetLatestBuild(paperVersion)
 	} else {
-		url = fmt.Sprintf("https://api.papermc.io/v2/projects/paper/versions/%s/builds/%s", paperVersion, PaperBuildInput)
-		statusCode = Get(url, &paperBuild)
-
-		if paperBuild.Error != "" {
-			CustomError("api returned an error with status code %d: %s", statusCode, paperBuild.Error)
-		}
+		paperBuild = GetSpecificBuild(paperVersion, paperBuildID)
 	}
 
 	if paperBuild.Channel == "experimental" && !ExperimentalBuildInput {
