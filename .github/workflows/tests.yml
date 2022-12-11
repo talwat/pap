@@ -28,7 +28,7 @@ jobs:
 
       - run: "go build ."
       - run: "./pap help"
-      - run: "./pap download"
+      - run: "./pap download --experimental"
       - run: "./pap download --version 1.19.2"
       - run: "./pap download --version 1.19.2 --build 300"
       - run: "./pap download --version 1.12.2 --build 1230"
