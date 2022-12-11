@@ -8,12 +8,13 @@ import (
 
 //nolint:gochecknoglobals
 var (
-	PaperVersionInput = "latest"
-	PaperBuildInput   = "latest"
-	XMSInput          = "2G"
-	XMXInput          = "2G"
-	JarInput          = "paper.jar"
-	GUIInput          = false
+	PaperVersionInput      = "latest"
+	PaperBuildInput        = "latest"
+	ExperimentalBuildInput = false
+	XMSInput               = "2G"
+	XMXInput               = "2G"
+	JarInput               = "paper.jar"
+	GUIInput               = false
 )
 
 func ScriptCommand() {

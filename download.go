@@ -36,7 +36,7 @@ func verify() {
 		return
 	}
 
-	match, err := regexp.MatchString(`^\d\.\d{1,2}(\.\d)?(-pre\d)?$`, PaperVersionInput)
+	match, err := regexp.MatchString(`^\d\.\d{1,2}(\.\d)?(-pre\d|-SNAPSHOT\d)?$`, PaperVersionInput)
 	Error(err, "an error occurred while verifying version")
 
 	if !match {
@@ -81,7 +81,17 @@ func getURL() string {
 
 	PaperBuild = GetBuild(PaperVersion, PaperBuildInput)
 
-	LogNoNewline("using paper version %s and build %d\n", PaperVersion, PaperBuild.Build)
+	Log("using paper version %s", PaperVersion)
+
+	if len(PaperBuild.Time) < 10 {
+		CustomError("date supplied by papermc api is too short")
+	}
+
+	Log("using paper build %d (%s), changes:", PaperBuild.Build, PaperBuild.Time[0:10])
+
+	for _, change := range PaperBuild.Changes {
+		RawLog("  (%s) %s\n", change.Commit, change.Summary)
+	}
 
 	//nolint:lll
 	return fmt.Sprintf("https://api.papermc.io/v2/projects/paper/versions/%s/builds/%d/downloads/paper-%s-%d.jar", PaperVersion, PaperBuild.Build, PaperVersion, PaperBuild.Build)
