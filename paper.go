@@ -63,7 +63,10 @@ func GetBuild(paperVersion string, paperBuildID string) PaperBuildStruct {
 	}
 
 	if paperBuild.Channel == "experimental" && !ExperimentalBuildInput {
-		Continue("warning: build %d has been flagged as experimental, are you sure you would like to download it?", paperBuild.Build)
+		Continue(
+			"warning: build %d has been flagged as experimental, are you sure you would like to download it?",
+			paperBuild.Build,
+		)
 	}
 
 	return paperBuild
