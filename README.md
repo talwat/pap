@@ -98,15 +98,27 @@ chmod +x ~/.local/bin/pap
 
 #### Unix - From Source
 
-Just clone and compile pap
+First, clone pap:
 
 ```sh
 git clone https://github.com/talwat/pap
 cd pap
+```
+
+Switch to the latest tag _(optional)_:
+
+```sh
+git tag # get all tags
+git checkout <tag>
+```
+
+And then build:
+
+```sh
 go build .
 ```
 
-And then move it into your binary directory:
+Finally, move it into your binary directory:
 
 ##### Unix - System wide from source
 
@@ -132,15 +144,27 @@ If you want to download from releases, download the fitting windows exe and [put
 
 #### Windows - From Source
 
-If you want to compile pap from source, you can run these commands:
+First, clone pap:
 
 ```sh
 git clone https://github.com/talwat/pap
 cd pap
+```
+
+Switch to the latest tag _(optional)_:
+
+```sh
+git tag # get all tags
+git checkout <tag>
+```
+
+And then build:
+
+```sh
 go build .
 ```
 
-To clone and compile pap, and then [put it into path](https://stackoverflow.com/questions/4822400/register-an-exe-so-you-can-run-it-from-any-command-line-in-windows#:~:text=Go%20to%20%22My%20computer%20%2D%3E,exe%20's%20directory%20into%20path.).
+Finally, [put it into path](https://stackoverflow.com/questions/4822400/register-an-exe-so-you-can-run-it-from-any-command-line-in-windows#:~:text=Go%20to%20%22My%20computer%20%2D%3E,exe%20's%20directory%20into%20path.).
 
 ### Common issues
 
