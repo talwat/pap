@@ -2,6 +2,36 @@
 
 A simplistic **pa**permc hel**p**er.
 
+## Table of contents
+
+- [pap](#pap)
+  - [Table of contents](#table-of-contents)
+  - [Examples](#examples)
+    - [Download the latest papermc jarfile](#download-the-latest-papermc-jarfile)
+    - [Sign the EULA](#sign-the-eula)
+    - [Generate a script to run the jarfile](#generate-a-script-to-run-the-jarfile)
+  - [Why though?](#why-though)
+  - [Install](#install)
+    - [Build Dependencies](#build-dependencies)
+    - [Arch linux](#arch-linux)
+    - [Unix](#unix)
+      - [Unix - From Releases](#unix---from-releases)
+        - [Unix - System wide from releases](#unix---system-wide-from-releases)
+        - [Unix - Local from releases](#unix---local-from-releases)
+      - [Unix - From Source](#unix---from-source)
+        - [Unix - System wide from source](#unix---system-wide-from-source)
+        - [Unix - Local from source](#unix---local-from-source)
+    - [Windows](#windows)
+      - [Windows - From Releases _(recommended)_](#windows---from-releases-recommended)
+      - [Windows - From Source](#windows---from-source)
+    - [Common issues](#common-issues)
+      - [Local installation not found](#local-installation-not-found)
+        - [Bash](#bash)
+        - [Zsh](#zsh)
+        - [Fish](#fish)
+  - [Contributing](#contributing)
+  - [Dependencies](#dependencies)
+
 ## Examples
 
 ### Download the latest papermc jarfile
@@ -26,41 +56,24 @@ pap looks at the papermc api, and gets the latest version automatically, without
 
 ## Install
 
-### Windows notice
+### Build Dependencies
 
-pap **does** work on windows, but the install steps listed are for unix-like systems.
+If you are obtaining pap from source, you will need these dependencies:
 
-If you want to download from releases, download the fitting windows exe and [put it into path](https://stackoverflow.com/questions/4822400/register-an-exe-so-you-can-run-it-from-any-command-line-in-windows#:~:text=Go%20to%20%22My%20computer%20%2D%3E,exe%20's%20directory%20into%20path.).
+- [Go](https://go.dev/) 1.18 or later
+- [Git](https://git-scm.com/)
 
-If you want to compile pap from source, you can run these commands:
+### Arch linux
 
-```sh
-git clone https://github.com/talwat/pap
-cd pap
-go build .
-```
-
-to clone and compile pap, and then [put it into path](https://stackoverflow.com/questions/4822400/register-an-exe-so-you-can-run-it-from-any-command-line-in-windows#:~:text=Go%20to%20%22My%20computer%20%2D%3E,exe%20's%20directory%20into%20path.).
-
-### macOS notice
-
-If you are using macOS, please use the instructions for local installations.
-
-### Local installation notice
-
-You will need to add `~/.local/bin` to PATH like so if you use bash:
+If you wish, pap can be installed from the AUR:
 
 ```sh
-echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.bashrc
+yay -S pap
 ```
 
-And like this if you use zsh:
+### Unix
 
-```sh
-echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.zshrc
-```
-
-### From releases
+#### Unix - From Releases
 
 You can go to the [latest release](https://github.com/talwat/pap/releases/latest)
 and download the fitting binary for your system from there.
@@ -69,28 +82,21 @@ pap is available on esentially all architectures and operating systems, so you w
 
 Simply mark the downloaded binary as executable and move it.
 
-#### System wide from releases
+##### Unix - System wide from releases
 
 ```sh
 sudo mv pap* /usr/local/bin/pap
 sudo chmod +x /usr/local/bin/pap
 ```
 
-#### Local from releases
+##### Unix - Local from releases
 
 ```sh
 mv pap* ~/.local/bin/pap
 chmod +x ~/.local/bin/pap
 ```
 
-### From Source
-
-#### Build Dependencies
-
-* [Go](https://go.dev/) 1.18 or later
-* [Git](https://git-scm.com/)
-
-#### Steps
+#### Unix - From Source
 
 Just clone and compile pap
 
@@ -100,20 +106,68 @@ cd pap
 go build .
 ```
 
-and then move it into your binary directory,
+And then move it into your binary directory:
 
-##### System wide from source
+##### Unix - System wide from source
 
 ```sh
 sudo mv pap /usr/local/bin/pap
 sudo chmod +x /usr/local/bin/pap
 ```
 
-##### Local from source
+##### Unix - Local from source
 
 ```sh
 mv ~/.local/bin/pap
 chmod +x ~/.local/bin/pap
+```
+
+### Windows
+
+pap **does** work on windows, but the install steps listed are for unix-like systems.
+
+#### Windows - From Releases _(recommended)_
+
+If you want to download from releases, download the fitting windows exe and [put it into path](https://stackoverflow.com/questions/4822400/register-an-exe-so-you-can-run-it-from-any-command-line-in-windows#:~:text=Go%20to%20%22My%20computer%20%2D%3E,exe%20's%20directory%20into%20path.).
+
+#### Windows - From Source
+
+If you want to compile pap from source, you can run these commands:
+
+```sh
+git clone https://github.com/talwat/pap
+cd pap
+go build .
+```
+
+To clone and compile pap, and then [put it into path](https://stackoverflow.com/questions/4822400/register-an-exe-so-you-can-run-it-from-any-command-line-in-windows#:~:text=Go%20to%20%22My%20computer%20%2D%3E,exe%20's%20directory%20into%20path.).
+
+### Common issues
+
+#### Local installation not found
+
+Usually this is because `~/.local/bin` is not in PATH.
+
+You can add `~/.local/bin` to PATH through your shell:
+
+##### Bash
+
+```sh
+echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.bashrc
+```
+
+##### Zsh
+
+```sh
+echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.zshrc
+```
+
+##### Fish
+
+Look at the [fish docs](https://fishshell.com/docs/current/tutorial.html#path) for more detailed instructions.
+
+```sh
+fish_add_path $HOME/.local/bin
 ```
 
 ## Contributing
@@ -122,5 +176,5 @@ Anyone is welcome to contribute, and if someone can port pap to various package 
 
 ## Dependencies
 
-* [schollz/progressbar](https://github.com/schollz/progressbar)
-* [urfave/cli](https://github.com/urfave/cli)
+- [schollz/progressbar](https://github.com/schollz/progressbar)
+- [urfave/cli](https://github.com/urfave/cli)
