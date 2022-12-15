@@ -6,7 +6,7 @@ import (
 	"github.com/urfave/cli/v2"
 )
 
-var version = "0.4.0"
+var version = "0.5.0-beta"
 
 //nolint:funlen,exhaustruct
 func main() {
@@ -90,6 +90,20 @@ COPYRIGHT:
 						Usage:       "takes the latest build regardless. also bypasses warning prompt",
 						Aliases:     []string{"experimental"},
 						Destination: &ExperimentalBuildInput,
+					},
+				},
+			},
+			{
+				Name:    "geyser",
+				Aliases: []string{"d"},
+				Usage:   "downloads geyser",
+				Action:  GeyserCommand,
+				Flags: []cli.Flag{
+					&cli.BoolFlag{
+						Name:        "no-floodgate",
+						Value:       false,
+						Usage:       "do not download floodgate",
+						Destination: &NoFloodGate,
 					},
 				},
 			},

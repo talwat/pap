@@ -88,7 +88,7 @@ func getURL() string {
 	return fmt.Sprintf("https://api.papermc.io/v2/projects/paper/versions/%s/builds/%d/downloads/paper-%s-%d.jar", PaperVersion, PaperBuild.Build, PaperVersion, PaperBuild.Build)
 }
 
-func download(url string, filename string) []byte {
+func Download(url string, filename string, fileDisplayName string) []byte {
 	req, err := http.NewRequestWithContext(context.Background(), http.MethodGet, url, nil)
 	Error(err, "an error occurred while making a new request")
 
@@ -137,7 +137,7 @@ func download(url string, filename string) []byte {
 
 	bar := newBar(
 		resp.ContentLength,
-		fmt.Sprintf("pap: downloading %s", filename),
+		fmt.Sprintf("pap: downloading %s", fileDisplayName),
 	)
 
 	hash := sha256.New()

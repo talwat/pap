@@ -87,7 +87,7 @@ func EditProperty(property string, value string) {
 
 func ResetProperties() {
 	Continue("are you sure you would like to reset your server.properties file?")
-	download("https://raw.githubusercontent.com/talwat/pap/main/assets/default.server.properties", "server.properties")
+	Download("https://raw.githubusercontent.com/talwat/pap/main/assets/default.server.properties", "server.properties", "server properties file")
 }
 
 func GetProperty(propertyInput string) interface{} {

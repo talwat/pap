@@ -14,6 +14,7 @@ var (
 	PaperVersionInput      = "latest"
 	PaperBuildInput        = "latest"
 	ExperimentalBuildInput = false
+	NoFloodGate            = false
 	XMSInput               = "2G"
 	XMXInput               = "2G"
 	JarInput               = "paper.jar"
@@ -25,7 +26,7 @@ func DownloadCommand(cCtx *cli.Context) error {
 
 	url := getURL()
 
-	calculatedChecksum := download(url, "paper.jar")
+	calculatedChecksum := Download(url, "paper.jar", "paper jarfile")
 	checksum(calculatedChecksum)
 
 	return nil
@@ -94,6 +95,24 @@ func GetPropertyCommand(cCtx *cli.Context) error {
 
 func ResetPropertiesCommand(cCtx *cli.Context) error {
 	ResetProperties()
+
+	return nil
+}
+
+func GeyserCommand(cCtx *cli.Context) error {
+	MakeDirectory("plugins")
+
+	Download("https://ci.opencollab.dev/job/GeyserMC/job/Geyser/job/master/lastSuccessfulBuild/artifact/bootstrap/spigot/build/libs/Geyser-Spigot.jar", "plugins/Geyser-Spigot.jar", "geyser")
+
+	if !NoFloodGate {
+		Download("https://ci.opencollab.dev/job/GeyserMC/job/Floodgate/job/master/lastSuccessfulBuild/artifact/spigot/build/libs/floodgate-spigot.jar", "plugins/floodgate-spigot.jar", "floodgate")
+	}
+
+	disableKeySigning := YesOrNo("y", "floodgate and geyser do not support key signing yet, would you like to disable it (reccomended)?")
+
+	if disableKeySigning {
+		EditProperty("enforce-secure-profile", "false")
+	}
 
 	return nil
 }
