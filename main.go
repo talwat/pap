@@ -6,7 +6,7 @@ import (
 	"github.com/urfave/cli/v2"
 )
 
-var version = "0.3.2"
+var version = "0.4.0-beta"
 
 //nolint:funlen,exhaustruct
 func main() {
@@ -54,16 +54,21 @@ COPYRIGHT:
 
 			return nil
 		},
+		Flags: []cli.Flag{
+			&cli.BoolFlag{
+				Name:        "assume-default",
+				Value:       false,
+				Usage:       "assume the default answer in all prompts",
+				Aliases:     []string{"y"},
+				Destination: &AssumeDefaultInput,
+			},
+		},
 		Commands: []*cli.Command{
 			{
 				Name:    "download",
 				Aliases: []string{"d"},
 				Usage:   "download a papermc jarfile",
-				Action: func(cCtx *cli.Context) error {
-					DownloadCommand()
-
-					return nil
-				},
+				Action:  DownloadCommand,
 				Flags: []cli.Flag{
 					&cli.StringFlag{
 						Name:        "minecraft-version",
@@ -92,11 +97,7 @@ COPYRIGHT:
 				Name:    "script",
 				Aliases: []string{"sc"},
 				Usage:   "generate a script to run the jarfile",
-				Action: func(cCtx *cli.Context) error {
-					ScriptCommand()
-
-					return nil
-				},
+				Action:  ScriptCommand,
 				Flags: []cli.Flag{
 					&cli.StringFlag{
 						Name:        "xms",
@@ -128,11 +129,7 @@ COPYRIGHT:
 				Name:    "sign",
 				Aliases: []string{"si"},
 				Usage:   "sign the EULA",
-				Action: func(cCtx *cli.Context) error {
-					EulaCommand()
-
-					return nil
-				},
+				Action:  EulaCommand,
 			},
 			{
 				Name:    "help",
@@ -148,6 +145,32 @@ COPYRIGHT:
 					cli.ShowVersion(cCtx)
 
 					return nil
+				},
+			},
+			{
+				Name:      "properties",
+				Aliases:   []string{"p"},
+				Usage:     "manages the server.properties file",
+				ArgsUsage: "[set|get] [property] [value]",
+				Subcommands: []*cli.Command{
+					{
+						Name:    "set",
+						Aliases: []string{"s"},
+						Usage:   "set property",
+						Action:  EditPropertyCommand,
+					},
+					{
+						Name:    "get",
+						Aliases: []string{"g"},
+						Usage:   "get property",
+						Action:  GetPropertyCommand,
+					},
+					{
+						Name:    "reset",
+						Aliases: []string{"r"},
+						Usage:   "downloads the default server.properties",
+						Action:  ResetPropertiesCommand,
+					},
 				},
 			},
 		},

@@ -10,6 +10,7 @@ A simplistic **pa**permc hel**p**er.
     - [Download the latest papermc jarfile](#download-the-latest-papermc-jarfile)
     - [Sign the EULA](#sign-the-eula)
     - [Generate a script to run the jarfile](#generate-a-script-to-run-the-jarfile)
+    - [Turn off pvp](#turn-off-pvp)
   - [Why though?](#why-though)
   - [Install](#install)
     - [Build Dependencies](#build-dependencies)
@@ -46,13 +47,16 @@ A simplistic **pa**permc hel**p**er.
 
 `pap script --jar server.jar`
 
+### Turn off pvp
+
+`pap properties set pvp false`
+
 ## Why though?
 
-pap was created to simplify the annoying parts of making a minecraft server, so you can do everything from an easy CLI.
+pap has essentially two purposes:
 
-And one of the most annoying parts, is downloading the latest papermc jarfile, which is the root purpose of pap.
-
-pap looks at the papermc api, and gets the latest version automatically, without you needing to navigate to the papermc website and copy a link and paste it into a `wget` command.
+- To simplify some of the common tasks you need to do when creating or managing a server (such as when you download/update the server jar.)
+- And to provide an easy CLI to do common tasks like changing server.properties and signing EULA, for usage in scripts.
 
 ## Install
 

@@ -22,16 +22,7 @@ var (
 	PaperVersion string
 )
 
-func DownloadCommand() {
-	verify()
-
-	url := getURL()
-
-	calculatedChecksum := download(url)
-	checksum(calculatedChecksum)
-}
-
-func verify() {
+func verifyOptions() {
 	if PaperVersionInput == latest {
 		return
 	}
@@ -97,7 +88,7 @@ func getURL() string {
 	return fmt.Sprintf("https://api.papermc.io/v2/projects/paper/versions/%s/builds/%d/downloads/paper-%s-%d.jar", PaperVersion, PaperBuild.Build, PaperVersion, PaperBuild.Build)
 }
 
-func download(url string) []byte {
+func download(url string, filename string) []byte {
 	req, err := http.NewRequestWithContext(context.Background(), http.MethodGet, url, nil)
 	Error(err, "an error occurred while making a new request")
 
@@ -106,8 +97,8 @@ func download(url string) []byte {
 
 	defer resp.Body.Close()
 
-	file, err := os.OpenFile("paper.jar", os.O_CREATE|os.O_WRONLY, 0o644)
-	Error(err, "an error occurred while opening server jar file")
+	file, err := os.OpenFile(filename, os.O_CREATE|os.O_WRONLY, 0o644)
+	Error(err, "an error occurred while opening %s", filename)
 
 	defer file.Close()
 
@@ -146,7 +137,7 @@ func download(url string) []byte {
 
 	bar := newBar(
 		resp.ContentLength,
-		"pap: downloading",
+		fmt.Sprintf("pap: downloading %s", filename),
 	)
 
 	hash := sha256.New()
