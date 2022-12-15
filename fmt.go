@@ -76,6 +76,10 @@ func YesOrNo(defaultValue string, prompt string, params ...interface{}) bool {
 
 	input := strings.ToLower(RawScan())
 
+	if input == "" {
+		input = defaultValue
+	}
+
 	return input == "y"
 }
 

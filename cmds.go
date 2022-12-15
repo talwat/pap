@@ -102,13 +102,26 @@ func ResetPropertiesCommand(cCtx *cli.Context) error {
 func GeyserCommand(cCtx *cli.Context) error {
 	MakeDirectory("plugins")
 
-	Download("https://ci.opencollab.dev/job/GeyserMC/job/Geyser/job/master/lastSuccessfulBuild/artifact/bootstrap/spigot/build/libs/Geyser-Spigot.jar", "plugins/Geyser-Spigot.jar", "geyser")
+	//nolint:lll
+	Download(
+		"https://ci.opencollab.dev/job/GeyserMC/job/Geyser/job/master/lastSuccessfulBuild/artifact/bootstrap/spigot/build/libs/Geyser-Spigot.jar",
+		"plugins/Geyser-Spigot.jar",
+		"geyser",
+	)
 
 	if !NoFloodGate {
-		Download("https://ci.opencollab.dev/job/GeyserMC/job/Floodgate/job/master/lastSuccessfulBuild/artifact/spigot/build/libs/floodgate-spigot.jar", "plugins/floodgate-spigot.jar", "floodgate")
+		//nolint:lll
+		Download(
+			"https://ci.opencollab.dev/job/GeyserMC/job/Floodgate/job/master/lastSuccessfulBuild/artifact/spigot/build/libs/floodgate-spigot.jar",
+			"plugins/floodgate-spigot.jar",
+			"floodgate",
+		)
 	}
 
-	disableKeySigning := YesOrNo("y", "floodgate and geyser do not support key signing yet, would you like to disable it (reccomended)?")
+	disableKeySigning := YesOrNo(
+		"y",
+		"floodgate and geyser do not support key signing yet, would you like to disable it (recommended)?",
+	)
 
 	if disableKeySigning {
 		EditProperty("enforce-secure-profile", "false")
