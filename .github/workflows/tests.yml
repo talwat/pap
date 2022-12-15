@@ -49,6 +49,7 @@ jobs:
       - run: "./pap -y script -jar wow.jar -xms 1G -xmx 4G -gui"
       - run: "./pap -y version"
       - run: "./pap -y properties reset"
+      - run: "cat server.properties"
       - run: "./pap -y properties get gamemode"
       - run: "./pap -y properties set gamemode creative"
       - run: "./pap -y properties get gamemode"
