@@ -2,15 +2,20 @@ package main
 
 import (
 	"fmt"
+	"strings"
 )
 
 func GetLatestVersion() string {
 	var paperVersions PaperVersions
 
-	Log("getting paper version information")
+	Log("getting latest version information")
 	Get("https://api.papermc.io/v2/projects/paper", &paperVersions)
 
 	return paperVersions.Versions[len(paperVersions.Versions)-1]
+}
+
+func FormatErrorMessage(errorMessage string) string {
+	return strings.ToLower(strings.TrimSuffix(errorMessage, "."))
 }
 
 func GetLatestBuild(paperVersion string) PaperBuildStruct {
@@ -22,7 +27,7 @@ func GetLatestBuild(paperVersion string) PaperBuildStruct {
 	statusCode := Get(url, &paperBuilds)
 
 	if paperBuilds.Error != "" {
-		CustomError("api returned an error with status code %d: %s", statusCode, paperBuilds.Error)
+		CustomError("api returned an error with status code %d: %s", statusCode, FormatErrorMessage(paperBuilds.Error))
 	}
 
 	// latest build, can be experimental or stable
@@ -45,13 +50,15 @@ func GetLatestBuild(paperVersion string) PaperBuildStruct {
 }
 
 func GetSpecificBuild(paperVersion string, paperBuildID string) PaperBuildStruct {
+	Log("getting build information for %s", paperBuildID)
+
 	var paperBuild PaperBuildStruct
 
 	url := fmt.Sprintf("https://api.papermc.io/v2/projects/paper/versions/%s/builds/%s", paperVersion, paperBuildID)
 	statusCode := Get(url, &paperBuild)
 
 	if paperBuild.Error != "" {
-		CustomError("api returned an error with status code %d: %s", statusCode, paperBuild.Error)
+		CustomError("api returned an error with status code %d: %s", statusCode, FormatErrorMessage(paperBuild.Error))
 	}
 
 	return paperBuild
