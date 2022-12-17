@@ -42,12 +42,15 @@ func ScriptCommand(cCtx *cli.Context) error {
 	command := fmt.Sprintf("java -Xms%s -Xmx%s -jar %s%s", XMSInput, XMXInput, JarInput, gui)
 
 	if runtime.GOOS == "windows" {
-		WriteFile("run.bat", command, 0o700)
+		WriteFile("run.bat", fmt.Sprintf("@ECHO OFF\n%s\npause", command), 0o700)
 	} else {
 		WriteFile("run.sh", fmt.Sprintf("#!/bin/sh\n%s", command), 0o700)
 	}
 
-	Log("generated shell script.")
+	Log("generated shell script")
+	Log("keep in mind, this script will not be the absolute most efficiencent it can be")
+	Log("go to aikars flags (https://docs.papermc.io/paper/aikars-flags) for more information on optimizing flags and tuning java") //nolint:lll
+	Log("or, if you're lazy, go to flags.sh (https://flags.sh/) for a generator")
 
 	return nil
 }
