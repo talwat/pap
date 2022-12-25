@@ -1,5 +1,6 @@
-// Management of the server.properties file
 package main
+
+// Management of the server.properties file
 
 import (
 	"bufio"
@@ -9,29 +10,29 @@ import (
 	"strings"
 )
 
-func WritePropertiesFile(filename string, properties map[string]interface{}) {
+func WritePropertiesFile(filename string, props map[string]interface{}) {
 	keys := make([]string, 0)
 	final := fmt.Sprintf("#Minecraft server properties\n#%s\n", MinecraftDateNow())
 
-	for k := range properties {
+	for k := range props {
 		keys = append(keys, k)
 	}
 
 	sort.Strings(keys)
 
 	for _, k := range keys {
-		final += fmt.Sprintf("%s=%s\n", k, properties[k])
+		final += fmt.Sprintf("%s=%s\n", k, props[k])
 	}
 
-	err := os.WriteFile(filename, []byte(final), 0o600)
+	err := os.WriteFile(filename, []byte(final), ReadWritePerm)
 	Error(err, "an error occurred while writing properties file")
 }
 
 func ReadPropertiesFile(filename string) map[string]interface{} {
-	config := map[string]interface{}{}
+	conf := map[string]interface{}{}
 
 	if len(filename) == 0 {
-		return config
+		return conf
 	}
 
 	file, err := os.Open(filename)
@@ -54,38 +55,40 @@ func ReadPropertiesFile(filename string) map[string]interface{} {
 			continue
 		}
 
-		value := ""
+		val := ""
 
 		if len(line) > equal {
-			value = strings.TrimSpace(line[equal+1:])
+			val = strings.TrimSpace(line[equal+1:])
 		}
 
-		config[key] = value
+		conf[key] = val
 	}
 
 	err = scanner.Err()
 	Error(err, "an error occurred while parsing the properties file")
 
-	return config
+	return conf
 }
 
-func EditProperty(property string, value string) {
+func EditProperty(prop string, val string) {
 	Log("reading server properties...")
 
-	properties := ReadPropertiesFile("server.properties")
+	props := ReadPropertiesFile("server.properties")
 
 	Log("editing server properties...")
 
-	properties[property] = value
+	props[prop] = val
 
 	Log("writing server properties...")
 
-	WritePropertiesFile("server.properties", properties)
+	WritePropertiesFile("server.properties", props)
 
 	Log("done")
 }
 
 func ResetProperties() {
+	Log("this command is expected to be used with the latest minecraft version")
+	Log("if you are using an older version, please manually delete the properties file and run the server")
 	Continue("are you sure you would like to reset your server.properties file?")
 	Download(
 		"https://raw.githubusercontent.com/talwat/pap/main/assets/default.server.properties",
@@ -94,14 +97,14 @@ func ResetProperties() {
 	)
 }
 
-func GetProperty(propertyInput string) interface{} {
-	properties := ReadPropertiesFile("server.properties")
+func GetProperty(prop string) interface{} {
+	props := ReadPropertiesFile("server.properties")
 
-	property := properties[propertyInput]
+	val := props[prop]
 
-	if property == nil {
-		CustomError("property %s does not exist", propertyInput)
+	if val == nil {
+		CustomError("property %s does not exist", prop)
 	}
 
-	return property
+	return val
 }

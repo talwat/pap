@@ -6,79 +6,79 @@ import (
 )
 
 func GetLatestVersion() string {
-	var paperVersions PaperVersions
+	var versions PaperVersions
 
 	Log("getting latest version information")
-	Get("https://api.papermc.io/v2/projects/paper", &paperVersions)
+	Get("https://api.papermc.io/v2/projects/paper", &versions)
 
-	return paperVersions.Versions[len(paperVersions.Versions)-1]
+	return versions.Versions[len(versions.Versions)-1]
 }
 
-func FormatErrorMessage(errorMessage string) string {
-	return strings.ToLower(strings.TrimSuffix(errorMessage, "."))
+func FormatErrorMessage(msg string) string {
+	return strings.ToLower(strings.TrimSuffix(msg, "."))
 }
 
-func GetLatestBuild(paperVersion string) PaperBuildStruct {
-	var paperBuilds PaperBuildsStruct
+func GetLatestBuild(version string) PaperBuild {
+	var builds PaperBuilds
 
 	Log("getting latest build information")
 
-	url := fmt.Sprintf("https://api.papermc.io/v2/projects/paper/versions/%s/builds", paperVersion)
-	statusCode := Get(url, &paperBuilds)
+	url := fmt.Sprintf("https://api.papermc.io/v2/projects/paper/versions/%s/builds", version)
+	status := Get(url, &builds)
 
-	if paperBuilds.Error != "" {
-		CustomError("api returned an error with status code %d: %s", statusCode, FormatErrorMessage(paperBuilds.Error))
+	if builds.Error != "" {
+		CustomError("api returned an error with status code %d: %s", status, FormatErrorMessage(builds.Error))
 	}
 
 	// latest build, can be experimental or stable
-	latestBuild := paperBuilds.Builds[len(paperBuilds.Builds)-1]
+	latest := builds.Builds[len(builds.Builds)-1]
 
 	if ExperimentalBuildInput {
-		return latestBuild
+		return latest
 	}
 
-	// iterate through paperBuilds.Builds backwards
-	for i := len(paperBuilds.Builds) - 1; i >= 0; i-- {
-		if paperBuilds.Builds[i].Channel == "default" { // default = stable
-			return paperBuilds.Builds[i] // stable build found, return it
+	// iterate through builds.Builds backwards
+	for i := len(builds.Builds) - 1; i >= 0; i-- {
+		if builds.Builds[i].Channel == "default" { // default = stable
+			return builds.Builds[i] // stable build found, return it
 		}
 	}
 
 	Continue("warning: no stable build found, would you like to use the latest experimental build?")
 
-	return latestBuild
+	return latest
 }
 
-func GetSpecificBuild(paperVersion string, paperBuildID string) PaperBuildStruct {
-	Log("getting build information for %s", paperBuildID)
+func GetSpecificBuild(version string, buildID string) PaperBuild {
+	Log("getting build information for %s", buildID)
 
-	var paperBuild PaperBuildStruct
+	var build PaperBuild
 
-	url := fmt.Sprintf("https://api.papermc.io/v2/projects/paper/versions/%s/builds/%s", paperVersion, paperBuildID)
-	statusCode := Get(url, &paperBuild)
+	url := fmt.Sprintf("https://api.papermc.io/v2/projects/paper/versions/%s/builds/%s", version, buildID)
+	statusCode := Get(url, &build)
 
-	if paperBuild.Error != "" {
-		CustomError("api returned an error with status code %d: %s", statusCode, FormatErrorMessage(paperBuild.Error))
+	if build.Error != "" {
+		CustomError("api returned an error with status code %d: %s", statusCode, FormatErrorMessage(build.Error))
 	}
 
-	return paperBuild
+	return build
 }
 
-func GetBuild(paperVersion string, paperBuildID string) PaperBuildStruct {
-	var paperBuild PaperBuildStruct
+func GetBuild(version string, buildID string) PaperBuild {
+	var build PaperBuild
 
-	if paperBuildID == "latest" {
-		paperBuild = GetLatestBuild(paperVersion)
+	if buildID == "latest" {
+		build = GetLatestBuild(version)
 	} else {
-		paperBuild = GetSpecificBuild(paperVersion, paperBuildID)
+		build = GetSpecificBuild(version, buildID)
 	}
 
-	if paperBuild.Channel == "experimental" && !ExperimentalBuildInput {
+	if build.Channel == "experimental" && !ExperimentalBuildInput {
 		Continue(
 			"warning: build %d has been flagged as experimental, are you sure you would like to download it?",
-			paperBuild.Build,
+			build.Build,
 		)
 	}
 
-	return paperBuild
+	return build
 }

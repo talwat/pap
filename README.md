@@ -56,7 +56,7 @@ A simplistic **pa**permc hel**p**er.
 pap has essentially two purposes:
 
 - To simplify some of the common tasks you need to do when creating or managing a server (such as when you download/update the server jar.)
-- And to provide an easy CLI to do common tasks like changing server.properties and signing EULA, for usage in scripts.
+- And to provide an easy CLI to do common tasks like changing server.properties and signing EULA, for usage in scripts.xs
 
 ## Install
 
@@ -201,6 +201,10 @@ fish_add_path $HOME/.local/bin
 ## Contributing
 
 Anyone is welcome to contribute, and if someone can port pap to various package managers, it would be greatly appreciated.
+
+If you want more info about how to contribute, take a look at [CONTRIBUTING.md](CONTRIBUTING.md)
+
+If you like pap, feel free to [star it on github](https://github.com/talwat/pap), or [vote for it on the AUR](https://aur.archlinux.org/packages/pap).
 
 ## Dependencies
 

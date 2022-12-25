@@ -11,10 +11,10 @@ import (
 //nolint:gochecknoglobals
 var (
 	AssumeDefaultInput     = false
-	PaperVersionInput      = "latest"
-	PaperBuildInput        = "latest"
+	VersionInput           = "latest"
+	BuildInput             = "latest"
 	ExperimentalBuildInput = false
-	NoFloodGate            = false
+	NoFloodGateInput       = false
 	XMSInput               = "2G"
 	XMXInput               = "2G"
 	JarInput               = "paper.jar"
@@ -22,12 +22,12 @@ var (
 )
 
 func DownloadCommand(cCtx *cli.Context) error {
-	verifyOptions()
+	ValidateDownloadOptions()
 
-	url := getURL()
+	url, build := GetURL(VersionInput, BuildInput)
 
-	calculatedChecksum := Download(url, "paper.jar", "paper jarfile")
-	checksum(calculatedChecksum)
+	checksum := Download(url, "paper.jar", "paper jarfile")
+	VerifyJarfile(checksum, build)
 
 	return nil
 }
@@ -42,9 +42,9 @@ func ScriptCommand(cCtx *cli.Context) error {
 	command := fmt.Sprintf("java -Xms%s -Xmx%s -jar %s%s", XMSInput, XMXInput, JarInput, gui)
 
 	if runtime.GOOS == "windows" {
-		WriteFile("run.bat", fmt.Sprintf("@ECHO OFF\n%s\npause", command), 0o700)
+		WriteFile("run.bat", fmt.Sprintf("@ECHO OFF\n%s\npause", command), ExecutePerm)
 	} else {
-		WriteFile("run.sh", fmt.Sprintf("#!/bin/sh\n%s", command), 0o700)
+		WriteFile("run.sh", fmt.Sprintf("#!/bin/sh\n%s", command), ExecutePerm)
 	}
 
 	Log("generated shell script")
@@ -62,36 +62,36 @@ func EulaCommand(cCtx *cli.Context) error {
 #Signed by pap
 eula=true`,
 		MinecraftDateNow(),
-	), 0o600)
+	), ReadWritePerm)
 	Log("signed eula")
 
 	return nil
 }
 
 func EditPropertyCommand(cCtx *cli.Context) error {
-	propertyInput := cCtx.Args().Get(0)
-	valueInput := cCtx.Args().Tail()
+	prop := cCtx.Args().Get(0)
+	val := cCtx.Args().Tail()
 
-	if propertyInput == "" {
+	if prop == "" {
 		CustomError("property name is required")
-	} else if len(valueInput) == 0 {
+	} else if len(val) == 0 {
 		CustomError("value is required")
 	}
 
-	EditProperty(cCtx.Args().Get(0), strings.Join(valueInput, " "))
+	EditProperty(prop, strings.Join(val, " "))
 
 	return nil
 }
 
 func GetPropertyCommand(cCtx *cli.Context) error {
-	propertyInput := cCtx.Args().Get(0)
+	prop := cCtx.Args().Get(0)
 
-	if propertyInput == "" {
+	if prop == "" {
 		CustomError("property name is required")
 	}
 
-	property := GetProperty(propertyInput)
-	RawLog("%s\n", property)
+	val := GetProperty(prop)
+	RawLog("%s\n", val)
 
 	return nil
 }
@@ -112,7 +112,7 @@ func GeyserCommand(cCtx *cli.Context) error {
 		"geyser",
 	)
 
-	if !NoFloodGate {
+	if !NoFloodGateInput {
 		//nolint:lll
 		Download(
 			"https://ci.opencollab.dev/job/GeyserMC/job/Floodgate/job/master/lastSuccessfulBuild/artifact/spigot/build/libs/floodgate-spigot.jar",

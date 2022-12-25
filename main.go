@@ -6,7 +6,7 @@ import (
 	"github.com/urfave/cli/v2"
 )
 
-var version = "0.5.2"
+var version = "0.6.0-beta"
 
 //nolint:funlen,exhaustruct
 func main() {
@@ -75,14 +75,14 @@ COPYRIGHT:
 						Value:       "latest",
 						Usage:       "the minecraft/paper version to download",
 						Aliases:     []string{"version", "v"},
-						Destination: &PaperVersionInput,
+						Destination: &VersionInput,
 					},
 					&cli.StringFlag{
 						Name:        "paper-build",
 						Value:       "latest",
 						Usage:       "the papermc build to download",
 						Aliases:     []string{"build", "b"},
-						Destination: &PaperBuildInput,
+						Destination: &BuildInput,
 					},
 					&cli.BoolFlag{
 						Name:        "paper-experimental",
@@ -103,7 +103,7 @@ COPYRIGHT:
 						Name:        "no-floodgate",
 						Value:       false,
 						Usage:       "do not download floodgate",
-						Destination: &NoFloodGate,
+						Destination: &NoFloodGateInput,
 					},
 				},
 			},

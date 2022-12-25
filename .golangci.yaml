@@ -13,8 +13,7 @@ linters:
     - sqlclosecheck
     - wastedassign
     - structcheck
-    - tagliatelle
 
-    - gomnd
+    - tagliatelle
 
   enable-all: true

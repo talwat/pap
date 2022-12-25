@@ -1,5 +1,6 @@
-// Logging and such
 package main
+
+// Logging and such
 
 import (
 	"bufio"
@@ -8,33 +9,33 @@ import (
 	"strings"
 )
 
-func Error(err error, message string, params ...interface{}) {
+func Error(err error, msg string, params ...interface{}) {
 	if err != nil {
-		Log("error: %s: %s", fmt.Sprintf(message, params...), err)
+		Log("error: %s: %s", fmt.Sprintf(msg, params...), err)
 		os.Exit(1)
 	}
 }
 
-func Log(message string, params ...interface{}) {
-	RawLog(("pap: %s\n"), fmt.Sprintf(message, params...))
+func Log(msg string, params ...interface{}) {
+	RawLog(("pap: %s\n"), fmt.Sprintf(msg, params...))
 }
 
-func LogNoNewline(message string, params ...interface{}) {
-	RawLog(("pap: %s"), fmt.Sprintf(message, params...))
+func LogNoNewline(msg string, params ...interface{}) {
+	RawLog(("pap: %s"), fmt.Sprintf(msg, params...))
 }
 
 //nolint:forbidigo
-func RawLog(message string, params ...interface{}) {
-	fmt.Printf(message, params...)
+func RawLog(msg string, params ...interface{}) {
+	fmt.Printf(msg, params...)
 }
 
-func CustomError(message string, params ...interface{}) {
-	Log("error: %s", fmt.Sprintf(message, params...))
+func CustomError(msg string, params ...interface{}) {
+	Log("error: %s", fmt.Sprintf(msg, params...))
 	os.Exit(1)
 }
 
-func Warn(message string, params ...interface{}) {
-	Log("warning: %s", fmt.Sprintf(message, params...))
+func Warn(msg string, params ...interface{}) {
+	Log("warning: %s", fmt.Sprintf(msg, params...))
 }
 
 func RawScan() string {
@@ -45,31 +46,31 @@ func RawScan() string {
 	return strings.TrimSpace(text)
 }
 
-func Scan(defaultValue string, prompt string, params ...interface{}) string {
-	LogNoNewline("%s (default %s): ", fmt.Sprintf(prompt, params...), defaultValue)
+func Scan(defaultVal string, prompt string, params ...interface{}) string {
+	LogNoNewline("%s (default %s): ", fmt.Sprintf(prompt, params...), defaultVal)
 
 	if AssumeDefaultInput {
 		RawLog("\n")
-		Log("continuing with value %s because assume-default is turned on", defaultValue)
+		Log("continuing with value %s because assume-default is turned on", defaultVal)
 
-		return defaultValue
+		return defaultVal
 	}
 
 	input := RawScan()
 
 	if input == "" {
-		return defaultValue
+		return defaultVal
 	}
 
 	return input
 }
 
-func YesOrNo(defaultValue string, prompt string, params ...interface{}) bool {
+func YesOrNo(defaultVal string, prompt string, params ...interface{}) bool {
 	LogNoNewline("%s [y/n]: ", fmt.Sprintf(prompt, params...))
 
 	if AssumeDefaultInput {
 		RawLog("\n")
-		Log("choosing [%s] because assume-default is turned on", defaultValue)
+		Log("choosing [%s] because assume-default is turned on", defaultVal)
 
 		return true
 	}
@@ -77,7 +78,7 @@ func YesOrNo(defaultValue string, prompt string, params ...interface{}) bool {
 	input := strings.ToLower(RawScan())
 
 	if input == "" {
-		input = defaultValue
+		input = defaultVal
 	}
 
 	return input == "y"

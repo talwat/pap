@@ -5,6 +5,11 @@ import (
 	"os"
 )
 
+const (
+	ExecutePerm   fs.FileMode = 0o700
+	ReadWritePerm fs.FileMode = 0o600
+)
+
 func WriteFile(name string, text string, perms fs.FileMode) {
 	err := os.WriteFile(name, []byte(text), perms)
 	Error(err, "an error occurred while writing %s", name)

@@ -1,30 +1,30 @@
 package main
 
-type PaperBuildsStruct struct {
+type PaperBuilds struct {
 	ProjectID   string `json:"project_id"`
 	ProjectName string `json:"name"`
 	Version     string
-	Builds      []PaperBuildStruct
+	Builds      []PaperBuild
 	Error       string
 }
 
-type PaperBuildStruct struct {
+type PaperBuild struct {
 	Build     int
 	Time      string
 	Channel   string
 	Promoted  bool
-	Changes   []ChangeStruct
-	Downloads DownloadsStruct
+	Changes   []Change
+	Downloads Downloads
 	Error     string
 }
 
-type ChangeStruct struct {
+type Change struct {
 	Commit  string
 	Summary string
 	Message string
 }
 
-type DownloadsStruct struct {
+type Downloads struct {
 	Application    Application
 	MojangMappings MojangMappings `json:"mojang-mappings"`
 }
