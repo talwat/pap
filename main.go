@@ -10,7 +10,7 @@ import (
 	"github.com/urfave/cli/v2"
 )
 
-var version = "0.7.0-beta"
+var version = "0.7.0"
 
 //nolint:funlen,exhaustruct
 func main() {
