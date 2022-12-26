@@ -3,10 +3,14 @@ package main
 import (
 	"os"
 
+	"github.com/talwat/pap/app/cmd"
+	"github.com/talwat/pap/app/cmd/propcmds"
+	"github.com/talwat/pap/app/global"
+	"github.com/talwat/pap/app/log"
 	"github.com/urfave/cli/v2"
 )
 
-var version = "0.6.0"
+var version = "0.7.0-beta"
 
 //nolint:funlen,exhaustruct
 func main() {
@@ -47,10 +51,10 @@ COPYRIGHT:
    {{template "copyrightTemplate" .}}{{end}}
 `,
 		CommandNotFound: func(ctx *cli.Context, command string) {
-			CustomError("command not found: %s", command)
+			log.CustomError("command not found: %s", command)
 		},
 		OnUsageError: func(ctx *cli.Context, err error, isSubcommand bool) error {
-			CustomError("%s", err)
+			log.CustomError("%s", err)
 
 			return nil
 		},
@@ -60,7 +64,7 @@ COPYRIGHT:
 				Value:       false,
 				Usage:       "assume the default answer in all prompts",
 				Aliases:     []string{"y"},
-				Destination: &AssumeDefaultInput,
+				Destination: &global.AssumeDefaultInput,
 			},
 		},
 		Commands: []*cli.Command{
@@ -68,28 +72,28 @@ COPYRIGHT:
 				Name:    "download",
 				Aliases: []string{"d"},
 				Usage:   "download a papermc jarfile",
-				Action:  DownloadCommand,
+				Action:  cmd.DownloadCommand,
 				Flags: []cli.Flag{
 					&cli.StringFlag{
 						Name:        "minecraft-version",
 						Value:       "latest",
 						Usage:       "the minecraft/paper version to download",
 						Aliases:     []string{"version", "v"},
-						Destination: &VersionInput,
+						Destination: &global.VersionInput,
 					},
 					&cli.StringFlag{
 						Name:        "paper-build",
 						Value:       "latest",
 						Usage:       "the papermc build to download",
 						Aliases:     []string{"build", "b"},
-						Destination: &BuildInput,
+						Destination: &global.BuildInput,
 					},
 					&cli.BoolFlag{
 						Name:        "paper-experimental",
 						Value:       false,
 						Usage:       "takes the latest build regardless. also bypasses warning prompt",
 						Aliases:     []string{"experimental", "e"},
-						Destination: &ExperimentalBuildInput,
+						Destination: &global.ExperimentalBuildInput,
 					},
 				},
 			},
@@ -97,13 +101,13 @@ COPYRIGHT:
 				Name:    "geyser",
 				Aliases: []string{"d"},
 				Usage:   "downloads geyser",
-				Action:  GeyserCommand,
+				Action:  cmd.GeyserCommand,
 				Flags: []cli.Flag{
 					&cli.BoolFlag{
 						Name:        "no-floodgate",
 						Value:       false,
 						Usage:       "do not download floodgate",
-						Destination: &NoFloodGateInput,
+						Destination: &global.NoFloodGateInput,
 					},
 				},
 			},
@@ -111,31 +115,31 @@ COPYRIGHT:
 				Name:    "script",
 				Aliases: []string{"sc"},
 				Usage:   "generate a script to run the jarfile",
-				Action:  ScriptCommand,
+				Action:  cmd.ScriptCommand,
 				Flags: []cli.Flag{
 					&cli.StringFlag{
 						Name:        "xms",
 						Value:       "2G",
 						Usage:       "the value for xms in the run command",
-						Destination: &XMSInput,
+						Destination: &global.XMSInput,
 					},
 					&cli.StringFlag{
 						Name:        "xmx",
 						Value:       "2G",
 						Usage:       "the value for xmx in the run command",
-						Destination: &XMXInput,
+						Destination: &global.XMXInput,
 					},
 					&cli.StringFlag{
 						Name:        "jar",
 						Value:       "paper.jar",
 						Usage:       "the name for the server jarfile",
-						Destination: &JarInput,
+						Destination: &global.JarInput,
 					},
 					&cli.BoolFlag{
 						Name:        "use-gui",
 						Aliases:     []string{"gui"},
 						Usage:       "whether to use the GUI or not",
-						Destination: &GUIInput,
+						Destination: &global.GUIInput,
 					},
 				},
 			},
@@ -143,7 +147,7 @@ COPYRIGHT:
 				Name:    "sign",
 				Aliases: []string{"si"},
 				Usage:   "sign the EULA",
-				Action:  EulaCommand,
+				Action:  cmd.EulaCommand,
 			},
 			{
 				Name:    "help",
@@ -171,25 +175,26 @@ COPYRIGHT:
 						Name:    "set",
 						Aliases: []string{"s"},
 						Usage:   "set property",
-						Action:  EditPropertyCommand,
+						Action:  propcmds.EditPropertyCommand,
 					},
 					{
 						Name:    "get",
 						Aliases: []string{"g"},
 						Usage:   "get property",
-						Action:  GetPropertyCommand,
+						Action:  propcmds.GetPropertyCommand,
 					},
 					{
 						Name:    "reset",
 						Aliases: []string{"r"},
 						Usage:   "downloads the default server.properties",
-						Action:  ResetPropertiesCommand,
+						Action:  propcmds.ResetPropertiesCommand,
 					},
 				},
 			},
 		},
 	}
 
-	//nolint:errcheck
-	app.Run(os.Args)
+	if app.Run(os.Args) != nil {
+		os.Exit(1)
+	}
 }

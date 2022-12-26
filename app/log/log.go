@@ -1,4 +1,4 @@
-package main
+package log
 
 // Logging and such
 
@@ -7,6 +7,8 @@ import (
 	"fmt"
 	"os"
 	"strings"
+
+	"github.com/talwat/pap/app/global"
 )
 
 func Error(err error, msg string, params ...interface{}) {
@@ -20,7 +22,7 @@ func Log(msg string, params ...interface{}) {
 	RawLog(("pap: %s\n"), fmt.Sprintf(msg, params...))
 }
 
-func LogNoNewline(msg string, params ...interface{}) {
+func NoNewline(msg string, params ...interface{}) {
 	RawLog(("pap: %s"), fmt.Sprintf(msg, params...))
 }
 
@@ -47,9 +49,9 @@ func RawScan() string {
 }
 
 func Scan(defaultVal string, prompt string, params ...interface{}) string {
-	LogNoNewline("%s (default %s): ", fmt.Sprintf(prompt, params...), defaultVal)
+	NoNewline("%s (default %s): ", fmt.Sprintf(prompt, params...), defaultVal)
 
-	if AssumeDefaultInput {
+	if global.AssumeDefaultInput {
 		RawLog("\n")
 		Log("continuing with value %s because assume-default is turned on", defaultVal)
 
@@ -66,9 +68,9 @@ func Scan(defaultVal string, prompt string, params ...interface{}) string {
 }
 
 func YesOrNo(defaultVal string, prompt string, params ...interface{}) bool {
-	LogNoNewline("%s [y/n]: ", fmt.Sprintf(prompt, params...))
+	NoNewline("%s [y/n]: ", fmt.Sprintf(prompt, params...))
 
-	if AssumeDefaultInput {
+	if global.AssumeDefaultInput {
 		RawLog("\n")
 		Log("choosing [%s] because assume-default is turned on", defaultVal)
 
@@ -85,9 +87,9 @@ func YesOrNo(defaultVal string, prompt string, params ...interface{}) bool {
 }
 
 func Continue(prompt string, params ...interface{}) {
-	LogNoNewline("%s [y/n]: ", fmt.Sprintf(prompt, params...))
+	NoNewline("%s [y/n]: ", fmt.Sprintf(prompt, params...))
 
-	if AssumeDefaultInput {
+	if global.AssumeDefaultInput {
 		RawLog("\n")
 		Log("continuing because assume-default is turned on")
 

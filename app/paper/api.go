@@ -1,15 +1,19 @@
-package main
+package paper
 
 import (
 	"fmt"
 	"strings"
+
+	"github.com/talwat/pap/app/global"
+	"github.com/talwat/pap/app/log"
+	"github.com/talwat/pap/app/net"
 )
 
 func GetLatestVersion() string {
-	var versions PaperVersions
+	var versions Versions
 
-	Log("getting latest version information")
-	Get("https://api.papermc.io/v2/projects/paper", &versions)
+	log.Log("getting latest version information")
+	net.Get("https://api.papermc.io/v2/projects/paper", &versions)
 
 	return versions.Versions[len(versions.Versions)-1]
 }
@@ -18,22 +22,22 @@ func FormatErrorMessage(msg string) string {
 	return strings.ToLower(strings.TrimSuffix(msg, "."))
 }
 
-func GetLatestBuild(version string) PaperBuild {
-	var builds PaperBuilds
+func GetLatestBuild(version string) Build {
+	var builds Builds
 
-	Log("getting latest build information")
+	log.Log("getting latest build information")
 
 	url := fmt.Sprintf("https://api.papermc.io/v2/projects/paper/versions/%s/builds", version)
-	status := Get(url, &builds)
+	status := net.Get(url, &builds)
 
 	if builds.Error != "" {
-		CustomError("api returned an error with status code %d: %s", status, FormatErrorMessage(builds.Error))
+		log.CustomError("api returned an error with status code %d: %s", status, FormatErrorMessage(builds.Error))
 	}
 
 	// latest build, can be experimental or stable
 	latest := builds.Builds[len(builds.Builds)-1]
 
-	if ExperimentalBuildInput {
+	if global.ExperimentalBuildInput {
 		return latest
 	}
 
@@ -44,28 +48,28 @@ func GetLatestBuild(version string) PaperBuild {
 		}
 	}
 
-	Continue("warning: no stable build found, would you like to use the latest experimental build?")
+	log.Continue("warning: no stable build found, would you like to use the latest experimental build?")
 
 	return latest
 }
 
-func GetSpecificBuild(version string, buildID string) PaperBuild {
-	Log("getting build information for %s", buildID)
+func GetSpecificBuild(version string, buildID string) Build {
+	log.Log("getting build information for %s", buildID)
 
-	var build PaperBuild
+	var build Build
 
 	url := fmt.Sprintf("https://api.papermc.io/v2/projects/paper/versions/%s/builds/%s", version, buildID)
-	statusCode := Get(url, &build)
+	statusCode := net.Get(url, &build)
 
 	if build.Error != "" {
-		CustomError("api returned an error with status code %d: %s", statusCode, FormatErrorMessage(build.Error))
+		log.CustomError("api returned an error with status code %d: %s", statusCode, FormatErrorMessage(build.Error))
 	}
 
 	return build
 }
 
-func GetBuild(version string, buildID string) PaperBuild {
-	var build PaperBuild
+func GetBuild(version string, buildID string) Build {
+	var build Build
 
 	if buildID == "latest" {
 		build = GetLatestBuild(version)
@@ -73,8 +77,8 @@ func GetBuild(version string, buildID string) PaperBuild {
 		build = GetSpecificBuild(version, buildID)
 	}
 
-	if build.Channel == "experimental" && !ExperimentalBuildInput {
-		Continue(
+	if build.Channel == "experimental" && !global.ExperimentalBuildInput {
+		log.Continue(
 			"warning: build %d has been flagged as experimental, are you sure you would like to download it?",
 			build.Build,
 		)

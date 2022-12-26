@@ -1,14 +1,14 @@
-package main
+package paper
 
-type PaperBuilds struct {
+type Builds struct {
 	ProjectID   string `json:"project_id"`
 	ProjectName string `json:"name"`
 	Version     string
-	Builds      []PaperBuild
+	Builds      []Build
 	Error       string
 }
 
-type PaperBuild struct {
+type Build struct {
 	Build     int
 	Time      string
 	Channel   string
@@ -39,7 +39,7 @@ type MojangMappings struct {
 	Sha256 string `json:"sha256"`
 }
 
-type PaperVersions struct {
+type Versions struct {
 	ProjectID     string   `json:"project_id"`
 	ProjectName   string   `json:"project_name"`
 	VersionGroups []string `json:"version_groups"`

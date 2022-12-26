@@ -1,8 +1,10 @@
-package main
+package fs
 
 import (
 	"io/fs"
 	"os"
+
+	"github.com/talwat/pap/app/log"
 )
 
 const (
@@ -12,10 +14,10 @@ const (
 
 func WriteFile(name string, text string, perms fs.FileMode) {
 	err := os.WriteFile(name, []byte(text), perms)
-	Error(err, "an error occurred while writing %s", name)
+	log.Error(err, "an error occurred while writing %s", name)
 }
 
 func MakeDirectory(path string) {
 	err := os.MkdirAll(path, os.ModePerm)
-	Error(err, "an error occurred while creating %s", path)
+	log.Error(err, "an error occurred while creating %s", path)
 }
