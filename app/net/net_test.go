@@ -1,15 +1,21 @@
-package net
+package net_test
 
-import "testing"
+import (
+	"testing"
+
+	"github.com/talwat/pap/app/net"
+)
 
 func TestGet(t *testing.T) {
+	t.Parallel()
+
 	type Todo struct {
 		ID int
 	}
 
 	var todo Todo
 
-	Get("https://jsonplaceholder.typicode.com/todos/1", &todo)
+	net.Get("https://jsonplaceholder.typicode.com/todos/1", &todo)
 
 	if todo.ID != 1 {
 		t.Errorf(`Get("https://jsonplaceholder.typicode.com/todos/1", &todo) = %d; want 1`, todo.ID)
