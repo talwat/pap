@@ -22,7 +22,6 @@ func newLoadingBar(maxBytes int64, desc string) *progressbar.ProgressBar {
 		progressbar.OptionSetDescription(desc),
 		progressbar.OptionSetWriter(os.Stderr),
 		progressbar.OptionShowBytes(true),
-		progressbar.OptionSetWidth(10),
 		progressbar.OptionThrottle(65*time.Millisecond),
 		progressbar.OptionOnCompletion(func() {
 			log.RawLog("\npap: done downloading\n")
@@ -30,9 +29,9 @@ func newLoadingBar(maxBytes int64, desc string) *progressbar.ProgressBar {
 		progressbar.OptionSpinnerType(14),
 		progressbar.OptionFullWidth(),
 		progressbar.OptionSetRenderBlankState(true),
+		progressbar.OptionSetPredictTime(false),
 
-		progressbar.OptionEnableColorCodes(true),
-		progressbar.OptionSetWidth(15),
+		progressbar.OptionEnableColorCodes(false),
 		progressbar.OptionSetTheme(progressbar.Theme{
 			Saucer:        "=",
 			SaucerHead:    ">",
