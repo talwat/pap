@@ -25,9 +25,14 @@ func NoNewline(msg string, params ...interface{}) {
 	RawLog(("pap: %s"), fmt.Sprintf(msg, params...))
 }
 
-//nolint:forbidigo
 func RawLog(msg string, params ...interface{}) {
-	fmt.Printf(msg, params...)
+	fmt.Fprintf(os.Stderr, msg, params...)
+}
+
+// Like RawLog, but prints to stdout instead.
+// Note: This function outputs a trailing newline.
+func OuptutLog(msg string, params ...interface{}) {
+	fmt.Fprintf(os.Stdout, "%s\n", fmt.Sprintf(msg, params...))
 }
 
 func CustomError(msg string, params ...interface{}) {

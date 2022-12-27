@@ -14,7 +14,7 @@ func GetPropertyCommand(cCtx *cli.Context) error {
 	}
 
 	val := properties.GetProperty(prop)
-	log.RawLog("%s\n", val)
+	log.OuptutLog("%s\n", val)
 
 	return nil
 }

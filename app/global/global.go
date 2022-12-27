@@ -8,8 +8,8 @@ var (
 	BuildInput             = "latest"
 	ExperimentalBuildInput = false
 	NoFloodGateInput       = false
-	XMSInput               = "2G"
-	XMXInput               = "2G"
+	MemoryInput            = "2G"
+	AikarsInput            = false
 	JarInput               = "paper.jar"
 	GUIInput               = false
 )

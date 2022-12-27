@@ -10,7 +10,7 @@ import (
 	"github.com/urfave/cli/v2"
 )
 
-var version = "0.7.1"
+var version = "0.8.0-beta"
 
 //nolint:funlen,exhaustruct
 func main() {
@@ -118,16 +118,18 @@ COPYRIGHT:
 				Action:  cmd.ScriptCommand,
 				Flags: []cli.Flag{
 					&cli.StringFlag{
-						Name:        "xms",
+						Name:        "mem",
 						Value:       "2G",
-						Usage:       "the value for xms in the run command",
-						Destination: &global.XMSInput,
+						Usage:       "the value for -Xms and -Xmx in the run command",
+						Aliases:     []string{"memory", "m"},
+						Destination: &global.MemoryInput,
 					},
-					&cli.StringFlag{
-						Name:        "xmx",
-						Value:       "2G",
-						Usage:       "the value for xmx in the run command",
-						Destination: &global.XMXInput,
+					&cli.BoolFlag{
+						Name:        "aikars",
+						Value:       false,
+						Usage:       "whether to use aikars flags: https://docs.papermc.io/paper/aikars-flags",
+						Aliases:     []string{"a"},
+						Destination: &global.AikarsInput,
 					},
 					&cli.StringFlag{
 						Name:        "jar",
