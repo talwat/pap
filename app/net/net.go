@@ -12,15 +12,14 @@ import (
 	"time"
 
 	"github.com/schollz/progressbar/v3"
-	"github.com/talwat/pap/app/fs"
 	"github.com/talwat/pap/app/log"
 )
 
-//nolint:gomnd
-func newLoadingBar(maxBytes int64, description string) *progressbar.ProgressBar {
+//nolint:gomnd // Nolint because most numbers are configuration options
+func newLoadingBar(maxBytes int64, desc string) *progressbar.ProgressBar {
 	bar := progressbar.NewOptions64(
 		maxBytes,
-		progressbar.OptionSetDescription(description),
+		progressbar.OptionSetDescription(desc),
 		progressbar.OptionSetWriter(os.Stderr),
 		progressbar.OptionShowBytes(true),
 		progressbar.OptionSetWidth(10),
@@ -30,6 +29,7 @@ func newLoadingBar(maxBytes int64, description string) *progressbar.ProgressBar 
 		}),
 		progressbar.OptionSpinnerType(14),
 		progressbar.OptionFullWidth(),
+		progressbar.OptionSetRenderBlankState(true),
 
 		progressbar.OptionEnableColorCodes(true),
 		progressbar.OptionSetWidth(15),
@@ -42,9 +42,6 @@ func newLoadingBar(maxBytes int64, description string) *progressbar.ProgressBar 
 			BarEnd:        "]",
 		}),
 	)
-
-	err := bar.RenderBlank()
-	log.Error(err, "an error occurred while rendering loading bar")
 
 	return bar
 }
@@ -74,7 +71,7 @@ func Download(url string, filename string, fileDesc string) []byte {
 
 	defer resp.Body.Close()
 
-	file, err := os.OpenFile(filename, os.O_CREATE|os.O_WRONLY, fs.ReadWritePerm)
+	file, err := os.Create(filename)
 	log.Error(err, "an error occurred while opening %s", filename)
 
 	defer file.Close()
@@ -87,7 +84,30 @@ func Download(url string, filename string, fileDesc string) []byte {
 	hash := sha256.New()
 	_, err = io.Copy(io.MultiWriter(file, bar, hash), resp.Body)
 
-	log.Error(err, "An error occurred while drawing loading bar")
+	log.Error(err, "An error occurred while writing %s", fileDesc)
 
 	return hash.Sum(nil)
+}
+
+// Download a file without keeping the hash or making a loading bar.
+func SimpleDownload(url string, filename string, fileDesc string) {
+	log.Log("downloading %s...", fileDesc)
+
+	req, err := http.NewRequestWithContext(context.Background(), http.MethodGet, url, nil)
+	log.Error(err, "an error occurred while making a new request")
+
+	resp, err := http.DefaultClient.Do(req)
+	log.Error(err, "an error occurred while sending an http request")
+
+	defer resp.Body.Close()
+
+	file, err := os.Create(filename)
+	log.Error(err, "an error occurred while opening %s", filename)
+
+	defer file.Close()
+
+	_, err = io.Copy(file, resp.Body)
+
+	log.Error(err, "An error occurred while writing %s", fileDesc)
+	log.Log("done downloading")
 }

@@ -32,6 +32,34 @@ func WritePropertiesFile(filename string, props map[string]interface{}) {
 	log.Error(err, "an error occurred while writing properties file")
 }
 
+func parsePropertiesLine(line string, conf map[string]interface{}) {
+	equalIdx := strings.Index(line, "=")
+
+	// If "=" is smaller than 0, (eg. -1 which means "=" isn't in the line), skip.
+	if equalIdx < 0 {
+		return
+	}
+
+	// Set the key to everything before "=" using the equal index.
+	key := strings.TrimSpace(line[:equalIdx])
+
+	// If the key is empty, skip.
+	if len(key) == 0 {
+		return
+	}
+
+	val := ""
+
+	// Check if there is anything after "=" in the line.
+	if len(line) > equalIdx {
+		// If there is, set it as the value.
+		val = strings.TrimSpace(line[equalIdx+1:])
+	}
+
+	// Save the value to the key in the conf map.
+	conf[key] = val
+}
+
 func ReadPropertiesFile(filename string) map[string]interface{} {
 	conf := map[string]interface{}{}
 
@@ -46,26 +74,7 @@ func ReadPropertiesFile(filename string) map[string]interface{} {
 
 	scanner := bufio.NewScanner(file)
 	for scanner.Scan() {
-		line := scanner.Text()
-		equal := strings.Index(line, "=")
-
-		if equal < 0 {
-			continue
-		}
-
-		key := strings.TrimSpace(line[:equal])
-
-		if len(key) == 0 {
-			continue
-		}
-
-		val := ""
-
-		if len(line) > equal {
-			val = strings.TrimSpace(line[equal+1:])
-		}
-
-		conf[key] = val
+		parsePropertiesLine(scanner.Text(), conf)
 	}
 
 	err = scanner.Err()
@@ -94,7 +103,7 @@ func ResetProperties() {
 	log.Log("this command is expected to be used with the latest minecraft version")
 	log.Log("if you are using an older version, please manually delete the properties file and run the server")
 	log.Continue("are you sure you would like to reset your server.properties file?")
-	net.Download(
+	net.SimpleDownload(
 		"https://raw.githubusercontent.com/talwat/pap/main/assets/default.server.properties",
 		"server.properties",
 		"server properties file",
