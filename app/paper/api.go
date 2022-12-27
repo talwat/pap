@@ -41,10 +41,10 @@ func GetLatestBuild(version string) Build {
 		return latest
 	}
 
-	// iterate through builds.Builds backwards
+	// Iterate through builds.Builds backwards
 	for i := len(builds.Builds) - 1; i >= 0; i-- {
-		if builds.Builds[i].Channel == "default" { // default = stable
-			return builds.Builds[i] // stable build found, return it
+		if builds.Builds[i].Channel == "default" { // "default" usually means stable
+			return builds.Builds[i] // Stable build found, return it
 		}
 	}
 

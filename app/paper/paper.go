@@ -1,3 +1,4 @@
+// Interact with papermc downloads api and verify of downloaded files.
 package paper
 
 import (
@@ -27,7 +28,7 @@ func VerifyJarfile(calculated []byte, build Build) {
 	}
 }
 
-// returns URL to build download, and the build information.
+// Returns URL to build download, and the build information.
 func GetURL(versionInput string, buildID string) (string, Build) {
 	var (
 		version string

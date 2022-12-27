@@ -1,3 +1,4 @@
+// Global variables, mainly values set by command line flags which are needed by the whole application.
 package global
 
 //nolint:gochecknoglobals

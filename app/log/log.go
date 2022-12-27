@@ -1,6 +1,5 @@
+// Logging and user input.
 package log
-
-// Logging and such
 
 import (
 	"bufio"

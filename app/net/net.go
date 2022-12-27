@@ -1,3 +1,4 @@
+// Networking
 package net
 
 import (
@@ -14,6 +15,39 @@ import (
 	"github.com/talwat/pap/app/fs"
 	"github.com/talwat/pap/app/log"
 )
+
+//nolint:gomnd
+func newLoadingBar(maxBytes int64, description string) *progressbar.ProgressBar {
+	bar := progressbar.NewOptions64(
+		maxBytes,
+		progressbar.OptionSetDescription(description),
+		progressbar.OptionSetWriter(os.Stderr),
+		progressbar.OptionShowBytes(true),
+		progressbar.OptionSetWidth(10),
+		progressbar.OptionThrottle(65*time.Millisecond),
+		progressbar.OptionOnCompletion(func() {
+			log.RawLog("\npap: done downloading\n")
+		}),
+		progressbar.OptionSpinnerType(14),
+		progressbar.OptionFullWidth(),
+
+		progressbar.OptionEnableColorCodes(true),
+		progressbar.OptionSetWidth(15),
+		progressbar.OptionSetTheme(progressbar.Theme{
+			Saucer:        "=",
+			SaucerHead:    ">",
+			AltSaucerHead: ">",
+			SaucerPadding: " ",
+			BarStart:      "[",
+			BarEnd:        "]",
+		}),
+	)
+
+	err := bar.RenderBlank()
+	log.Error(err, "an error occurred while rendering loading bar")
+
+	return bar
+}
 
 // saves the decoded JSON data to the value of content.
 func Get(url string, content interface{}) int {
@@ -44,39 +78,6 @@ func Download(url string, filename string, fileDesc string) []byte {
 	log.Error(err, "an error occurred while opening %s", filename)
 
 	defer file.Close()
-
-	//nolint:gomnd
-	newLoadingBar := func(maxBytes int64, description string) *progressbar.ProgressBar {
-		bar := progressbar.NewOptions64(
-			maxBytes,
-			progressbar.OptionSetDescription(description),
-			progressbar.OptionSetWriter(os.Stderr),
-			progressbar.OptionShowBytes(true),
-			progressbar.OptionSetWidth(10),
-			progressbar.OptionThrottle(65*time.Millisecond),
-			progressbar.OptionOnCompletion(func() {
-				log.RawLog("\npap: done downloading\n")
-			}),
-			progressbar.OptionSpinnerType(14),
-			progressbar.OptionFullWidth(),
-
-			progressbar.OptionEnableColorCodes(true),
-			progressbar.OptionSetWidth(15),
-			progressbar.OptionSetTheme(progressbar.Theme{
-				Saucer:        "=",
-				SaucerHead:    ">",
-				AltSaucerHead: ">",
-				SaucerPadding: " ",
-				BarStart:      "[",
-				BarEnd:        "]",
-			}),
-		)
-
-		err := bar.RenderBlank()
-		log.Error(err, "an error occurred while rendering loading bar")
-
-		return bar
-	}
 
 	bar := newLoadingBar(
 		resp.ContentLength,

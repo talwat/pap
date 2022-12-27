@@ -1,3 +1,4 @@
+// Time related utilities.
 package time
 
 import "time"
