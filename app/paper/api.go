@@ -86,3 +86,11 @@ func GetBuild(version string, buildID string) Build {
 
 	return build
 }
+
+func GetVersion(versionInput string) string {
+	if versionInput == latest {
+		return GetLatestVersion()
+	}
+
+	return versionInput
+}
