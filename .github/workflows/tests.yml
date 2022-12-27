@@ -61,162 +61,162 @@ jobs:
 
       - run: "./pap -y script"
       - name: Read Generated Script (windows)
-        if: matrix.os == windows-latest
+        if: matrix.os == "windows-latest"
         run: "cat run.bat"
       - name: Read Generated Script (unix)
-        if: matrix.os != windows-latest
+        if: matrix.os != "windows-latest"
         run: "cat run.sh"
 
       - run: "./pap -y script -mem 2G"
       - name: Read Generated Script (windows)
-        if: matrix.os == windows-latest
+        if: matrix.os == "windows-latest"
         run: "cat run.bat"
       - name: Read Generated Script (unix)
-        if: matrix.os != windows-latest
+        if: matrix.os != "windows-latest"
         run: "cat run.sh"
 
       - run: "./pap -y script -mem 13G"
       - name: Read Generated Script (windows)
-        if: matrix.os == windows-latest
+        if: matrix.os == "windows-latest"
         run: "cat run.bat"
       - name: Read Generated Script (unix)
-        if: matrix.os != windows-latest
+        if: matrix.os != "windows-latest"
         run: "cat run.sh"
 
       - run: "./pap -y script -mem 13G -gui"
       - name: Read Generated Script (windows)
-        if: matrix.os == windows-latest
+        if: matrix.os == "windows-latest"
         run: "cat run.bat"
       - name: Read Generated Script (unix)
-        if: matrix.os != windows-latest
+        if: matrix.os != "windows-latest"
         run: "cat run.sh"
 
       - run: "./pap -y script -mem 2000M"
       - name: Read Generated Script (windows)
-        if: matrix.os == windows-latest
+        if: matrix.os == "windows-latest"
         run: "cat run.bat"
       - name: Read Generated Script (unix)
-        if: matrix.os != windows-latest
+        if: matrix.os != "windows-latest"
         run: "cat run.sh"
 
       - run: "./pap -y script -mem 2000M -gui"
       - name: Read Generated Script (windows)
-        if: matrix.os == windows-latest
+        if: matrix.os == "windows-latest"
         run: "cat run.bat"
       - name: Read Generated Script (unix)
-        if: matrix.os != windows-latest
+        if: matrix.os != "windows-latest"
         run: "cat run.sh"
 
       - run: "./pap -y script -jar wow.jar"
       - name: Read Generated Script (windows)
-        if: matrix.os == windows-latest
+        if: matrix.os == "windows-latest"
         run: "cat run.bat"
       - name: Read Generated Script (unix)
-        if: matrix.os != windows-latest
+        if: matrix.os != "windows-latest"
         run: "cat run.sh"
 
       - run: "./pap -y script -jar wow.jar -gui"
       - name: Read Generated Script (windows)
-        if: matrix.os == windows-latest
+        if: matrix.os == "windows-latest"
         run: "cat run.bat"
       - name: Read Generated Script (unix)
-        if: matrix.os != windows-latest
+        if: matrix.os != "windows-latest"
         run: "cat run.sh"
 
       - run: "./pap -y script -jar -gui wow.jar"
       - name: Read Generated Script (windows)
-        if: matrix.os == windows-latest
+        if: matrix.os == "windows-latest"
         run: "cat run.bat"
       - name: Read Generated Script (unix)
-        if: matrix.os != windows-latest
+        if: matrix.os != "windows-latest"
         run: "cat run.sh"
 
       - run: "./pap -y script -jar wow.jar -mem 4G -gui"
       - name: Read Generated Script (windows)
-        if: matrix.os == windows-latest
+        if: matrix.os == "windows-latest"
         run: "cat run.bat"
       - name: Read Generated Script (unix)
-        if: matrix.os != windows-latest
+        if: matrix.os != "windows-latest"
         run: "cat run.sh"
 
       - run: "./pap -y script -aikars -mem 2G"
       - name: Read Generated Script (windows)
-        if: matrix.os == windows-latest
+        if: matrix.os == "windows-latest"
         run: "cat run.bat"
       - name: Read Generated Script (unix)
-        if: matrix.os != windows-latest
+        if: matrix.os != "windows-latest"
         run: "cat run.sh"
 
       - run: "./pap -y script -aikars -mem 13G"
       - name: Read Generated Script (windows)
-        if: matrix.os == windows-latest
+        if: matrix.os == "windows-latest"
         run: "cat run.bat"
       - name: Read Generated Script (unix)
-        if: matrix.os != windows-latest
+        if: matrix.os != "windows-latest"
         run: "cat run.sh"
 
       - run: "./pap -y script -aikars -mem 13G -gui"
       - name: Read Generated Script (windows)
-        if: matrix.os == windows-latest
+        if: matrix.os == "windows-latest"
         run: "cat run.bat"
       - name: Read Generated Script (unix)
-        if: matrix.os != windows-latest
+        if: matrix.os != "windows-latest"
         run: "cat run.sh"
 
       - run: "./pap -y script -aikars -mem 2000M"
       - name: Read Generated Script (windows)
-        if: matrix.os == windows-latest
+        if: matrix.os == "windows-latest"
         run: "cat run.bat"
       - name: Read Generated Script (unix)
-        if: matrix.os != windows-latest
+        if: matrix.os != "windows-latest"
         run: "cat run.sh"
 
       - run: "./pap -y script -aikars -mem 2000M -gui"
       - name: Read Generated Script (windows)
-        if: matrix.os == windows-latest
+        if: matrix.os == "windows-latest"
         run: "cat run.bat"
       - name: Read Generated Script (unix)
-        if: matrix.os != windows-latest
+        if: matrix.os != "windows-latest"
         run: "cat run.sh"
 
       - run: "./pap -y script -aikars -jar wow.jar"
       - name: Read Generated Script (windows)
-        if: matrix.os == windows-latest
+        if: matrix.os == "windows-latest"
         run: "cat run.bat"
       - name: Read Generated Script (unix)
-        if: matrix.os != windows-latest
+        if: matrix.os != "windows-latest"
         run: "cat run.sh"
 
       - run: "./pap -y script -aikars -jar wow.jar -gui"
       - name: Read Generated Script (windows)
-        if: matrix.os == windows-latest
+        if: matrix.os == "windows-latest"
         run: "cat run.bat"
       - name: Read Generated Script (unix)
-        if: matrix.os != windows-latest
+        if: matrix.os != "windows-latest"
         run: "cat run.sh"
 
       - run: "./pap -y script -aikars -jar -gui wow.jar"
       - name: Read Generated Script (windows)
-        if: matrix.os == windows-latest
+        if: matrix.os == "windows-latest"
         run: "cat run.bat"
       - name: Read Generated Script (unix)
-        if: matrix.os != windows-latest
+        if: matrix.os != "windows-latest"
         run: "cat run.sh"
 
       - run: "./pap -y script -aikars -jar wow.jar -mem 4G -gui"
       - name: Read Generated Script (windows)
-        if: matrix.os == windows-latest
+        if: matrix.os == "windows-latest"
         run: "cat run.bat"
       - name: Read Generated Script (unix)
-        if: matrix.os != windows-latest
+        if: matrix.os != "windows-latest"
         run: "cat run.sh"
 
       - run: "./pap -y version"
       - name: Read Generated Script (windows)
-        if: matrix.os == windows-latest
+        if: matrix.os == "windows-latest"
         run: "cat run.bat"
       - name: Read Generated Script (unix)
-        if: matrix.os != windows-latest
+        if: matrix.os != "windows-latest"
         run: "cat run.sh"
 
       - run: "./pap -y properties reset"
