@@ -56,133 +56,133 @@ jobs:
       - run: "./pap -y download --version 1.12.2 --build latest"
       - run: "./pap -y sign"
       - run: |
-         "./pap -y script"
+         ./pap -y script
          if [ "$RUNNER_OS" == "Windows" ]; then
            cat run.bat
          else
            cat run.sh
          fi
       - run: |
-         "./pap -y script -mem 2G"
+         ./pap -y script -mem 2G
          if [ "$RUNNER_OS" == "Windows" ]; then
            cat run.bat
          else
            cat run.sh
          fi
       - run: |
-         "./pap -y script -mem 13G"
+         ./pap -y script -mem 13G
          if [ "$RUNNER_OS" == "Windows" ]; then
            cat run.bat
          else
            cat run.sh
          fi
       - run: |
-         "./pap -y script -mem 13G -gui"
+         ./pap -y script -mem 13G -gui
          if [ "$RUNNER_OS" == "Windows" ]; then
            cat run.bat
          else
            cat run.sh
          fi
       - run: |
-         "./pap -y script -mem 2000M"
+         ./pap -y script -mem 2000M
          if [ "$RUNNER_OS" == "Windows" ]; then
            cat run.bat
          else
            cat run.sh
          fi
       - run: |
-         "./pap -y script -mem 2000M -gui"
+         ./pap -y script -mem 2000M -gui
          if [ "$RUNNER_OS" == "Windows" ]; then
            cat run.bat
          else
            cat run.sh
          fi
       - run: |
-         "./pap -y script -jar wow.jar"
+         ./pap -y script -jar wow.jar
          if [ "$RUNNER_OS" == "Windows" ]; then
            cat run.bat
          else
            cat run.sh
          fi
       - run: |
-         "./pap -y script -jar wow.jar -gui"
+         ./pap -y script -jar wow.jar -gui
          if [ "$RUNNER_OS" == "Windows" ]; then
            cat run.bat
          else
            cat run.sh
          fi
       - run: |
-         "./pap -y script -jar -gui wow.jar"
+         ./pap -y script -jar -gui wow.jar
          if [ "$RUNNER_OS" == "Windows" ]; then
            cat run.bat
          else
            cat run.sh
          fi
       - run: |
-         "./pap -y script -jar wow.jar -mem 4G -gui"
+         ./pap -y script -jar wow.jar -mem 4G -gui
          if [ "$RUNNER_OS" == "Windows" ]; then
            cat run.bat
          else
            cat run.sh
          fi
       - run: |
-         "./pap -y script -aikars -mem 2G"
+         ./pap -y script -aikars -mem 2G
          if [ "$RUNNER_OS" == "Windows" ]; then
            cat run.bat
          else
            cat run.sh
          fi
       - run: |
-         "./pap -y script -aikars -mem 13G"
+         ./pap -y script -aikars -mem 13G
          if [ "$RUNNER_OS" == "Windows" ]; then
            cat run.bat
          else
            cat run.sh
          fi
       - run: |
-         "./pap -y script -aikars -mem 13G -gui"
+         ./pap -y script -aikars -mem 13G -gui
          if [ "$RUNNER_OS" == "Windows" ]; then
            cat run.bat
          else
            cat run.sh
          fi
       - run: |
-         "./pap -y script -aikars -mem 2000M"
+         ./pap -y script -aikars -mem 2000M
          if [ "$RUNNER_OS" == "Windows" ]; then
            cat run.bat
          else
            cat run.sh
          fi
       - run: |
-         "./pap -y script -aikars -mem 2000M -gui"
+         ./pap -y script -aikars -mem 2000M -gui
          if [ "$RUNNER_OS" == "Windows" ]; then
            cat run.bat
          else
            cat run.sh
          fi
       - run: |
-         "./pap -y script -aikars -jar wow.jar"
+         ./pap -y script -aikars -jar wow.jar
          if [ "$RUNNER_OS" == "Windows" ]; then
            cat run.bat
          else
            cat run.sh
          fi
       - run: |
-         "./pap -y script -aikars -jar wow.jar -gui"
+         ./pap -y script -aikars -jar wow.jar -gui
          if [ "$RUNNER_OS" == "Windows" ]; then
            cat run.bat
          else
            cat run.sh
          fi
       - run: |
-         "./pap -y script -aikars -jar -gui wow.jar"
+         ./pap -y script -aikars -jar -gui wow.jar
          if [ "$RUNNER_OS" == "Windows" ]; then
            cat run.bat
          else
            cat run.sh
          fi
       - run: |
-         "./pap -y script -aikars -jar wow.jar -mem 4G -gui"
+         ./pap -y script -aikars -jar wow.jar -mem 4G -gui
          if [ "$RUNNER_OS" == "Windows" ]; then
            cat run.bat
          else
