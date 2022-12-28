@@ -3,7 +3,7 @@ package paper_test
 import (
 	"testing"
 
-	"github.com/talwat/pap/app/paper"
+	"github.com/talwat/pap/app/jarfiles/paper"
 )
 
 func TestLatestBuild(t *testing.T) {

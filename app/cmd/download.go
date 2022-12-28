@@ -2,9 +2,9 @@ package cmd
 
 import (
 	"github.com/talwat/pap/app/global"
+	"github.com/talwat/pap/app/jarfiles/paper"
 	"github.com/talwat/pap/app/log"
 	"github.com/talwat/pap/app/net"
-	"github.com/talwat/pap/app/paper"
 	"github.com/urfave/cli/v2"
 )
 
