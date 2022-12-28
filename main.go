@@ -11,7 +11,7 @@ import (
 	"github.com/urfave/cli/v2"
 )
 
-const version = "0.8.1"
+const version = "0.8.1-beta"
 
 //nolint:funlen,exhaustruct
 func main() {
