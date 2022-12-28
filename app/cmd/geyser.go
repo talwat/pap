@@ -1,6 +1,8 @@
 package cmd
 
 import (
+	"crypto/sha256"
+
 	"github.com/talwat/pap/app/fs"
 	"github.com/talwat/pap/app/global"
 	"github.com/talwat/pap/app/log"
@@ -17,6 +19,7 @@ func GeyserCommand(cCtx *cli.Context) error {
 		"https://ci.opencollab.dev/job/GeyserMC/job/Geyser/job/master/lastSuccessfulBuild/artifact/bootstrap/spigot/build/libs/Geyser-Spigot.jar",
 		"plugins/Geyser-Spigot.jar",
 		"geyser",
+		sha256.New(),
 	)
 
 	if !global.NoFloodGateInput {
@@ -25,6 +28,7 @@ func GeyserCommand(cCtx *cli.Context) error {
 			"https://ci.opencollab.dev/job/GeyserMC/job/Floodgate/job/master/lastSuccessfulBuild/artifact/spigot/build/libs/floodgate-spigot.jar",
 			"plugins/floodgate-spigot.jar",
 			"floodgate",
+			sha256.New(),
 		)
 	}
 

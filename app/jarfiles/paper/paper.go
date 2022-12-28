@@ -25,7 +25,7 @@ func VerifyJarfile(calculated []byte, build Build) {
 	} else {
 		log.RawError(
 			fmt.Sprintf("checksums (calculated: %s, proper: %s) don't match!",
-				calculated,
+				checksum,
 				build.Downloads.Application.Sha256,
 			),
 		)

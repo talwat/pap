@@ -3,9 +3,9 @@ package net
 
 import (
 	"context"
-	"crypto/sha256"
 	"encoding/json"
 	"fmt"
+	"hash"
 	"io"
 	"net/http"
 	"os"
@@ -61,7 +61,7 @@ func Get(url string, content interface{}) int {
 	return resp.StatusCode
 }
 
-func Download(url string, filename string, fileDesc string) []byte {
+func Download(url string, filename string, fileDesc string, hash hash.Hash) []byte {
 	req, err := http.NewRequestWithContext(context.Background(), http.MethodGet, url, nil)
 	log.Error(err, "an error occurred while making a new request")
 
@@ -80,7 +80,6 @@ func Download(url string, filename string, fileDesc string) []byte {
 		fmt.Sprintf("pap: downloading %s", fileDesc),
 	)
 
-	hash := sha256.New()
 	_, err = io.Copy(io.MultiWriter(file, bar, hash), resp.Body)
 
 	log.Error(err, "An error occurred while writing %s", fileDesc)
