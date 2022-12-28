@@ -1,4 +1,4 @@
-// Interact with papermc downloads api and verify of downloaded files.
+// Interact with papermc downloads api and verification of downloaded files.
 package paper
 
 // This is the only file which is accessed from other packages.
