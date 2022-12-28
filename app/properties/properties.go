@@ -116,7 +116,7 @@ func GetProperty(prop string) interface{} {
 	val := props[prop]
 
 	if val == nil {
-		log.CustomError("property %s does not exist", prop)
+		log.RawError("property %s does not exist", prop)
 	}
 
 	return val

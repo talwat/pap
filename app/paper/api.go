@@ -31,7 +31,7 @@ func GetLatestBuild(version string) Build {
 	status := net.Get(url, &builds)
 
 	if builds.Error != "" {
-		log.CustomError("api returned an error with status code %d: %s", status, FormatErrorMessage(builds.Error))
+		log.RawError("api returned an error with status code %d: %s", status, FormatErrorMessage(builds.Error))
 	}
 
 	// latest build, can be experimental or stable
@@ -62,7 +62,7 @@ func GetSpecificBuild(version string, buildID string) Build {
 	statusCode := net.Get(url, &build)
 
 	if build.Error != "" {
-		log.CustomError("api returned an error with status code %d: %s", statusCode, FormatErrorMessage(build.Error))
+		log.RawError("api returned an error with status code %d: %s", statusCode, FormatErrorMessage(build.Error))
 	}
 
 	return build

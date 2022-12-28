@@ -11,7 +11,7 @@ import (
 	"github.com/urfave/cli/v2"
 )
 
-const version = "0.8.0"
+const version = "0.8.1"
 
 //nolint:funlen,exhaustruct
 func main() {
@@ -52,10 +52,10 @@ COPYRIGHT:
    {{template "copyrightTemplate" .}}{{end}}
 `,
 		CommandNotFound: func(ctx *cli.Context, command string) {
-			log.CustomError("command not found: %s", command)
+			log.RawError("command not found: %s", command)
 		},
 		OnUsageError: func(ctx *cli.Context, err error, isSubcommand bool) error {
-			log.CustomError("%s", err)
+			log.RawError("%s", err)
 
 			return nil
 		},

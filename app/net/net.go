@@ -24,7 +24,7 @@ func newLoadingBar(maxBytes int64, desc string) *progressbar.ProgressBar {
 		progressbar.OptionShowBytes(true),
 		progressbar.OptionThrottle(65*time.Millisecond),
 		progressbar.OptionOnCompletion(func() {
-			log.RawLog("\npap: done downloading\n")
+			log.RawLog("\n")
 		}),
 		progressbar.OptionSpinnerType(14),
 		progressbar.OptionFullWidth(),

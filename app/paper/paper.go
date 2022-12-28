@@ -23,7 +23,7 @@ func VerifyJarfile(calculated []byte, build Build) {
 	if checksum := hex.EncodeToString(calculated); checksum == build.Downloads.Application.Sha256 {
 		log.Log("checksums match!")
 	} else {
-		log.CustomError(
+		log.RawError(
 			fmt.Sprintf("checksums (calculated: %s, proper: %s) don't match!",
 				calculated,
 				build.Downloads.Application.Sha256,

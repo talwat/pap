@@ -28,7 +28,7 @@ func memInputToMegabytes(memInput string) int {
 
 		return megabytes
 	default:
-		log.CustomError("memory value does not end with M (megabytes) or G (gigabytes)")
+		log.RawError("memory value does not end with M (megabytes) or G (gigabytes)")
 
 		return 0
 	}

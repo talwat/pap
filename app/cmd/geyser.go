@@ -28,9 +28,12 @@ func GeyserCommand(cCtx *cli.Context) error {
 		)
 	}
 
+	log.Log("floodgate and geyser do not support key signing yet for chat messages")
+	log.Log("this feature was introduced in 1.19.1, so you do not have to disable it if your version is below that")
+
 	disableKeySigning := log.YesOrNo(
 		"y",
-		"floodgate and geyser do not support key signing yet, would you like to disable it (recommended)?",
+		"would you like to disable it?",
 	)
 
 	if disableKeySigning {

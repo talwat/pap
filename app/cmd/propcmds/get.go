@@ -10,7 +10,7 @@ func GetPropertyCommand(cCtx *cli.Context) error {
 	prop := cCtx.Args().Get(0)
 
 	if prop == "" {
-		log.CustomError("property name is required")
+		log.RawError("property name is required")
 	}
 
 	val := properties.GetProperty(prop)
