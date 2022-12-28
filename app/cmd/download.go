@@ -16,7 +16,7 @@ func validateOptions() {
 	}
 
 	if global.BuildInput != latest {
-		ValidateOption(global.VersionInput, `^\d+$`, "build")
+		ValidateOption(global.BuildInput, `^\d+$`, "build")
 	}
 }
 
