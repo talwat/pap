@@ -4,7 +4,7 @@ package cmd
 import (
 	"regexp"
 
-	"github.com/talwat/pap/app/log"
+	"github.com/talwat/pap/internal/log"
 )
 
 func ValidateOption(value string, pattern string, name string) {

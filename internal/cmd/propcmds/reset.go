@@ -1,7 +1,7 @@
 package propcmds
 
 import (
-	"github.com/talwat/pap/app/properties"
+	"github.com/talwat/pap/internal/properties"
 	"github.com/urfave/cli/v2"
 )
 

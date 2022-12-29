@@ -5,6 +5,7 @@ go 1.18
 require (
 	github.com/schollz/progressbar/v3 v3.12.2
 	github.com/urfave/cli/v2 v2.23.7
+	golang.org/x/sys v0.3.0
 )
 
 require (
@@ -14,6 +15,5 @@ require (
 	github.com/rivo/uniseg v0.4.3 // indirect
 	github.com/russross/blackfriday/v2 v2.1.0 // indirect
 	github.com/xrash/smetrics v0.0.0-20201216005158-039620a65673 // indirect
-	golang.org/x/sys v0.3.0 // indirect
 	golang.org/x/term v0.3.0 // indirect
 )

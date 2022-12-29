@@ -3,9 +3,9 @@ package cmd
 import (
 	"fmt"
 
-	"github.com/talwat/pap/app/fs"
-	"github.com/talwat/pap/app/log"
-	"github.com/talwat/pap/app/time"
+	"github.com/talwat/pap/internal/fs"
+	"github.com/talwat/pap/internal/log"
+	"github.com/talwat/pap/internal/time"
 	"github.com/urfave/cli/v2"
 )
 

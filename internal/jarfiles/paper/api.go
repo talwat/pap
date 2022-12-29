@@ -4,9 +4,9 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/talwat/pap/app/global"
-	"github.com/talwat/pap/app/log"
-	"github.com/talwat/pap/app/net"
+	"github.com/talwat/pap/internal/global"
+	"github.com/talwat/pap/internal/log"
+	"github.com/talwat/pap/internal/net"
 )
 
 func GetLatestVersion() string {
@@ -37,7 +37,7 @@ func GetLatestBuild(version string) Build {
 	// latest build, can be experimental or stable
 	latest := builds.Builds[len(builds.Builds)-1]
 
-	if global.ExperimentalBuildInput {
+	if global.PaperExperimentalBuildInput {
 		return latest
 	}
 
@@ -77,7 +77,7 @@ func GetBuild(version string, buildID string) Build {
 		build = GetSpecificBuild(version, buildID)
 	}
 
-	if build.Channel == "experimental" && !global.ExperimentalBuildInput {
+	if build.Channel == "experimental" && !global.PaperExperimentalBuildInput {
 		log.Continue(
 			"warning: build %d has been flagged as experimental, are you sure you would like to download it?",
 			build.Build,

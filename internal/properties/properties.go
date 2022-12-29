@@ -8,10 +8,10 @@ import (
 	"sort"
 	"strings"
 
-	"github.com/talwat/pap/app/fs"
-	"github.com/talwat/pap/app/log"
-	"github.com/talwat/pap/app/net"
-	"github.com/talwat/pap/app/time"
+	"github.com/talwat/pap/internal/fs"
+	"github.com/talwat/pap/internal/log"
+	"github.com/talwat/pap/internal/net"
+	"github.com/talwat/pap/internal/time"
 )
 
 func WritePropertiesFile(filename string, props map[string]interface{}) {

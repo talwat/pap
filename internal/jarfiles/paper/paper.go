@@ -12,7 +12,7 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/talwat/pap/app/log"
+	"github.com/talwat/pap/internal/log"
 )
 
 const latest = "latest"

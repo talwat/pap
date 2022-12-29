@@ -5,7 +5,7 @@ import (
 	"io/fs"
 	"os"
 
-	"github.com/talwat/pap/app/log"
+	"github.com/talwat/pap/internal/log"
 )
 
 const (

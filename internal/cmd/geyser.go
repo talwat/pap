@@ -3,15 +3,16 @@ package cmd
 import (
 	"crypto/sha256"
 
-	"github.com/talwat/pap/app/fs"
-	"github.com/talwat/pap/app/global"
-	"github.com/talwat/pap/app/log"
-	"github.com/talwat/pap/app/net"
-	"github.com/talwat/pap/app/properties"
+	"github.com/talwat/pap/internal/fs"
+	"github.com/talwat/pap/internal/global"
+	"github.com/talwat/pap/internal/log"
+	"github.com/talwat/pap/internal/net"
+	"github.com/talwat/pap/internal/properties"
 	"github.com/urfave/cli/v2"
 )
 
 func GeyserCommand(cCtx *cli.Context) error {
+	log.Warn("this downloads the spigot version of geyser, and thus requires spigot or paper")
 	fs.MakeDirectory("plugins")
 
 	//nolint:lll

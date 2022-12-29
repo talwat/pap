@@ -4,14 +4,15 @@ package main
 import (
 	"os"
 
-	"github.com/talwat/pap/app/cmd"
-	"github.com/talwat/pap/app/cmd/propcmds"
-	"github.com/talwat/pap/app/global"
-	"github.com/talwat/pap/app/log"
+	"github.com/talwat/pap/internal/cmd"
+	"github.com/talwat/pap/internal/cmd/downloadcmds"
+	"github.com/talwat/pap/internal/cmd/propcmds"
+	"github.com/talwat/pap/internal/global"
+	"github.com/talwat/pap/internal/log"
 	"github.com/urfave/cli/v2"
 )
 
-const version = "0.8.2"
+const version = "0.8.3-beta"
 
 //nolint:funlen,exhaustruct
 func main() {
@@ -70,31 +71,39 @@ COPYRIGHT:
 		},
 		Commands: []*cli.Command{
 			{
-				Name:    "download",
-				Aliases: []string{"d"},
-				Usage:   "download a papermc jarfile",
-				Action:  cmd.DownloadCommand,
-				Flags: []cli.Flag{
-					&cli.StringFlag{
-						Name:        "minecraft-version",
-						Value:       "latest",
-						Usage:       "the minecraft/paper version to download",
-						Aliases:     []string{"version", "v"},
-						Destination: &global.VersionInput,
-					},
-					&cli.StringFlag{
-						Name:        "paper-build",
-						Value:       "latest",
-						Usage:       "the papermc build to download",
-						Aliases:     []string{"build", "b"},
-						Destination: &global.BuildInput,
-					},
-					&cli.BoolFlag{
-						Name:        "paper-experimental",
-						Value:       false,
-						Usage:       "takes the latest build regardless. also bypasses warning prompt",
-						Aliases:     []string{"experimental", "e"},
-						Destination: &global.ExperimentalBuildInput,
+				Name:      "download",
+				Aliases:   []string{"d"},
+				Usage:     "download a jarfile",
+				ArgsUsage: "[paper|official]",
+				Subcommands: []*cli.Command{
+					{
+						Name:    "paper",
+						Aliases: []string{"p"},
+						Usage:   "download a paper jarfile",
+						Action:  downloadcmds.DownloadPaperCommand,
+						Flags: []cli.Flag{
+							&cli.StringFlag{
+								Name:        "minecraft-version",
+								Value:       "latest",
+								Usage:       "the minecraft/paper version to download",
+								Aliases:     []string{"version", "v"},
+								Destination: &global.VersionInput,
+							},
+							&cli.StringFlag{
+								Name:        "paper-build",
+								Value:       "latest",
+								Usage:       "the papermc build to download",
+								Aliases:     []string{"build", "b"},
+								Destination: &global.BuildInput,
+							},
+							&cli.BoolFlag{
+								Name:        "paper-experimental",
+								Value:       false,
+								Usage:       "takes the latest build regardless. also bypasses warning prompt",
+								Aliases:     []string{"experimental", "e"},
+								Destination: &global.PaperExperimentalBuildInput,
+							},
+						},
 					},
 				},
 			},

@@ -3,8 +3,8 @@ package propcmds
 import (
 	"strings"
 
-	"github.com/talwat/pap/app/log"
-	"github.com/talwat/pap/app/properties"
+	"github.com/talwat/pap/internal/log"
+	"github.com/talwat/pap/internal/properties"
 	"github.com/urfave/cli/v2"
 )
 

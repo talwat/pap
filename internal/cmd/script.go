@@ -6,9 +6,9 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/talwat/pap/app/fs"
-	"github.com/talwat/pap/app/global"
-	"github.com/talwat/pap/app/log"
+	"github.com/talwat/pap/internal/fs"
+	"github.com/talwat/pap/internal/global"
+	"github.com/talwat/pap/internal/log"
 	"github.com/urfave/cli/v2"
 )
 

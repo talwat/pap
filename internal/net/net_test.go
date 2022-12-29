@@ -3,7 +3,7 @@ package net_test
 import (
 	"testing"
 
-	"github.com/talwat/pap/app/net"
+	"github.com/talwat/pap/internal/net"
 )
 
 func TestGet(t *testing.T) {

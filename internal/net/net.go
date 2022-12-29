@@ -12,7 +12,7 @@ import (
 	"time"
 
 	"github.com/schollz/progressbar/v3"
-	"github.com/talwat/pap/app/log"
+	"github.com/talwat/pap/internal/log"
 )
 
 //nolint:gomnd // Nolint because most numbers are configuration options
