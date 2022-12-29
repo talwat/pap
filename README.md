@@ -43,7 +43,7 @@ A simplistic **pa**permc hel**p**er.
 
 ### Download the latest papermc jarfile
 
-`pap download`
+`pap download paper`
 
 ### Sign the EULA
 
