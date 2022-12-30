@@ -13,6 +13,9 @@ import (
 )
 
 func DownloadOfficialCommand(cCtx *cli.Context) error {
+	log.Warn("the official jarfile is much slower and less efficient than paper")
+	log.Continue("are you sure you would like to continue?")
+
 	url, pkg := official.GetURL(global.MinecraftVersionInput)
 
 	//nolint:gosec // Not being used for security, only checksumming. No clue why mojang still uses SHA1.
