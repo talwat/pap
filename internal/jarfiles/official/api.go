@@ -15,6 +15,7 @@ func findVersion(versions Versions, version string) Version {
 
 	log.RawError("version %s does not exist", version)
 
+	//nolint:exhaustruct // The process will be terminated by log.RawError before this ever gets run.
 	return Version{}
 }
 
@@ -22,6 +23,7 @@ func GetVersionManifest() Versions {
 	log.Log("getting version manifest...")
 
 	var versions Versions
+
 	net.Get("https://launchermeta.mojang.com/mc/game/version_manifest.json", &versions)
 
 	return versions
@@ -36,6 +38,7 @@ func GetSpecificPackage(version string) Package {
 	log.Log("getting package for %s...", version)
 
 	var pkg Package
+
 	net.Get(versionInfo.URL, &pkg)
 
 	return pkg
@@ -58,6 +61,7 @@ func GetLatestPackage() Package {
 	log.Log("getting package for %s...", versionToGet)
 
 	var pkg Package
+
 	net.Get(versionInfo.URL, &pkg)
 
 	return pkg
