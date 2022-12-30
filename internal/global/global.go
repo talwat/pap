@@ -4,9 +4,10 @@ package global
 //nolint:gochecknoglobals
 var (
 	AssumeDefaultInput          = false
-	VersionInput                = "latest"
-	BuildInput                  = "latest"
+	MinecraftVersionInput       = "latest"
+	PaperBuildInput             = "latest"
 	PaperExperimentalBuildInput = false
+	OfficialUseSnapshotInput    = false
 	NoFloodGateInput            = false
 	MemoryInput                 = "2G"
 	AikarsInput                 = false

@@ -51,7 +51,7 @@ func Get(url string, content interface{}) int {
 	log.Error(err, "an error occurred while making request")
 
 	resp, err := http.DefaultClient.Do(req)
-	log.Error(err, "an error occurred while sending request to papermc api")
+	log.Error(err, "an error occurred while sending request")
 
 	err = json.NewDecoder(resp.Body).Decode(&content)
 	log.Error(err, "an error occurred while decoding response")

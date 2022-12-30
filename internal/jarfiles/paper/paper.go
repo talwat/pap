@@ -2,13 +2,9 @@
 package paper
 
 // This is the only file which is accessed from other packages.
-// If you would like to add compatibility for other jarfile types, you need:
-// - A GetURL(version string, build string) function.
-// - A function to verify the jarfile.
-// - And most likely a struct for each build as well as all of the builds.
+// If you would like to add compatibility for other jarfile types, you only need a GetURL() function.
 
 import (
-	"encoding/hex"
 	"fmt"
 	"time"
 
@@ -16,21 +12,6 @@ import (
 )
 
 const latest = "latest"
-
-func VerifyJarfile(calculated []byte, build Build) {
-	log.Log("verifying downloaded jarfile...")
-
-	if checksum := hex.EncodeToString(calculated); checksum == build.Downloads.Application.Sha256 {
-		log.Log("checksums match!")
-	} else {
-		log.RawError(
-			fmt.Sprintf("checksums (calculated: %s, proper: %s) don't match!",
-				checksum,
-				build.Downloads.Application.Sha256,
-			),
-		)
-	}
-}
 
 func formatURL(version string, build Build) string {
 	return fmt.Sprintf(

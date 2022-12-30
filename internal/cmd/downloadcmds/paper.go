@@ -5,33 +5,34 @@ import (
 
 	"github.com/talwat/pap/internal/cmd"
 	"github.com/talwat/pap/internal/global"
+	"github.com/talwat/pap/internal/jarfiles"
 	"github.com/talwat/pap/internal/jarfiles/paper"
 	"github.com/talwat/pap/internal/log"
 	"github.com/talwat/pap/internal/net"
 	"github.com/urfave/cli/v2"
 )
 
-func validateOptions() {
+func validatePaperOptions() {
 	const latest = "latest"
 
-	if global.VersionInput != latest {
-		cmd.ValidateOption(global.VersionInput, `^\d\.\d{1,2}(\.\d)?(-pre\d|-SNAPSHOT\d)?$`, "version")
+	if global.MinecraftVersionInput != latest {
+		cmd.ValidateOption(global.MinecraftVersionInput, `^\d\.\d{1,2}(\.\d)?(-pre\d|-SNAPSHOT\d)?$`, "version")
 	}
 
-	if global.BuildInput != latest {
-		cmd.ValidateOption(global.BuildInput, `^\d+$`, "build")
+	if global.PaperBuildInput != latest {
+		cmd.ValidateOption(global.PaperBuildInput, `^\d+$`, "build")
 	}
 }
 
 func DownloadPaperCommand(cCtx *cli.Context) error {
-	validateOptions()
+	validatePaperOptions()
 
-	url, build := paper.GetURL(global.VersionInput, global.BuildInput)
+	url, build := paper.GetURL(global.MinecraftVersionInput, global.PaperBuildInput)
 
 	checksum := net.Download(url, "paper.jar", "paper jarfile", sha256.New())
 
 	log.Log("done downloading")
-	paper.VerifyJarfile(checksum, build)
+	jarfiles.VerifyJarfile(checksum, build.Downloads.Application.Sha256)
 
 	return nil
 }

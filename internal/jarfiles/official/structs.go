@@ -20,6 +20,7 @@ type Version struct {
 
 // Note: Values have been omitted from this struct from the original mojang API response.
 type Package struct {
+	ID        string
 	Downloads Downloads
 }
 

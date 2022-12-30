@@ -12,7 +12,7 @@ import (
 	"github.com/urfave/cli/v2"
 )
 
-const version = "0.8.3-beta"
+const version = "0.9-beta"
 
 //nolint:funlen,exhaustruct
 func main() {
@@ -75,6 +75,15 @@ COPYRIGHT:
 				Aliases:   []string{"d"},
 				Usage:     "download a jarfile",
 				ArgsUsage: "[paper|official]",
+				Flags: []cli.Flag{
+					&cli.StringFlag{
+						Name:        "minecraft-version",
+						Value:       "latest",
+						Usage:       "the minecraft version to download",
+						Aliases:     []string{"version", "v"},
+						Destination: &global.MinecraftVersionInput,
+					},
+				},
 				Subcommands: []*cli.Command{
 					{
 						Name:    "paper",
@@ -83,18 +92,11 @@ COPYRIGHT:
 						Action:  downloadcmds.DownloadPaperCommand,
 						Flags: []cli.Flag{
 							&cli.StringFlag{
-								Name:        "minecraft-version",
-								Value:       "latest",
-								Usage:       "the minecraft/paper version to download",
-								Aliases:     []string{"version", "v"},
-								Destination: &global.VersionInput,
-							},
-							&cli.StringFlag{
 								Name:        "paper-build",
 								Value:       "latest",
 								Usage:       "the papermc build to download",
 								Aliases:     []string{"build", "b"},
-								Destination: &global.BuildInput,
+								Destination: &global.PaperBuildInput,
 							},
 							&cli.BoolFlag{
 								Name:        "paper-experimental",
@@ -102,6 +104,35 @@ COPYRIGHT:
 								Usage:       "takes the latest build regardless. also bypasses warning prompt",
 								Aliases:     []string{"experimental", "e"},
 								Destination: &global.PaperExperimentalBuildInput,
+							},
+							&cli.StringFlag{
+								Name:        "minecraft-version",
+								Value:       "latest",
+								Usage:       "the minecraft version to download",
+								Aliases:     []string{"version", "v"},
+								Destination: &global.MinecraftVersionInput,
+							},
+						},
+					},
+					{
+						Name:    "official",
+						Aliases: []string{"p"},
+						Usage:   "download an official mojang jarfile",
+						Action:  downloadcmds.DownloadOfficialCommand,
+						Flags: []cli.Flag{
+							&cli.BoolFlag{
+								Name:        "minecraft-snapshot",
+								Value:       false,
+								Usage:       "takes the latest snapshot instead of the latest release",
+								Aliases:     []string{"snapshot", "s"},
+								Destination: &global.OfficialUseSnapshotInput,
+							},
+							&cli.StringFlag{
+								Name:        "minecraft-version",
+								Value:       "latest",
+								Usage:       "the minecraft version to download",
+								Aliases:     []string{"version", "v"},
+								Destination: &global.MinecraftVersionInput,
 							},
 						},
 					},
