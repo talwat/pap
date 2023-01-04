@@ -12,7 +12,7 @@ import (
 	"github.com/urfave/cli/v2"
 )
 
-const version = "0.9.1"
+const version = "0.10.0-beta"
 
 //nolint:funlen,exhaustruct
 func main() {
@@ -87,7 +87,7 @@ COPYRIGHT:
 				Subcommands: []*cli.Command{
 					{
 						Name:    "paper",
-						Aliases: []string{"p"},
+						Aliases: []string{"pa"},
 						Usage:   "download a paper jarfile",
 						Action:  downloadcmds.DownloadPaperCommand,
 						Flags: []cli.Flag{
@@ -96,7 +96,7 @@ COPYRIGHT:
 								Value:       "latest",
 								Usage:       "the papermc build to download",
 								Aliases:     []string{"build", "b"},
-								Destination: &global.PaperBuildInput,
+								Destination: &global.JarBuildInput,
 							},
 							&cli.BoolFlag{
 								Name:        "paper-experimental",
@@ -104,6 +104,28 @@ COPYRIGHT:
 								Usage:       "takes the latest build regardless. also bypasses warning prompt",
 								Aliases:     []string{"experimental", "e"},
 								Destination: &global.PaperExperimentalBuildInput,
+							},
+							&cli.StringFlag{
+								Name:        "minecraft-version",
+								Value:       "latest",
+								Usage:       "the minecraft version to download",
+								Aliases:     []string{"version", "v"},
+								Destination: &global.MinecraftVersionInput,
+							},
+						},
+					},
+					{
+						Name:    "purpur",
+						Aliases: []string{"pu"},
+						Usage:   "download a purpur jarfile",
+						Action:  downloadcmds.DownloadPurpurCommand,
+						Flags: []cli.Flag{
+							&cli.StringFlag{
+								Name:        "purpur-build",
+								Value:       "latest",
+								Usage:       "the papermc build to download",
+								Aliases:     []string{"build", "b"},
+								Destination: &global.JarBuildInput,
 							},
 							&cli.StringFlag{
 								Name:        "minecraft-version",

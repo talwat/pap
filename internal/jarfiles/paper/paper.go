@@ -11,8 +11,6 @@ import (
 	"github.com/talwat/pap/internal/log"
 )
 
-const latest = "latest"
-
 func formatURL(version string, build Build) string {
 	return fmt.Sprintf(
 		"https://api.papermc.io/v2/projects/paper/versions/%s/builds/%d/downloads/paper-%s-%d.jar",

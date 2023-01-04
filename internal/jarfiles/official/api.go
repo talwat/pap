@@ -6,7 +6,7 @@ import (
 	"github.com/talwat/pap/internal/net"
 )
 
-func findVersion(versions Versions, version string) Version {
+func FindVersion(versions Versions, version string) Version {
 	for i := range versions.Versions {
 		if versions.Versions[i].ID == version {
 			return versions.Versions[i]
@@ -33,7 +33,7 @@ func GetSpecificPackage(version string) Package {
 	versions := GetVersionManifest()
 
 	log.Log("locating version %s...", version)
-	versionInfo := findVersion(versions, version)
+	versionInfo := FindVersion(versions, version)
 
 	log.Log("getting package for %s...", version)
 
@@ -56,7 +56,7 @@ func GetLatestPackage() Package {
 	}
 
 	log.Log("locating version %s...", versionToGet)
-	versionInfo := findVersion(versions, versionToGet)
+	versionInfo := FindVersion(versions, versionToGet)
 
 	log.Log("getting package for %s...", versionToGet)
 

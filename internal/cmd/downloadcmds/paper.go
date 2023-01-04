@@ -19,15 +19,15 @@ func validatePaperOptions() {
 		cmd.ValidateOption(global.MinecraftVersionInput, `^\d\.\d{1,2}(\.\d)?(-pre\d|-SNAPSHOT\d)?$`, "version")
 	}
 
-	if global.PaperBuildInput != latest {
-		cmd.ValidateOption(global.PaperBuildInput, `^\d+$`, "build")
+	if global.JarBuildInput != latest {
+		cmd.ValidateOption(global.JarBuildInput, `^\d+$`, "build")
 	}
 }
 
 func DownloadPaperCommand(cCtx *cli.Context) error {
 	validatePaperOptions()
 
-	url, build := paper.GetURL(global.MinecraftVersionInput, global.PaperBuildInput)
+	url, build := paper.GetURL(global.MinecraftVersionInput, global.JarBuildInput)
 
 	checksum := net.Download(url, "paper.jar", "paper jarfile", sha256.New())
 

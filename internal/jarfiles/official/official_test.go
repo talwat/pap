@@ -32,3 +32,21 @@ func TestGetPackage(t *testing.T) {
 		t.Errorf(`GetPackage("1.12") = "%s"; want "%s"`, pkg.ID, expected)
 	}
 }
+
+func TestLocateVersion(t *testing.T) {
+	t.Parallel()
+
+	versions := official.GetVersionManifest()
+
+	last := versions.Versions[len(versions.Versions)-1].ID
+
+	if last != "rd-132211" {
+		t.Errorf(`GetVersionManifest() = [..., %s]; want [..., %s]`, last, "rd-132211")
+	}
+
+	versionInfo := official.FindVersion(versions, "1.14")
+
+	if versionInfo.ID != "1.14" {
+		t.Errorf(`FindVersion(versions, "1.14") = "%s"; want "%s"`, versionInfo.ID, "1.14")
+	}
+}

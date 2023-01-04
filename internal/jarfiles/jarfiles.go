@@ -3,9 +3,12 @@ package jarfiles
 import (
 	"encoding/hex"
 	"fmt"
+	"strings"
 
 	"github.com/talwat/pap/internal/log"
 )
+
+const Latest = "latest"
 
 func VerifyJarfile(calculated []byte, proper string) {
 	log.Log("verifying downloaded jarfile...")
@@ -20,4 +23,14 @@ func VerifyJarfile(calculated []byte, proper string) {
 			),
 		)
 	}
+}
+
+func APIError(err string, statusCode int) {
+	if err != "" {
+		log.RawError("api returned an error with status code %d: %s", statusCode, FormatErrorMessage(err))
+	}
+}
+
+func FormatErrorMessage(msg string) string {
+	return strings.ToLower(strings.TrimSuffix(msg, "."))
 }

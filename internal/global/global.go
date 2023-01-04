@@ -5,7 +5,7 @@ package global
 var (
 	AssumeDefaultInput          = false
 	MinecraftVersionInput       = "latest"
-	PaperBuildInput             = "latest"
+	JarBuildInput               = "latest"
 	PaperExperimentalBuildInput = false
 	OfficialUseSnapshotInput    = false
 	NoFloodGateInput            = false

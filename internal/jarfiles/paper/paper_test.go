@@ -18,7 +18,7 @@ func TestLatestBuild(t *testing.T) {
 	build = paper.GetLatestBuild("1.13")
 
 	if build.Build != 173 {
-		t.Errorf(`GetLatetstBuild("1.12") = %d; want 173`, build.Build)
+		t.Errorf(`GetLatestBuild("1.12") = %d; want 173`, build.Build)
 	}
 }
 
@@ -39,16 +39,6 @@ func TestGetBuild(t *testing.T) {
 
 	if build.Build != 1160 {
 		t.Errorf(`GetSpecificBuild("1.12", "1160") = %d; want 1160`, build.Build)
-	}
-}
-
-func TestFormatErrorMessage(t *testing.T) {
-	t.Parallel()
-
-	msg := paper.FormatErrorMessage("This is a test message.")
-
-	if msg != "this is a test message" {
-		t.Errorf(`FormatErrorMessage("This is a test message.") = "%s"; want "this is a test message"`, msg)
 	}
 }
 

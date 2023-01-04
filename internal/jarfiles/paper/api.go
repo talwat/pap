@@ -2,9 +2,9 @@ package paper
 
 import (
 	"fmt"
-	"strings"
 
 	"github.com/talwat/pap/internal/global"
+	"github.com/talwat/pap/internal/jarfiles"
 	"github.com/talwat/pap/internal/log"
 	"github.com/talwat/pap/internal/net"
 )
@@ -18,21 +18,15 @@ func GetLatestVersion() string {
 	return versions.Versions[len(versions.Versions)-1]
 }
 
-func FormatErrorMessage(msg string) string {
-	return strings.ToLower(strings.TrimSuffix(msg, "."))
-}
-
 func GetLatestBuild(version string) Build {
 	var builds Builds
 
 	log.Log("getting latest build information")
 
 	url := fmt.Sprintf("https://api.papermc.io/v2/projects/paper/versions/%s/builds", version)
-	status := net.Get(url, &builds)
+	statusCode := net.Get(url, &builds)
 
-	if builds.Error != "" {
-		log.RawError("api returned an error with status code %d: %s", status, FormatErrorMessage(builds.Error))
-	}
+	jarfiles.APIError(builds.Error, statusCode)
 
 	// latest build, can be experimental or stable
 	latest := builds.Builds[len(builds.Builds)-1]
@@ -61,9 +55,7 @@ func GetSpecificBuild(version string, buildID string) Build {
 	url := fmt.Sprintf("https://api.papermc.io/v2/projects/paper/versions/%s/builds/%s", version, buildID)
 	statusCode := net.Get(url, &build)
 
-	if build.Error != "" {
-		log.RawError("api returned an error with status code %d: %s", statusCode, FormatErrorMessage(build.Error))
-	}
+	jarfiles.APIError(build.Error, statusCode)
 
 	return build
 }
@@ -88,7 +80,7 @@ func GetBuild(version string, buildID string) Build {
 }
 
 func GetVersion(versionInput string) string {
-	if versionInput == latest {
+	if versionInput == jarfiles.Latest {
 		return GetLatestVersion()
 	}
 
