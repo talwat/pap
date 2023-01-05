@@ -1,18 +1,16 @@
 package paper
 
+// Note: Uneeded values have been omitted from the original API responses.
+
 type Builds struct {
-	ProjectID   string `json:"project_id"`
-	ProjectName string `json:"name"`
-	Version     string
-	Builds      []Build
-	Error       string
+	Builds []Build
+	Error  string
 }
 
 type Build struct {
 	Build     int
 	Time      string
 	Channel   string
-	Promoted  bool
 	Changes   []Change
 	Downloads Downloads
 	Error     string
@@ -21,12 +19,10 @@ type Build struct {
 type Change struct {
 	Commit  string
 	Summary string
-	Message string
 }
 
 type Downloads struct {
-	Application    Application
-	MojangMappings MojangMappings `json:"mojang-mappings"`
+	Application Application
 }
 
 type Application struct {
@@ -40,8 +36,5 @@ type MojangMappings struct {
 }
 
 type Versions struct {
-	ProjectID     string   `json:"project_id"`
-	ProjectName   string   `json:"project_name"`
-	VersionGroups []string `json:"version_groups"`
-	Versions      []string
+	Versions []string
 }

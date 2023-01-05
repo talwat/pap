@@ -18,7 +18,7 @@ func GetURL(versionInput string) (string, Package) {
 		os.Exit(1)
 	}
 
-	time, err := time.Parse("2006-01-02T15:04:05-07:00", pkg.Time)
+	time, err := time.Parse("2006-01-02T15:04:05-07:00", pkg.ReleaseTime)
 	log.Error(err, "an error occurred while parsing date supplied by mojang api")
 
 	log.Log("using %s (%s)", pkg.ID, time.Format("2006-01-02"))

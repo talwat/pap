@@ -1,5 +1,7 @@
 package official
 
+// Note: Uneeded values have been omitted from the original API responses.
+
 type Versions struct {
 	Latest   Latest
 	Versions []Version
@@ -20,20 +22,17 @@ type Version struct {
 
 // Note: Values have been omitted from this struct from the original mojang API response.
 type Package struct {
-	ID        string
-	Time      string
-	Downloads Downloads
+	ID          string
+	Time        string
+	ReleaseTime string `json:"releaseTime"`
+	Downloads   Downloads
 }
 
 type Downloads struct {
-	Client         Download
-	ClientMappings Download `json:"client_mappings"`
-	Server         Download
-	ServerMappings Download `json:"server_mappings"`
+	Server Download
 }
 
 type Download struct {
 	SHA1 string
-	Size int
 	URL  string
 }
