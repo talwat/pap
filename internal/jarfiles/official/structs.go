@@ -16,7 +16,6 @@ type Version struct {
 	ID          string
 	VersionType string `json:"type"`
 	URL         string
-	Time        string
 	ReleaseTime string `json:"releaseTime"`
 }
 
