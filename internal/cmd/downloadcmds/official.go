@@ -24,5 +24,7 @@ func DownloadOfficialCommand(cCtx *cli.Context) error {
 	log.Log("done downloading")
 	jarfiles.VerifyJarfile(checksum, pkg.Downloads.Server.SHA1)
 
+	jarfiles.UnsupportedMessage()
+
 	return nil
 }

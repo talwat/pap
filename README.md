@@ -59,9 +59,10 @@ A simplistic **pa**permc hel**p**er.
 
 ## Why though?
 
-pap has essentially two purposes:
+pap has a few purposes:
 
 - To simplify some of the common tasks you need to do when creating or managing a server (such as when you download/update the server jar.)
+- To easily and automatically verify the jars you download to avoid bad issues down the line.
 - And to provide an easy CLI to do common tasks like changing server.properties and signing EULA, for usage in scripts.
 
 ## Install
