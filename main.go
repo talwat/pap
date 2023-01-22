@@ -12,7 +12,7 @@ import (
 	"github.com/urfave/cli/v2"
 )
 
-const version = "0.10.1"
+const version = "0.10.2"
 
 //nolint:funlen,exhaustruct
 func main() {
@@ -138,7 +138,7 @@ COPYRIGHT:
 					},
 					{
 						Name:    "official",
-						Aliases: []string{"p"},
+						Aliases: []string{"o"},
 						Usage:   "download an official mojang jarfile",
 						Action:  downloadcmds.DownloadOfficialCommand,
 						Flags: []cli.Flag{

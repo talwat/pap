@@ -11,7 +11,7 @@ import (
 const Latest = "latest"
 
 func UnsupportedMessage() {
-	log.Warn("because you are using a jarfile which is not by papermc, please do not use 'pap run' with --aikars")
+	log.Warn("because you are using a jarfile which is not by papermc, please do not use 'pap script' with --aikars")
 }
 
 func VerifyJarfile(calculated []byte, proper string) {
