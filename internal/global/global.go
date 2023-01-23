@@ -11,6 +11,7 @@ var (
 	NoFloodGateInput            = false
 	MemoryInput                 = "2G"
 	AikarsInput                 = false
+	ScriptUseStdoutInput        = false
 	JarInput                    = "paper.jar"
 	GUIInput                    = false
 )

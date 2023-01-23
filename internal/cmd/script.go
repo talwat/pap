@@ -102,16 +102,24 @@ func generateCommand() string {
 	return fmt.Sprintf("java %s", strings.Join(flags, " "))
 }
 
+func output(name string, text string) {
+	if global.ScriptUseStdoutInput {
+		log.OuptutLog(text)
+	} else {
+		fs.WriteFile(name, text, fs.ExecutePerm)
+		log.Log("generated shell script as %s", name)
+	}
+}
+
 func ScriptCommand(cCtx *cli.Context) error {
 	command := generateCommand()
 
 	if runtime.GOOS == "windows" {
-		fs.WriteFile("run.bat", fmt.Sprintf("@ECHO OFF\n%s\npause", command), fs.ExecutePerm)
+		output("run.bat", fmt.Sprintf("@ECHO OFF\n%s\npause", command))
 	} else {
-		fs.WriteFile("run.sh", fmt.Sprintf("#!/bin/sh\n%s", command), fs.ExecutePerm)
+		output("run.sh", fmt.Sprintf("#!/bin/sh\n%s", command))
 	}
 
-	log.Log("generated shell script")
 	log.Log("go to aikars flags (https://docs.papermc.io/paper/aikars-flags) for more information on optimizing flags and tuning java") //nolint:lll
 
 	return nil

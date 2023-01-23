@@ -78,6 +78,7 @@ jobs:
         run: "cat eula.txt"
 
       - run: "./pap -y script"
+      - run: "./pap -y script --stdout"
       - name: Read Generated Script (windows)
         if: matrix.os == 'windows-latest'
         run: "cat run.bat"
@@ -86,6 +87,7 @@ jobs:
         run: "cat run.sh"
 
       - run: "./pap -y script -mem 2G"
+      - run: "./pap -y script -mem 2G --stdout"
       - name: Read Generated Script (windows)
         if: matrix.os == 'windows-latest'
         run: "cat run.bat"
@@ -94,6 +96,7 @@ jobs:
         run: "cat run.sh"
 
       - run: "./pap -y script -mem 13G"
+      - run: "./pap -y script -mem 13G --stdout"
       - name: Read Generated Script (windows)
         if: matrix.os == 'windows-latest'
         run: "cat run.bat"
@@ -102,6 +105,7 @@ jobs:
         run: "cat run.sh"
 
       - run: "./pap -y script -mem 13G -gui"
+      - run: "./pap -y script -mem 13G -gui --stdout"
       - name: Read Generated Script (windows)
         if: matrix.os == 'windows-latest'
         run: "cat run.bat"
@@ -110,6 +114,7 @@ jobs:
         run: "cat run.sh"
 
       - run: "./pap -y script -mem 2000M"
+      - run: "./pap -y script -mem 2000M --stdout"
       - name: Read Generated Script (windows)
         if: matrix.os == 'windows-latest'
         run: "cat run.bat"
@@ -118,6 +123,7 @@ jobs:
         run: "cat run.sh"
 
       - run: "./pap -y script -mem 2000M -gui"
+      - run: "./pap -y script -mem 2000M -gui --stdout"
       - name: Read Generated Script (windows)
         if: matrix.os == 'windows-latest'
         run: "cat run.bat"
@@ -126,6 +132,7 @@ jobs:
         run: "cat run.sh"
 
       - run: "./pap -y script -jar wow.jar"
+      - run: "./pap -y script -jar wow.jar --stdout"
       - name: Read Generated Script (windows)
         if: matrix.os == 'windows-latest'
         run: "cat run.bat"
@@ -134,6 +141,7 @@ jobs:
         run: "cat run.sh"
 
       - run: "./pap -y script -jar wow.jar -gui"
+      - run: "./pap -y script -jar wow.jar -gui --stdout"
       - name: Read Generated Script (windows)
         if: matrix.os == 'windows-latest'
         run: "cat run.bat"
@@ -142,6 +150,7 @@ jobs:
         run: "cat run.sh"
 
       - run: "./pap -y script -jar -gui wow.jar"
+      - run: "./pap -y script -jar -gui wow.jar --stdout"
       - name: Read Generated Script (windows)
         if: matrix.os == 'windows-latest'
         run: "cat run.bat"
@@ -150,6 +159,7 @@ jobs:
         run: "cat run.sh"
 
       - run: "./pap -y script -jar wow.jar -mem 4G -gui"
+      - run: "./pap -y script -jar wow.jar -mem 4G -gui --stdout"
       - name: Read Generated Script (windows)
         if: matrix.os == 'windows-latest'
         run: "cat run.bat"
@@ -158,6 +168,7 @@ jobs:
         run: "cat run.sh"
 
       - run: "./pap -y script -aikars -mem 2G"
+      - run: "./pap -y script -aikars -mem 2G --stdout"
       - name: Read Generated Script (windows)
         if: matrix.os == 'windows-latest'
         run: "cat run.bat"
@@ -166,6 +177,7 @@ jobs:
         run: "cat run.sh"
 
       - run: "./pap -y script -aikars -mem 13G"
+      - run: "./pap -y script -aikars -mem 13G --stdout"
       - name: Read Generated Script (windows)
         if: matrix.os == 'windows-latest'
         run: "cat run.bat"
@@ -174,6 +186,7 @@ jobs:
         run: "cat run.sh"
 
       - run: "./pap -y script -aikars -mem 13G -gui"
+      - run: "./pap -y script -aikars -mem 13G -gui --stdout"
       - name: Read Generated Script (windows)
         if: matrix.os == 'windows-latest'
         run: "cat run.bat"
@@ -182,6 +195,7 @@ jobs:
         run: "cat run.sh"
 
       - run: "./pap -y script -aikars -mem 2000M"
+      - run: "./pap -y script -aikars -mem 2000M --stdout"
       - name: Read Generated Script (windows)
         if: matrix.os == 'windows-latest'
         run: "cat run.bat"
@@ -190,6 +204,7 @@ jobs:
         run: "cat run.sh"
 
       - run: "./pap -y script -aikars -mem 2000M -gui"
+      - run: "./pap -y script -aikars -mem 2000M -gui --stdout"
       - name: Read Generated Script (windows)
         if: matrix.os == 'windows-latest'
         run: "cat run.bat"
@@ -198,6 +213,7 @@ jobs:
         run: "cat run.sh"
 
       - run: "./pap -y script -aikars -jar wow.jar"
+      - run: "./pap -y script -aikars -jar wow.jar --stdout"
       - name: Read Generated Script (windows)
         if: matrix.os == 'windows-latest'
         run: "cat run.bat"
@@ -206,6 +222,7 @@ jobs:
         run: "cat run.sh"
 
       - run: "./pap -y script -aikars -jar wow.jar -gui"
+      - run: "./pap -y script -aikars -jar wow.jar -gui --stdout"
       - name: Read Generated Script (windows)
         if: matrix.os == 'windows-latest'
         run: "cat run.bat"
@@ -214,6 +231,7 @@ jobs:
         run: "cat run.sh"
 
       - run: "./pap -y script -aikars -jar -gui wow.jar"
+      - run: "./pap -y script -aikars -jar -gui wow.jar --stdout"
       - name: Read Generated Script (windows)
         if: matrix.os == 'windows-latest'
         run: "cat run.bat"
@@ -222,6 +240,7 @@ jobs:
         run: "cat run.sh"
 
       - run: "./pap -y script -aikars -jar wow.jar -mem 4G -gui"
+      - run: "./pap -y script -aikars -jar wow.jar -mem 4G -gui --stdout"
       - name: Read Generated Script (windows)
         if: matrix.os == 'windows-latest'
         run: "cat run.bat"

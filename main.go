@@ -198,6 +198,7 @@ COPYRIGHT:
 						Name:        "jar",
 						Value:       "paper.jar",
 						Usage:       "the name for the server jarfile",
+						Aliases:     []string{"j"},
 						Destination: &global.JarInput,
 					},
 					&cli.BoolFlag{
@@ -205,6 +206,12 @@ COPYRIGHT:
 						Aliases:     []string{"gui"},
 						Usage:       "whether to use the GUI or not",
 						Destination: &global.GUIInput,
+					},
+					&cli.BoolFlag{
+						Name:        "use-stdout",
+						Aliases:     []string{"stdout", "s"},
+						Usage:       "to output the script to stdout instead of creating a run script",
+						Destination: &global.ScriptUseStdoutInput,
 					},
 				},
 			},
