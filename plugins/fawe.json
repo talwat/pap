@@ -1,0 +1,29 @@
+{
+    "name": "Fast Async World Edit",
+    "description": "Blazingly fast world manipulation for builders, large networks and developers.",
+    "authors": [ "Empire92", "MattBDev", "IronApollo", "dordsor21", "NotMyFault" ],
+    "site": "https://www.spigotmc.org/resources/13932/",
+    "downloads": [
+        {
+            "type": "jenkins",
+            "job": "https://ci.athion.net/job/FastAsyncWorldEdit",
+            "filename": "FAWE.jar"
+        }
+    ],
+    "install": {
+        "type": "simple"
+    },
+    "uninstall": {
+        "type": "files",
+        "files": [
+            {
+                "type": "main",
+                "path": "FAWE.jar"
+            },
+            {
+                "type": "config",
+                "path": "FastAsyncWorldEdit"
+            }
+        ]
+    }
+}

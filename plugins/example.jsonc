@@ -1,0 +1,106 @@
+{
+    // The name of the plugin
+    "name": "Example Name",
+
+    // Can also be "latest"
+    "version": "0.1",
+
+    // The description, it should end with a period
+    "description": "Example Description.",
+
+    // SPDX Identifier. Can also be "proprietary" or "unknown"
+    "license": "GPL-3.0",
+
+    // List of authors
+    "authors": [ "Person", "Another person" ], 
+
+    // The site or repository (optional)
+    "site": "https://www.example.com",
+
+    // The dependencies (optional)
+    "dependencies": [
+        "example"
+    ],
+
+    // Optional dependencies (optional)
+    "optionalDependencies": [
+        {
+            // Name of optional dependency
+            "name": "vault",
+
+            // What it adds to your plugin, this should end in a period
+            "purpose": "Because I said so."
+        }
+    ],
+
+    // The files to download
+    "downloads": [
+        {
+            // This can either be "jenkins" or "url"
+            // Jenkins: Get the latest successful build
+            // URL: Get from a predefined URL
+            "type": "jenkins", 
+
+            // The job to get from
+            "job": "https://ci.athion.net/job/Example",
+
+            // The artifact in jenkins to download
+            // This is a regex, however, if the version is not "latest" then {version} will be substitued with the version attribute
+            "artifact": "jarfile-bukkit-.*",
+
+            // The filename to save the plugin as
+            "filename": "plugin.jar"
+        },
+        {
+            // This can either be "jenkins" or "url"
+            // Jenkins: Get the latest successful build
+            // URL: Get from a predefined URL
+            "type": "url", 
+
+            // The url
+            "url": "https://www.example.com/plugin-{version}.jar",
+
+            // The filename to save the plugin as
+            "filename": "plugin.jar"
+        }
+    ],
+
+    // How to install the plugin
+    "install": {
+        // Can either be "simple" (Just downloads a jarfile)
+        // Or "custom" (Custom commands to install the jarfile)
+        "type": "simple",
+
+        // The commands to run if "custom"
+        "commands": {
+            // Commands to run on windows
+            // Windows is weird, so it's best to use "simple" if possible
+            "windows": [
+                "tar -xf my_plugin.zip", // Unzip archive
+                "move my_plugin/*.jar .", // Move plugin files out
+                "rmdir my_plugin" // Delete empty directory
+            ],
+
+            // Commands to run on unix-like operating systems (Linux, macOS, BSD, etc...)
+            "unix": [
+                "unzip my_plugin.zip", // Unzip archive
+                "mv my_plugin/*.jar .", // Move plugin files out
+                "rm -rf my_plugin" // Delete empty directory
+            ]
+        }
+    },
+
+    // How to uninstall the plugin
+    "uninstall": {
+        // Files to delete
+        "files": [
+            {
+                // The type of file being deleted, this can be "main", "config" or "data" (optional)
+                "type": "main",
+
+                // The path, relative to the plugins directory
+                "path": "my_plugin.jar"
+            }
+        ]
+    }
+}
