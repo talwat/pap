@@ -19,27 +19,29 @@ func InfoCommand(cCtx *cli.Context) error {
 
 	plugin := plugins.GetPluginInfo(name)
 
-	log.OutputLog("name: " + plugin.Name)
-	log.OutputLog("version: " + plugin.Version)
+	output := "name: " + plugin.Name + "\n"
+	output += "version: " + plugin.Version + "\n"
 
 	if plugin.Site != "" {
-		log.OutputLog("site: " + plugin.Site)
+		output += "site: " + plugin.Site + "\n"
 	}
 
-	log.OutputLog("description: " + plugin.Description)
-	log.OutputLog("license: " + plugin.License)
-	log.OutputLog("authors: " + join(plugin.Authors))
+	output += "description: " + plugin.Description + "\n"
+	output += "license: " + plugin.License + "\n"
+	output += "authors: " + join(plugin.Authors) + "\n"
 
 	if len(plugin.Dependencies) > 0 {
-		log.OutputLog("dependencies " + join(plugin.Dependencies))
+		output += "dependencies " + join(plugin.Dependencies) + "\n"
 	}
 
 	if len(plugin.OptionalDependencies) > 0 {
-		log.OutputLog("optional dependencies:")
+		output += "optional dependencies:"
 		for _, dependency := range plugin.OptionalDependencies {
-			log.OutputLog(fmt.Sprintf("  %s: %s", dependency.Name, dependency.Purpose))
+			output += fmt.Sprintf("  %s: %s", dependency.Name, dependency.Purpose)
 		}
 	}
+
+	log.OutputLog(strings.TrimSpace(output))
 
 	return nil
 }
