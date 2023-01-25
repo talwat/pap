@@ -1,6 +1,5 @@
 {
-    "id": "vault",
-    "name": "Vault",
+    "name": "vault",
     "version": "1.7.3",
     "license": "LGPL-3.0",
     "description": "Vault is a Chat, Permissions & Economy API to allow plugins to more easily hook into these systems without needing to hook each individual system themselves.",

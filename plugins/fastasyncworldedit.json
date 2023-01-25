@@ -1,6 +1,5 @@
 {
-    "id": "fawe",
-    "name": "Fast Async World Edit",
+    "name": "fastasyncworldedit",
     "version": "latest",
     "license": "GPL-3.0",
     "description": "Blazingly fast world manipulation for builders, large networks and developers.",

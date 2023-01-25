@@ -1,8 +1,6 @@
 package plugins
 
 import (
-	"strings"
-
 	"github.com/talwat/pap/internal/log"
 )
 
@@ -10,7 +8,7 @@ func PluginList(plugins []PluginInfo, dependencies []PluginInfo, operation strin
 	log.Log("%s %d plugin(s):", operation, len(plugins))
 
 	for _, plugin := range plugins {
-		name := strings.ToLower(plugin.Name)
+		name := plugin.Name
 
 		switch {
 		case plugin.Path != "":
@@ -23,7 +21,7 @@ func PluginList(plugins []PluginInfo, dependencies []PluginInfo, operation strin
 	}
 
 	for _, dependency := range dependencies {
-		name := strings.ToLower(dependency.Name)
+		name := dependency.Name
 		log.RawLog("  %s [dependency]\n", name)
 	}
 

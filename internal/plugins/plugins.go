@@ -3,7 +3,6 @@ package plugins
 import (
 	"fmt"
 	"runtime"
-	"strings"
 
 	"github.com/talwat/pap/internal/exec"
 	"github.com/talwat/pap/internal/fs"
@@ -11,7 +10,7 @@ import (
 )
 
 func PluginInstall(plugin PluginInfo) {
-	name := strings.ToLower(plugin.Name)
+	name := plugin.Name
 
 	log.Log("installing %s...", name)
 
@@ -41,12 +40,17 @@ func PluginInstall(plugin PluginInfo) {
 }
 
 func PluginUninstall(plugin PluginInfo) {
-	name := strings.ToLower(plugin.Name)
+	name := plugin.Name
 
 	log.Log("uninstalling %s...", name)
 
 	for _, file := range plugin.Uninstall.Files {
 		path := fmt.Sprintf("plugins/%s", file.Path)
+
+		if file.Type == "" {
+			file.Type = "other"
+		}
+
 		log.Log("deleting %s at %s", file.Type, path)
 		fs.DeleteFile(path)
 	}

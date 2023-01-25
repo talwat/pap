@@ -209,7 +209,9 @@ fish_add_path $HOME/.local/bin
 
 Anyone is welcome to contribute, and if someone can port pap to various package managers, it would be greatly appreciated.
 
-If you want more info about how to contribute, take a look at [CONTRIBUTING.md](CONTRIBUTING.md)
+If you want more info about how to contribute, take a look at [CONTRIBUTING.md](CONTRIBUTING.md).
+
+If you would like to add a plugin to the repository, take a look at [PLUGINS.md](PLUGINS.md).
 
 If you like pap, feel free to [star it on github](https://github.com/talwat/pap), or [vote for it on the AUR](https://aur.archlinux.org/packages/pap).
 

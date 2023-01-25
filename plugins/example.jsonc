@@ -1,9 +1,6 @@
 {
-    // The ID of the plugin, should be exactly the same as the filename
-    "id": "example",
-
-    // The name of the plugin
-    "name": "Example Name",
+    // The name of the plugin, should be exactly the same as the filename
+    "name": "example",
 
     // Can also be "latest"
     "version": "0.1",
@@ -102,7 +99,7 @@
                 "type": "main",
 
                 // The path, relative to the plugins directory
-                "path": "my_plugin.jar"
+                "path": "myPlugin.jar"
             }
         ]
     }

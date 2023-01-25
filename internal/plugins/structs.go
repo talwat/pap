@@ -37,7 +37,6 @@ type Uninstall struct {
 }
 
 type PluginInfo struct {
-	ID                   string
 	Name                 string
 	Version              string
 	Description          string

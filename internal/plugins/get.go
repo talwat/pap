@@ -79,7 +79,7 @@ func GetPluginInfo(name string) PluginInfo {
 		net.Get(
 			fmt.Sprintf(
 				"https://raw.githubusercontent.com/talwat/pap/plugin-manager/plugins/%s.json",
-				strings.ToLower(name),
+				name,
 			), &info)
 	}
 

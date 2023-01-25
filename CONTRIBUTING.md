@@ -34,6 +34,8 @@ and it's better to be transparent about what the program is doing when.
 
 Logs should not end with a `.` and must always begin with `pap:` which is automatically done by the `log` package.
 
+Logs should also be preferably all lowercase.
+
 The only exeption is for `...`.
 
 ## Styling
