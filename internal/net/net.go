@@ -9,6 +9,7 @@ import (
 	"io"
 	"net/http"
 	"os"
+	"strings"
 	"time"
 
 	"github.com/schollz/progressbar/v3"
@@ -53,6 +54,10 @@ func Get(url string, content interface{}) int {
 	resp, err := http.DefaultClient.Do(req)
 	log.Error(err, "an error occurred while sending request")
 
+	if resp.StatusCode == http.StatusNotFound {
+		log.RawError("404: %s not found", url)
+	}
+
 	err = json.NewDecoder(resp.Body).Decode(&content)
 	log.Error(err, "an error occurred while decoding response")
 
@@ -68,6 +73,10 @@ func Download(url string, filename string, fileDesc string, hash hash.Hash) []by
 	resp, err := http.DefaultClient.Do(req)
 	log.Error(err, "an error occurred while sending an http request")
 
+	if resp.StatusCode == http.StatusNotFound {
+		log.RawError("404: %s not found", url)
+	}
+
 	defer resp.Body.Close()
 
 	file, err := os.Create(filename)
@@ -77,12 +86,20 @@ func Download(url string, filename string, fileDesc string, hash hash.Hash) []by
 
 	bar := newLoadingBar(
 		resp.ContentLength,
-		fmt.Sprintf("pap: downloading %s", fileDesc),
+		fmt.Sprintf("pap: downloading %s", strings.ToLower(fileDesc)),
 	)
 
-	_, err = io.Copy(io.MultiWriter(file, bar, hash), resp.Body)
+	if hash == nil {
+		_, err = io.Copy(io.MultiWriter(file, bar), resp.Body)
+	} else {
+		_, err = io.Copy(io.MultiWriter(file, bar, hash), resp.Body)
+	}
 
 	log.Error(err, "An error occurred while writing %s", fileDesc)
+
+	if hash == nil {
+		return nil
+	}
 
 	return hash.Sum(nil)
 }

@@ -1,4 +1,7 @@
 {
+    // The ID of the plugin, should be exactly the same as the filename
+    "id": "example",
+
     // The name of the plugin
     "name": "Example Name",
 

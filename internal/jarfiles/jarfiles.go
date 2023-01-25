@@ -2,7 +2,6 @@ package jarfiles
 
 import (
 	"encoding/hex"
-	"fmt"
 	"strings"
 
 	"github.com/talwat/pap/internal/log"
@@ -21,10 +20,9 @@ func VerifyJarfile(calculated []byte, proper string) {
 		log.Log("checksums match!")
 	} else {
 		log.RawError(
-			fmt.Sprintf("checksums (calculated: %s, proper: %s) don't match!",
-				checksum,
-				proper,
-			),
+			"checksums (calculated: %s, proper: %s) don't match!",
+			checksum,
+			proper,
 		)
 	}
 }

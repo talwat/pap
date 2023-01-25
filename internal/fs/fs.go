@@ -18,7 +18,19 @@ func WriteFile(name string, text string, perms fs.FileMode) {
 	log.Error(err, "an error occurred while writing %s", name)
 }
 
+func ReadFile(name string) []byte {
+	raw, err := os.ReadFile(name)
+	log.Error(err, "an error occurred while reading %s", name)
+
+	return raw
+}
+
 func MakeDirectory(path string) {
 	err := os.MkdirAll(path, os.ModePerm)
 	log.Error(err, "an error occurred while creating %s", path)
+}
+
+func DeleteFile(path string) {
+	err := os.RemoveAll(path)
+	log.Error(err, "an error occurred while deleting %s", path)
 }
