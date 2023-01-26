@@ -287,5 +287,5 @@ jobs:
       
       - name: "Test geyser command"
         run: |
-          "./pap -y geyser"
-          "./pap -y geyser --no-floodgate"
+          ./pap -y geyser
+          ./pap -y geyser --no-floodgate
