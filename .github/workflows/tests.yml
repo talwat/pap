@@ -46,7 +46,7 @@ jobs:
 
       - name: "Test plugin manager"
         working-directory: ./app
-        run: "./pap -y plugin install townyadvanced fawe"
+        run: "../pap -y plugin install townyadvanced fawe"
 
       - name: "Test paper downloading"
         run: |
