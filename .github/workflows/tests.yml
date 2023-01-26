@@ -41,11 +41,17 @@ jobs:
 
       - uses: actions/checkout@v3
 
-      - run: "go build ."
-      - run: "./pap -y help"
+      - name: "Build pap"
+        run: "go build ."
+
+      - name: "Run help"
+        run: "./pap -y help"
+
+      - name: "Create test directory"
+        run: "mkdir test"
 
       - name: "Test plugin manager"
-        working-directory: ./app
+        working-directory: ./test
         run: "../pap -y plugin install townyadvanced fawe"
 
       - name: "Test paper downloading"
