@@ -1,0 +1,48 @@
+{
+    "name": "townyadvanced",
+    "version": "0.98.6.0",
+    "license": "CC-BY-NC-ND-3.0",
+    "description": "Resident-Town-Nation hierarchy combined with a grid based protection system, many features and an expansive API.",
+    "authors": [ "LlmDl", "Warrior", "Shade", "ElgarL" ],
+    "site": "https://townyadvanced.github.io/",
+    "downloads": [
+        {
+            "type": "url",
+            "url": "https://github.com/TownyAdvanced/Towny/releases/download/{version}/Towny.Advanced.{version}.zip",
+            "filename": "Towny.Advanced.zip"
+        }
+    ],
+    "install": {
+        "type": "complex",
+        "commands": {
+            "windows": [
+                "mv 'Towny Advanced {version}'/* .",
+                "Remove-Item -Recurse -Force 'Towny Advanced {version}'",
+                "Rename-Item -Path Towny-{version}.jar -NewName Towny.jar",
+                "Rename-Item -Path TownyChat*.jar -NewName TownyChat.jar"
+            ],
+            "unix": [
+                "mv 'Towny Advanced {version}'/* .",
+                "rm -rf 'Towny Advanced {version}'",
+                "mv Towny-{version}.jar Towny.jar",
+                "mv TownyChat*.jar TownyChat.jar"
+            ]
+        }
+    },
+    "uninstall": {
+        "files": [
+            {
+                "type": "main",
+                "path": "Towny.jar"
+            },
+            {
+                "type": "main",
+                "path": "TownyChat.jar"
+            },
+            {
+                "type": "config",
+                "path": "Towny"
+            }
+        ]
+    }
+}

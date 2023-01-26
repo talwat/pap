@@ -230,6 +230,8 @@ If you need to unzip a file or run some commands, you can use `complex` for the 
 
 This allows you to define commands to run on windows and unix like operating systems.
 
+On unix, `sh` is used for the shell. On windows, it's `powershell`.
+
 For example:
 
 ```json

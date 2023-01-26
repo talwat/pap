@@ -45,18 +45,19 @@ func PluginDownload(plugin PluginInfo) {
 			url = GetJenkinsURL(download)
 		}
 
-		toReplace := map[string]string{
-			"version": plugin.Version,
-			"name":    plugin.Name,
+		url = SubstituteProps(plugin, url)
+
+		path := fmt.Sprintf("plugins/%s", download.Filename)
+
+		net.Download(url, path, plugin.Name, nil)
+
+		if strings.HasSuffix(path, ".zip") {
+			log.Log("unzipping %s...", path)
+			fs.Unzip(path, "plugins/")
+
+			log.Log("cleaning up...")
+			fs.DeletePath(path)
 		}
-
-		log.Log("parsing download URL...")
-
-		for key, value := range toReplace {
-			url = strings.ReplaceAll(url, fmt.Sprintf("{%s}", key), value)
-		}
-
-		net.Download(url, fmt.Sprintf("plugins/%s", download.Filename), plugin.Name, nil)
 	}
 }
 
@@ -81,6 +82,12 @@ func GetPluginInfo(name string) PluginInfo {
 				"https://raw.githubusercontent.com/talwat/pap/plugin-manager/plugins/%s.json",
 				name,
 			), &info)
+	}
+
+	if info.Alias != "" {
+		log.Warn("%s is an alias to %s", name, info.Alias)
+
+		return GetPluginInfo(info.Alias)
 	}
 
 	return info

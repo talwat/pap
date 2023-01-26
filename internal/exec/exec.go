@@ -3,6 +3,7 @@ package exec
 import (
 	"bufio"
 	"os/exec"
+	"runtime"
 	"strings"
 
 	"github.com/talwat/pap/internal/log"
@@ -11,10 +12,13 @@ import (
 func Run(workDir string, cmd string) {
 	log.NoNewline("running command %s", cmd)
 
-	args := strings.Split(cmd, " ")
+	var cmdObj *exec.Cmd
 
-	//nolint:gosec // gosec is complaining because of the custom args, but those custom args are necessary.
-	cmdObj := exec.Command(args[0], args[1:]...)
+	if runtime.GOOS == "windows" {
+		cmdObj = exec.Command("powershell", "-command", cmd)
+	} else {
+		cmdObj = exec.Command("sh", "-c", cmd)
+	}
 
 	cmdObj.Dir = workDir
 

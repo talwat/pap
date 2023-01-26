@@ -3,11 +3,28 @@ package plugins
 import (
 	"fmt"
 	"runtime"
+	"strings"
 
 	"github.com/talwat/pap/internal/exec"
 	"github.com/talwat/pap/internal/fs"
 	"github.com/talwat/pap/internal/log"
 )
+
+// Substitutes parts of a string like {version} with their proper counterpart.
+func SubstituteProps(plugin PluginInfo, str string) string {
+	toReplace := map[string]string{
+		"version": plugin.Version,
+		"name":    plugin.Name,
+	}
+
+	final := str
+
+	for key, value := range toReplace {
+		final = strings.ReplaceAll(final, fmt.Sprintf("{%s}", key), value)
+	}
+
+	return final
+}
 
 func PluginInstall(plugin PluginInfo) {
 	name := plugin.Name
@@ -32,7 +49,7 @@ func PluginInstall(plugin PluginInfo) {
 	}
 
 	for _, cmd := range cmds {
-		exec.Run("plugins", cmd)
+		exec.Run("plugins", SubstituteProps(plugin, cmd))
 		log.RawLog("\n")
 	}
 
@@ -45,14 +62,14 @@ func PluginUninstall(plugin PluginInfo) {
 	log.Log("uninstalling %s...", name)
 
 	for _, file := range plugin.Uninstall.Files {
-		path := fmt.Sprintf("plugins/%s", file.Path)
+		path := fmt.Sprintf("plugins/%s", SubstituteProps(plugin, file.Path))
 
 		if file.Type == "" {
 			file.Type = "other"
 		}
 
 		log.Log("deleting %s at %s", file.Type, path)
-		fs.DeleteFile(path)
+		fs.DeletePath(path)
 	}
 
 	log.Log("successfully uninstalled %s", name)

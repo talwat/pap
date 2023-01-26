@@ -30,7 +30,7 @@ func MakeDirectory(path string) {
 	log.Error(err, "an error occurred while creating %s", path)
 }
 
-func DeleteFile(path string) {
+func DeletePath(path string) {
 	err := os.RemoveAll(path)
 	log.Error(err, "an error occurred while deleting %s", path)
 }

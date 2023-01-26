@@ -74,18 +74,15 @@
         // The commands to run if "custom"
         "commands": {
             // Commands to run on windows
-            // Windows is weird, so it's best to use "simple" if possible
+            // Uses powershell
             "windows": [
-                "tar -xf my_plugin.zip", // Unzip archive
-                "move my_plugin/*.jar .", // Move plugin files out
-                "rmdir my_plugin" // Delete empty directory
+                "Rename-Item -Path plugin.jar -NewName something.jar"
             ],
 
             // Commands to run on unix-like operating systems (Linux, macOS, BSD, etc...)
+            // Uses sh
             "unix": [
-                "unzip my_plugin.zip", // Unzip archive
-                "mv my_plugin/*.jar .", // Move plugin files out
-                "rm -rf my_plugin" // Delete empty directory
+                "mv plugin.jar something.jar"
             ]
         }
     },
@@ -102,5 +99,9 @@
                 "path": "myPlugin.jar"
             }
         ]
-    }
+    },
+
+    // Defines an alias (optional)
+    // This overrides everything else, and just redirects to another package. This can also be a URL.
+    "alias": "exampleimproved"
 }

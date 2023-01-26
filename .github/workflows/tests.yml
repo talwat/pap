@@ -3,9 +3,8 @@ on:
   push:
     tags:
       - v*
-    branches:
-      - main
   pull_request:
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -44,6 +43,9 @@ jobs:
 
       - run: "go build ."
       - run: "./pap -y help"
+
+      - run: "./pap -y plugin install townyadvanced fawe"
+
       - run: "./pap -y download paper --experimental"
       - run: "./pap -y download paper"
       - run: "./pap -y download paper --version 1.19.2"

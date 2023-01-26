@@ -50,6 +50,7 @@ type PluginInfo struct {
 	Uninstall            Uninstall
 	Path                 string
 	URL                  string
+	Alias                string
 }
 
 type JenkinsArtifacts struct {
