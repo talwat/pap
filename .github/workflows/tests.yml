@@ -34,6 +34,10 @@ jobs:
         os: [macos-latest, windows-latest, ubuntu-latest]
 
     runs-on: ${{ matrix.os }}
+    defaults:
+      run:
+        working-directory: test
+
     steps:
       - uses: actions/setup-go@v3
         with:
@@ -42,17 +46,13 @@ jobs:
       - uses: actions/checkout@v3
 
       - name: "Build pap"
-        run: "go build ."
+        run: "go build .."
 
       - name: "Run help"
         run: "./pap -y help"
 
-      - name: "Create test directory"
-        run: "mkdir test"
-
       - name: "Test plugin manager"
-        working-directory: ./test
-        run: "../pap -y plugin install townyadvanced fawe"
+        run: "./pap -y plugin install townyadvanced fawe"
 
       - name: "Test paper downloading"
         run: |
