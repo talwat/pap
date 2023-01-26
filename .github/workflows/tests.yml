@@ -53,6 +53,7 @@ jobs:
 
       - name: "Test paper downloading"
         run: |
+          "ls"
           "./pap -y download paper --experimental"
           "./pap -y download paper"
           "./pap -y download paper --version 1.19.2"
