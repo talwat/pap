@@ -53,38 +53,38 @@ jobs:
 
       - name: "Test paper downloading"
         run: |
-          "./pap -y download paper --experimental"
-          "./pap -y download paper"
-          "./pap -y download paper --version 1.19.2"
-          "./pap -y download paper --version 1.19.2 --build 300"
-          "./pap -y download paper --version 1.12.2 --build 1230"
-          "./pap -y download paper --version 1.12.2"
-          "./pap -y download paper --version latest --build latest --experimental"
-          "./pap -y download paper --version 1.19.3 --build 319 --experimental"
-          "./pap -y download paper --version 1.19.3 --build 319"
-          "./pap -y download paper --version 1.12.2 --build latest"
+          ./pap -y download paper --experimental
+          ./pap -y download paper
+          ./pap -y download paper --version 1.19.2
+          ./pap -y download paper --version 1.19.2 --build 300
+          ./pap -y download paper --version 1.12.2 --build 1230
+          ./pap -y download paper --version 1.12.2
+          ./pap -y download paper --version latest --build latest --experimental
+          ./pap -y download paper --version 1.19.3 --build 319 --experimental
+          ./pap -y download paper --version 1.19.3 --build 319
+          ./pap -y download paper --version 1.12.2 --build latest
 
       - name: "Test purpur downloading"
         run: |
-          "./pap -y download purpur"
-          "./pap -y download purpur --version 1.19.2"
-          "./pap -y download purpur --version 1.14.2 --build 124"
-          "./pap -y download purpur --version 1.14.2"
-          "./pap -y download purpur --version latest"
-          "./pap -y download purpur --version 1.19.3 --build 1881"
-          "./pap -y download purpur --version 1.14.2 --build latest"
+          ./pap -y download purpur
+          ./pap -y download purpur --version 1.19.2
+          ./pap -y download purpur --version 1.14.2 --build 124
+          ./pap -y download purpur --version 1.14.2
+          ./pap -y download purpur --version latest
+          ./pap -y download purpur --version 1.19.3 --build 1881
+          ./pap -y download purpur --version 1.14.2 --build latest
 
       - name: "Test official downloading"
         run: |
-           "./pap -y download official --snapshot"
-           "./pap -y download official"
-           "./pap -y download official --version 1.19.2"
-           "./pap -y download official --version 1.12.2"
-           "./pap -y download official --version latest --snapshot"
-           "./pap -y download official --version 1.19.3 --snapshot"
-           "./pap -y download official --version 18w07c"
-           "./pap -y download official --version 1.2.5"
-           "./pap -y download official --version 1.13-pre6"
+           ./pap -y download official --snapshot
+           ./pap -y download official
+           ./pap -y download official --version 1.19.2
+           ./pap -y download official --version 1.12.2
+           ./pap -y download official --version latest --snapshot
+           ./pap -y download official --version 1.19.3 --snapshot
+           ./pap -y download official --version 18w07c
+           ./pap -y download official --version 1.2.5
+           ./pap -y download official --version 1.13-pre6
 
       - run: "./pap -y sign"
       - name: Read Signed EULA
