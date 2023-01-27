@@ -12,20 +12,18 @@
             "filename": "Towny.Advanced.zip"
         }
     ],
+    "dependencies": [ "townychat" ],
     "install": {
         "type": "complex",
         "commands": {
             "windows": [
-                "Move-Item -Force -Path 'Towny Advanced {version}/*.jar' -Destination ./",
+                "Move-Item -Force -Path 'Towny Advanced {version}/Towny-{version}.jar' -Destination ./",
                 "Remove-Item -Recurse -Force 'Towny Advanced {version}'",
-                "Rename-Item -Force -Path Towny-{version}.jar -NewName Towny.jar",
-                "Rename-Item -Force -Path 'TownyChat*.jar' -NewName TownyChat.jar"
+                "Rename-Item -Force -Path Towny-{version}.jar -NewName Towny.jar"
             ],
             "unix": [
-                "mv 'Towny Advanced {version}'/* .",
-                "rm -rf 'Towny Advanced {version}'",
-                "mv Towny-{version}.jar Towny.jar",
-                "mv TownyChat*.jar TownyChat.jar"
+                "mv 'Towny Advanced {version}'/Towny-{version}.jar Towny.jar",
+                "rm -rf 'Towny Advanced {version}'"
             ]
         }
     },
@@ -34,10 +32,6 @@
             {
                 "type": "main",
                 "path": "Towny.jar"
-            },
-            {
-                "type": "main",
-                "path": "TownyChat.jar"
             },
             {
                 "type": "config",

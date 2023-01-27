@@ -1,8 +1,8 @@
 package plugins
 
-func dependencyExists(dep PluginInfo, deps []PluginInfo) bool {
-	for _, depToCheck := range deps {
-		if depToCheck.Name == dep.Name {
+func pluginExists(plugin PluginInfo, plugins []PluginInfo) bool {
+	for _, pluginToCheck := range plugins {
+		if pluginToCheck.Name == plugin.Name {
 			return true
 		}
 	}
@@ -11,24 +11,26 @@ func dependencyExists(dep PluginInfo, deps []PluginInfo) bool {
 }
 
 // Recursive function.
-func getDependencyLevel(deps []string, dest *[]PluginInfo) {
+func getDependencyLevel(deps []string, dest *[]PluginInfo, plugins []PluginInfo) {
 	depsInfo := GetManyPluginInfo(deps)
 
 	for _, dep := range depsInfo {
-		if !dependencyExists(dep, *dest) {
-			*dest = append(*dest, dep)
+		if pluginExists(dep, append(*dest, plugins...)) {
+			return
 		}
 
+		*dest = append(*dest, dep)
+
 		if len(dep.Dependencies) > 0 {
-			getDependencyLevel(dep.Dependencies, dest)
+			getDependencyLevel(dep.Dependencies, dest, plugins)
 		}
 	}
 }
 
-func GetDependencies(plugin PluginInfo) []PluginInfo {
+func GetDependencies(plugin PluginInfo, plugins []PluginInfo) []PluginInfo {
 	finalDeps := []PluginInfo{}
 
-	getDependencyLevel(plugin.Dependencies, &finalDeps)
+	getDependencyLevel(plugin.Dependencies, &finalDeps, plugins)
 
 	return finalDeps
 }

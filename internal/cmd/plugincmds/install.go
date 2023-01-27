@@ -17,7 +17,7 @@ func InstallCommand(cCtx *cli.Context) error {
 	log.Log("resolving dependencies...")
 
 	for _, plugin := range pluginsToInstall {
-		dependencies = append(dependencies, plugins.GetDependencies(plugin)...)
+		dependencies = append(dependencies, plugins.GetDependencies(plugin, pluginsToInstall)...)
 	}
 
 	plugins.PluginList(pluginsToInstall, dependencies, "installing")
