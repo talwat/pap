@@ -1,0 +1,30 @@
+{
+    "name": "dynmap",
+    "version": "3.5-beta-1",
+    "license": "Apache-2.0",
+    "description": "Dynamic web maps for Minecraft servers.",
+    "authors": [ "mikeprimm" ],
+    "site": "https://github.com/webbukkit/dynmap",
+    "downloads": [
+        {
+            "type": "url",
+            "url": "https://dev.bukkit.org/projects/dynmap/files/4167109/download",
+            "filename": "Dynmap.jar"
+        }
+    ],
+    "install": {
+        "type": "simple"
+    },
+    "uninstall": {
+        "files": [
+            {
+                "type": "main",
+                "path": "Dynmap.jar"
+            },
+            {
+                "type": "config",
+                "path": "Dynmap"
+            }
+        ]
+    }
+}
