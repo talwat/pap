@@ -38,6 +38,7 @@ func PluginInstall(plugin PluginInfo) {
 
 	if plugin.Install.Type == "simple" {
 		log.Log("successfully installed %s (simple)", name)
+
 		return
 	}
 

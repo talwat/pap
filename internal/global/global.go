@@ -3,15 +3,25 @@ package global
 
 //nolint:gochecknoglobals
 var (
-	AssumeDefaultInput          = false
+	// Global.
+	AssumeDefaultInput = false
+
+	// Downloading Server Jarfiles.
 	MinecraftVersionInput       = "latest"
 	JarBuildInput               = "latest"
 	PaperExperimentalBuildInput = false
 	OfficialUseSnapshotInput    = false
-	NoFloodGateInput            = false
-	MemoryInput                 = "2G"
-	AikarsInput                 = false
-	ScriptUseStdoutInput        = false
-	JarInput                    = "paper.jar"
-	GUIInput                    = false
+
+	// Geyser.
+	NoFloodGateInput = false
+
+	// Script.
+	MemoryInput          = "2G"
+	AikarsInput          = false
+	ScriptUseStdoutInput = false
+	JarInput             = "paper.jar"
+	GUIInput             = false
+
+	// Plugin.
+	NoDepsInput = false
 )

@@ -1,6 +1,7 @@
 package plugincmds
 
 import (
+	"github.com/talwat/pap/internal/global"
 	"github.com/talwat/pap/internal/log"
 	"github.com/talwat/pap/internal/plugins"
 	"github.com/urfave/cli/v2"
@@ -14,10 +15,12 @@ func InstallCommand(cCtx *cli.Context) error {
 	pluginsToInstall := plugins.GetManyPluginInfo(args.Slice())
 	dependencies := []plugins.PluginInfo{}
 
-	log.Log("resolving dependencies...")
+	if !global.NoDepsInput {
+		log.Log("resolving dependencies...")
 
-	for _, plugin := range pluginsToInstall {
-		dependencies = append(dependencies, plugins.GetDependencies(plugin, pluginsToInstall)...)
+		for _, plugin := range pluginsToInstall {
+			dependencies = append(dependencies, plugins.GetDependencies(plugin, pluginsToInstall)...)
+		}
 	}
 
 	plugins.PluginList(pluginsToInstall, dependencies, "installing")

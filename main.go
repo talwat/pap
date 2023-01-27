@@ -186,6 +186,15 @@ COPYRIGHT:
 						Aliases: []string{"i"},
 						Usage:   "installs a plugin",
 						Action:  plugincmds.InstallCommand,
+						Flags: []cli.Flag{
+							&cli.BoolFlag{
+								Name:        "no-deps",
+								Value:       false,
+								Usage:       "whether to install and calculate dependencies",
+								Aliases:     []string{"no-dependencies"},
+								Destination: &global.NoDepsInput,
+							},
+						},
 					},
 					{
 						Name:    "uninstall",
