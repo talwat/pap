@@ -39,6 +39,8 @@ func PluginDownload(plugin PluginInfo) {
 	for _, download := range plugin.Downloads {
 		var url string
 
+		log.Log("getting download url...")
+
 		if download.Type == "url" {
 			url = download.URL
 		} else if download.Type == "jenkins" {

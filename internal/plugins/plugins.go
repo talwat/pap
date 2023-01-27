@@ -31,10 +31,13 @@ func PluginInstall(plugin PluginInfo) {
 
 	log.Log("installing %s...", name)
 
+	log.Log("making plugins directory...")
 	fs.MakeDirectory("plugins")
+
 	PluginDownload(plugin)
 
 	if plugin.Install.Type == "simple" {
+		log.Log("successfully installed %s (simple)", name)
 		return
 	}
 

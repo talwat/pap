@@ -4,7 +4,7 @@ import (
 	"github.com/talwat/pap/internal/log"
 )
 
-func PluginList(plugins []PluginInfo, dependencies []PluginInfo, operation string) {
+func PluginList(plugins []PluginInfo, deps []PluginInfo, operation string) {
 	log.Log("%s %d plugin(s):", operation, len(plugins))
 
 	for _, plugin := range plugins {
@@ -12,17 +12,17 @@ func PluginList(plugins []PluginInfo, dependencies []PluginInfo, operation strin
 
 		switch {
 		case plugin.Path != "":
-			log.RawLog("  %s (%s)\n", name, plugin.Path)
+			log.RawLog("  %s %s (%s)\n", name, plugin.Version, plugin.Path)
 		case plugin.URL != "":
-			log.RawLog("  %s (%s)\n", name, plugin.URL)
+			log.RawLog("  %s %s (%s)\n", name, plugin.Version, plugin.URL)
 		default:
-			log.RawLog("  %s\n", name)
+			log.RawLog("  %s %s\n", name, plugin.Version)
 		}
 	}
 
-	for _, dependency := range dependencies {
-		name := dependency.Name
-		log.RawLog("  %s [dependency]\n", name)
+	for _, dep := range deps {
+		name := dep.Name
+		log.RawLog("  %s %s [dependency]\n", name, dep.Version)
 	}
 
 	log.Continue("would you like to continue?")
