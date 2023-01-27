@@ -16,7 +16,7 @@
         "type": "complex",
         "commands": {
             "windows": [
-                "Move-Item -Force -Path 'Towny Advanced {version}'/*.jar -Destination ./",
+                "Move-Item -Force -Filter 'Towny Advanced {version}'/*.jar -Destination ./",
                 "Remove-Item -Recurse -Force 'Towny Advanced {version}'",
                 "Rename-Item -Path Towny-{version}.jar -NewName Towny.jar",
                 "Rename-Item -Path TownyChat*.jar -NewName TownyChat.jar"
