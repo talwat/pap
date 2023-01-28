@@ -6,7 +6,7 @@
 [![License](https://img.shields.io/github/license/talwat/pap)](https://github.com/talwat/pap/blob/main/LICENSE)
 ![Go version](https://img.shields.io/github/go-mod/go-version/talwat/pap)
 
-A simplistic **pa**permc hel**p**er.
+A swiss army knife for minecraft server development.
 
 ## Table of contents
 
@@ -17,6 +17,7 @@ A simplistic **pa**permc hel**p**er.
     - [Sign the EULA](#sign-the-eula)
     - [Generate a script to run the jarfile](#generate-a-script-to-run-the-jarfile)
     - [Turn off pvp](#turn-off-pvp)
+    - [Install worldedit](#install-worldedit)
   - [Why though?](#why-though)
   - [Install](#install)
     - [Build Dependencies](#build-dependencies)
@@ -56,6 +57,10 @@ A simplistic **pa**permc hel**p**er.
 ### Turn off pvp
 
 `pap properties set pvp false`
+
+### Install worldedit
+
+`pap plugin install worldedit`
 
 ## Why though?
 

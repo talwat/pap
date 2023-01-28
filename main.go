@@ -19,7 +19,7 @@ const version = "0.10.2"
 func main() {
 	app := &cli.App{
 		Name:    "pap",
-		Usage:   "a helper for papermc",
+		Usage:   "a swiss army knife for minecraft server development",
 		Version: version,
 		Authors: []*cli.Author{
 			{
