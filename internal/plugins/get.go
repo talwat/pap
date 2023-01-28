@@ -26,7 +26,7 @@ func GetJenkinsURL(download Download) string {
 		if matched {
 			log.Log("using %s", artifact.FileName)
 
-			return fmt.Sprintf("%s/lastSuccessfulBuild/artifact/artifacts/%s", download.Job, artifact.FileName)
+			return fmt.Sprintf("%s/lastSuccessfulBuild/artifact/%s", download.Job, artifact.RelativePath)
 		}
 	}
 

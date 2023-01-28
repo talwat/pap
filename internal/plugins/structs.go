@@ -48,15 +48,21 @@ type PluginInfo struct {
 	OptionalDependencies []OptionalDependency
 	Install              Install
 	Uninstall            Uninstall
-	Path                 string
-	URL                  string
-	Alias                string
+	Note                 []string
+
+	// Defined in pap, not in the json files themselves
+
+	Path  string
+	URL   string
+	Alias string
 }
 
-type JenkinsArtifacts struct {
-	FileName    string
-	DisplayName string
+type JenkinsArtifact struct {
+	FileName     string
+	DisplayName  string
+	RelativePath string
 }
+
 type JenkinsBuild struct {
-	Artifacts []JenkinsArtifacts
+	Artifacts []JenkinsArtifact
 }

@@ -22,6 +22,7 @@
         - [Full example](#full-example)
       - [`install`](#install)
       - [`uninstall`](#uninstall)
+      - [`note`](#note)
     - [Testing your plugin](#testing-your-plugin)
 
 ## A plugin is out of date
@@ -278,6 +279,25 @@ For example:
       }
     ]
   }
+}
+```
+
+#### `note`
+
+The `note` attribute will be displayed at the end of the command, and is useful for displaying key information.
+
+For example, if your plugin needs a specific property to be turned off/on, mention it here.
+
+It is an array, and each item will be displayed on a seperate line.
+
+Example:
+
+```json
+{
+  "note": [
+    "you need to disable pvp for this plugin to work correctly",
+    "or else bad things will happen"
+  ]
 }
 ```
 

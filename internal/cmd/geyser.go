@@ -12,6 +12,7 @@ import (
 )
 
 func GeyserCommand(cCtx *cli.Context) error {
+	log.Warn("this command is deprecated, please install geyser & floodgate with pap plugin install geyser")
 	log.Warn("this downloads the spigot version of geyser, and thus requires spigot or paper")
 	fs.MakeDirectory("plugins")
 
@@ -40,7 +41,7 @@ func GeyserCommand(cCtx *cli.Context) error {
 		"y",
 		"would you like to disable it?",
 	) {
-		properties.EditProperty("enforce-secure-profile", "false")
+		properties.SetProperty("enforce-secure-profile", "false")
 	}
 
 	return nil

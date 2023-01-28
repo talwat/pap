@@ -11,11 +11,11 @@ func UninstallCommand(cCtx *cli.Context) error {
 
 	info := plugins.GetManyPluginInfo(args.Slice())
 
-	log.Log("fetching packages...")
+	log.Log("fetching plugins...")
 	plugins.PluginList(info, nil, "uninstalling")
 	plugins.PluginDoMany(info, plugins.PluginUninstall)
 
-	log.Log("successfully uninstalled all packages")
+	log.Success("successfully uninstalled all plugins")
 
 	return nil
 }

@@ -50,7 +50,7 @@ func PluginInstall(plugin PluginInfo) {
 	PluginDownload(plugin)
 
 	if plugin.Install.Type == "simple" {
-		log.Log("successfully installed %s (simple)", name)
+		log.Success("successfully installed %s (simple)", name)
 
 		return
 	}
@@ -70,7 +70,7 @@ func PluginInstall(plugin PluginInfo) {
 		log.RawLog("\n")
 	}
 
-	log.Log("successfully installed %s", name)
+	log.Success("successfully installed %s", name)
 }
 
 func PluginUninstall(plugin PluginInfo) {
@@ -89,7 +89,7 @@ func PluginUninstall(plugin PluginInfo) {
 		fs.DeletePath(path)
 	}
 
-	log.Log("successfully uninstalled %s", name)
+	log.Success("successfully uninstalled %s", name)
 }
 
 func PluginDoMany(plugins []PluginInfo, operation func(plugin PluginInfo)) {

@@ -31,7 +31,7 @@ func DownloadPaperCommand(cCtx *cli.Context) error {
 
 	checksum := net.Download(url, "paper.jar", "paper jarfile", sha256.New())
 
-	log.Log("done downloading")
+	log.Success("done downloading")
 	jarfiles.VerifyJarfile(checksum, build.Downloads.Application.Sha256)
 
 	return nil

@@ -1,0 +1,42 @@
+{
+    "name": "geyser",
+    "version": "latest",
+    "license": "MIT",
+    "description": "A bridge/proxy allowing you to connect to Minecraft: Java Edition servers with Minecraft: Bedrock Edition.",
+    "authors": [ "GeyserMC" ],
+    "site": "https://geysermc.org/",
+    "optionalDependencies": [
+        {
+            "name": "floodgate",
+            "purpose": "allow bedrock players to connect without a java edition account"
+        }
+    ],
+    "downloads": [
+        {
+            "type": "jenkins",
+            "job": "https://ci.opencollab.dev/job/GeyserMC/job/Geyser/job/master/",
+            "artifact": "Geyser-Spigot.jar",
+            "filename": "Geyser.jar"
+        }
+    ],
+    "install": {
+        "type": "simple"
+    },
+    "uninstall": {
+        "files": [
+            {
+                "type": "main",
+                "path": "Geyser.jar"
+            },
+            {
+                "type": "config",
+                "path": "Geyser-Spigot"
+            }
+        ]
+    },
+    "note": [
+        "floodgate and geyser do not support key signing yet for chat messages",
+        "this feature was introduced in 1.19.1, so you do not have to disable it if your version is below that",
+        "to disable it run: pap properties set enforce-secure-profile false"
+    ]
+}

@@ -53,6 +53,10 @@ func Warn(msg string, params ...interface{}) {
 	Log("%swarning%s: %s", color.Yellow, color.Reset, fmt.Sprintf(msg, params...))
 }
 
+func Success(msg string, params ...interface{}) {
+	Log("%ssuccess%s: %s", color.Green, color.Reset, fmt.Sprintf(msg, params...))
+}
+
 func RawScan() string {
 	reader := bufio.NewReader(os.Stdin)
 	text, err := reader.ReadString('\n')

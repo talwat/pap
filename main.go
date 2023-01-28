@@ -283,7 +283,7 @@ COPYRIGHT:
 						Name:    "set",
 						Aliases: []string{"s"},
 						Usage:   "set property",
-						Action:  propcmds.EditPropertyCommand,
+						Action:  propcmds.SetPropertyCommand,
 					},
 					{
 						Name:    "get",
