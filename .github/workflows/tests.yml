@@ -49,7 +49,10 @@ jobs:
         run: "./pap -y help"
 
       - name: "Test plugin manager"
-        run: "./pap -y plugin install townyadvanced fawe"
+        run: |
+          ./pap -y plugin install townyadvanced fawe
+          ./pap -y plugin uninstall townyadvanced fawe
+          ./pap -y plugin install townyadvanced townychat
 
       - name: "Test paper downloading"
         run: |
