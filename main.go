@@ -19,7 +19,7 @@ const version = "0.11-plugin-manager-alpha"
 func main() {
 	app := &cli.App{
 		Name:    "pap",
-		Usage:   "a swiss army knife for minecraft server development",
+		Usage:   "a swiss army knife for minecraft servers",
 		Version: version,
 		Authors: []*cli.Author{
 			{

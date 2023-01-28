@@ -6,7 +6,7 @@
 [![License](https://img.shields.io/github/license/talwat/pap)](https://github.com/talwat/pap/blob/main/LICENSE)
 ![Go version](https://img.shields.io/github/go-mod/go-version/talwat/pap)
 
-A swiss army knife for minecraft server development.
+A swiss army knife for minecraft servers.
 
 ## Table of contents
 
