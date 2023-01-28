@@ -24,7 +24,7 @@
         {
             "type": "url",
             "url": "https://github.com/EssentialsX/Essentials/releases/download/{version}/EssentialsXSpawn-{version}.jar",
-            "filename": "EssentialsX.jar"
+            "filename": "EssentialsXSpawn.jar"
         }
     ],
     "install": {
