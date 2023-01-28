@@ -13,7 +13,7 @@ import (
 	"github.com/urfave/cli/v2"
 )
 
-const version = "0.10.2"
+const version = "0.11-plugin-manager-alpha"
 
 //nolint:funlen,exhaustruct,maintidx // Ignoring these issues because this file only serves to define commands.
 func main() {
