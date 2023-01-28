@@ -1,0 +1,33 @@
+{
+    "name": "luckperms",
+    "version": "latest",
+    "license": "MIT",
+    "description": "A permissions plugin for Minecraft servers.",
+    "authors": [
+        "Luck"
+    ],
+    "site": "https://luckperms.net/",
+    "downloads": [
+        {
+            "type": "jenkins",
+            "job": "https://ci.lucko.me/job/LuckPerms",
+            "artifact": "LuckPerms-Bukkit-.*.jar",
+            "filename": "LuckPerms.jar"
+        }
+    ],
+    "install": {
+        "type": "simple"
+    },
+    "uninstall": {
+        "files": [
+            {
+                "type": "main",
+                "path": "LuckPerms.jar"
+            },
+            {
+                "type": "config",
+                "path": "LuckPerms"
+            }
+        ]
+    }
+}
