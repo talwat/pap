@@ -34,6 +34,19 @@ func PluginInstall(plugin PluginInfo) {
 	log.Log("making plugins directory...")
 	fs.MakeDirectory("plugins")
 
+	log.Log("checking if plugin is already installed...")
+
+	for _, file := range plugin.Uninstall.Files {
+		if file.Type != "main" || !fs.FileExists(fmt.Sprintf("plugins/%s", file.Path)) {
+			continue
+		}
+
+		log.Warn("%s may already be installed. if it is not installed, try uninstalling it first and then reinstalling", name)
+		log.Warn("skipping %s...", name)
+
+		return
+	}
+
 	PluginDownload(plugin)
 
 	if plugin.Install.Type == "simple" {

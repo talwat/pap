@@ -92,7 +92,7 @@
         // Files to delete
         "files": [
             {
-                // The type of file being deleted, this can be "main", "config" or "data" (optional)
+                // The type of file being deleted, this can be "main", "config", "data" or "other"
                 "type": "main",
 
                 // The path, relative to the plugins directory

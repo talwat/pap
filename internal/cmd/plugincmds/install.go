@@ -27,5 +27,7 @@ func InstallCommand(cCtx *cli.Context) error {
 	pluginsToInstall = append(pluginsToInstall, dependencies...)
 	plugins.PluginDoMany(pluginsToInstall, plugins.PluginInstall)
 
+	log.Log("successfully installed all packages")
+
 	return nil
 }

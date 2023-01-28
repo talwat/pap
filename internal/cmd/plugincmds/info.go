@@ -31,7 +31,7 @@ func InfoCommand(cCtx *cli.Context) error {
 	output += "authors: " + join(plugin.Authors) + "\n"
 
 	if len(plugin.Dependencies) > 0 {
-		output += "dependencies " + join(plugin.Dependencies) + "\n"
+		output += "dependencies: " + join(plugin.Dependencies) + "\n"
 	}
 
 	if len(plugin.OptionalDependencies) > 0 {

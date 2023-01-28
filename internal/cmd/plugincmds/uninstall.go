@@ -15,5 +15,7 @@ func UninstallCommand(cCtx *cli.Context) error {
 	plugins.PluginList(info, nil, "uninstalling")
 	plugins.PluginDoMany(info, plugins.PluginUninstall)
 
+	log.Log("successfully uninstalled all packages")
+
 	return nil
 }

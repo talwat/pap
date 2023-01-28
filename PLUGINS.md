@@ -260,9 +260,7 @@ How to uninstall your plugin.
 
 You do this by defining some files/directories to delete.
 
-Each file has a `path` which is relative to the `plugins` directory, and a `type` which can be `main`, `config`, or `data`.
-
-The `type` is optional if it doesn't fall under any of these catagories.
+Each file has a `path` which is relative to the `plugins` directory, and a `type` which can be `main`, `config`, or `data`. It can also be `other`.
 
 For example:
 

@@ -25,6 +25,18 @@ func ReadFile(name string) []byte {
 	return raw
 }
 
+func FileExists(filename string) bool {
+	_, err := os.Stat(filename)
+
+	if os.IsNotExist(err) {
+		return false
+	} else if err != nil {
+		log.Error(err, "an error occurred while checking if %s exists", filename)
+	}
+
+	return true
+}
+
 func MakeDirectory(path string) {
 	err := os.MkdirAll(path, os.ModePerm)
 	log.Error(err, "an error occurred while creating %s", path)
