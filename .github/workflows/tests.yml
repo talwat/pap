@@ -53,8 +53,8 @@ jobs:
           ./pap -y plugin install townyadvanced fawe
           ./pap -y plugin uninstall townyadvanced fawe
           ./pap -y plugin install townyadvanced townychat
-          ./pap -y plugin install geyser"
-          ./pap -y plugin install --optional geyser"
+          ./pap -y plugin install geyser
+          ./pap -y plugin install --optional geyser
 
       - run: "./pap -y sign"
       - name: Read Signed EULA
