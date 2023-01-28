@@ -5,12 +5,7 @@
     "description": "A bridge/proxy allowing you to connect to Minecraft: Java Edition servers with Minecraft: Bedrock Edition.",
     "authors": [ "GeyserMC" ],
     "site": "https://geysermc.org/",
-    "optionalDependencies": [
-        {
-            "name": "floodgate",
-            "purpose": "allow bedrock players to connect without a java edition account"
-        }
-    ],
+    "optionalDependencies": [ "floodgate" ],
     "downloads": [
         {
             "type": "jenkins",

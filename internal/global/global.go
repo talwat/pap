@@ -23,5 +23,6 @@ var (
 	GUIInput             = false
 
 	// Plugin.
-	NoDepsInput = false
+	NoDepsInput              = false
+	InstallOptionalDepsInput = false
 )

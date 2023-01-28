@@ -24,13 +24,7 @@
 
     // Optional dependencies (optional)
     "optionalDependencies": [
-        {
-            // Name of optional dependency
-            "name": "vault",
-
-            // What it adds to your plugin, this should end in a period
-            "purpose": "Because I said so."
-        }
+        "vault"
     ],
 
     // The files to download

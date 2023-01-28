@@ -194,6 +194,13 @@ COPYRIGHT:
 								Aliases:     []string{"no-dependencies"},
 								Destination: &global.NoDepsInput,
 							},
+							&cli.BoolFlag{
+								Name:        "install-optional-deps",
+								Value:       false,
+								Usage:       "whether to install optional dependencies",
+								Aliases:     []string{"optional"},
+								Destination: &global.InstallOptionalDepsInput,
+							},
 						},
 					},
 					{

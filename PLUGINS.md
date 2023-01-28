@@ -120,27 +120,20 @@ This is a list of strings.
 For example:
 
 ```json
-"dependencies": [
-    "exampledependency",
-]
+{
+  "dependencies": ["exampledependency"]
+}
 ```
 
 #### `optionalDependencies` _(optional)_
 
 An optional dependency of your plugin. This enhances functionality or adds new features.
 
-Each optional dependency also needs to have a `purpose` which explains what functionality it adds.
-
 For example:
 
 ```json
 {
-  "optionalDependencies": [
-    {
-      "name": "vault",
-      "purpose": "Because I said so."
-    }
-  ]
+  "optionalDependencies": ["vault"]
 }
 ```
 
@@ -233,23 +226,15 @@ This allows you to define commands to run on windows and unix like operating sys
 
 On unix, `sh` is used for the shell. On windows, it's `powershell`.
 
-For example:
+For example (non functional):
 
 ```json
 {
   "install": {
     "type": "complex",
     "commands": {
-      "windows": [
-        "tar -xf my_plugin.zip",
-        "move my_plugin/*.jar .",
-        "rmdir my_plugin"
-      ],
-      "unix": [
-        "unzip my_plugin.zip",
-        "mv my_plugin/*.jar .",
-        "rm -rf my_plugin"
-      ]
+      "windows": ["move my_plugin/*.jar .", "rmdir my_plugin"],
+      "unix": ["mv my_plugin/*.jar .", "rm -rf my_plugin"]
     }
   }
 }

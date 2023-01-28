@@ -1,10 +1,5 @@
 package plugins
 
-type OptionalDependency struct {
-	Name    string
-	Purpose string
-}
-
 type Download struct {
 	Type     string
 	Filename string
@@ -45,7 +40,7 @@ type PluginInfo struct {
 	Site                 string
 	Dependencies         []string
 	Downloads            []Download
-	OptionalDependencies []OptionalDependency
+	OptionalDependencies []string
 	Install              Install
 	Uninstall            Uninstall
 	Note                 []string

@@ -1,7 +1,6 @@
 package plugincmds
 
 import (
-	"fmt"
 	"strings"
 
 	"github.com/talwat/pap/internal/log"
@@ -35,10 +34,7 @@ func InfoCommand(cCtx *cli.Context) error {
 	}
 
 	if len(plugin.OptionalDependencies) > 0 {
-		output += "optional dependencies:"
-		for _, dependency := range plugin.OptionalDependencies {
-			output += fmt.Sprintf("  %s: %s", dependency.Name, dependency.Purpose)
-		}
+		output += "optional dependencies:" + join(plugin.OptionalDependencies) + "\n"
 	}
 
 	log.OutputLog(strings.TrimSpace(output))

@@ -20,7 +20,11 @@ func InstallCommand(cCtx *cli.Context) error {
 		log.Log("resolving dependencies...")
 
 		for _, plugin := range pluginsToInstall {
-			dependencies = append(dependencies, plugins.GetDependencies(plugin, pluginsToInstall)...)
+			dependencies = append(dependencies, plugins.GetDependencies(plugin.Dependencies, pluginsToInstall)...)
+
+			if global.InstallOptionalDepsInput {
+				dependencies = append(dependencies, plugins.GetDependencies(plugin.OptionalDependencies, pluginsToInstall)...)
+			}
 		}
 	}
 
