@@ -19,7 +19,7 @@ func parseVersion(rawVersion string) []string {
 }
 
 func checkIfNewUpdate() string {
-	rawLatest, statusCode := net.GetPlainText("https://raw.githubusercontent.com/talwat/pap/self-updater/version.txt")
+	rawLatest, statusCode := net.GetPlainText("https://raw.githubusercontent.com/talwat/pap/main/version.txt")
 
 	if statusCode != 200 {
 		log.RawError("http request to get latest version returned %s", statusCode)
