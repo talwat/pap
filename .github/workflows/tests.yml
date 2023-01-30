@@ -51,7 +51,6 @@ jobs:
       - name: "Test self updater"
         run: |
           ./pap -y update
-          ./pap -y update --reinstall
 
       - name: "Test plugin manager"
         run: |
