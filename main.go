@@ -13,14 +13,12 @@ import (
 	"github.com/urfave/cli/v2"
 )
 
-const version = "0.11-plugin-manager-alpha"
-
 //nolint:funlen,exhaustruct,maintidx // Ignoring these issues because this file only serves to define commands.
 func main() {
 	app := &cli.App{
 		Name:    "pap",
 		Usage:   "a swiss army knife for minecraft servers",
-		Version: version,
+		Version: global.Version,
 		Authors: []*cli.Author{
 			{
 				Name: "talwat",
@@ -257,6 +255,12 @@ COPYRIGHT:
 						Destination: &global.ScriptUseStdoutInput,
 					},
 				},
+			},
+			{
+				Name:    "update",
+				Aliases: []string{"u"},
+				Usage:   "updates pap if there is a new version available",
+				Action:  cmd.UpdateCommand,
 			},
 			{
 				Name:    "sign",
