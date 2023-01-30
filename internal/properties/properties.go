@@ -83,7 +83,7 @@ func ReadPropertiesFile(filename string) map[string]interface{} {
 	return conf
 }
 
-func EditProperty(prop string, val string) {
+func SetProperty(prop string, val string) {
 	log.Log("reading server properties...")
 
 	props := ReadPropertiesFile("server.properties")
@@ -96,7 +96,7 @@ func EditProperty(prop string, val string) {
 
 	WritePropertiesFile("server.properties", props)
 
-	log.Log("done")
+	log.Success("successfully set %s to %s", prop, val)
 }
 
 func ResetProperties() {
@@ -108,6 +108,7 @@ func ResetProperties() {
 		"server.properties",
 		"server properties file",
 	)
+	log.Success("successfully reset server properties file")
 }
 
 func GetProperty(prop string) interface{} {

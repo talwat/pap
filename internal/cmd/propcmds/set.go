@@ -8,7 +8,7 @@ import (
 	"github.com/urfave/cli/v2"
 )
 
-func EditPropertyCommand(cCtx *cli.Context) error {
+func SetPropertyCommand(cCtx *cli.Context) error {
 	args := cCtx.Args()
 	prop := args.Get(0)
 	val := args.Tail()
@@ -19,7 +19,7 @@ func EditPropertyCommand(cCtx *cli.Context) error {
 		log.RawError("value is required")
 	}
 
-	properties.EditProperty(prop, strings.Join(val, " "))
+	properties.SetProperty(prop, strings.Join(val, " "))
 
 	return nil
 }

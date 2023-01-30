@@ -1,4 +1,5 @@
-// CLI Commands
+// Package containing all CLI commands.
+// Usually, most unimportant logic before or after a command is here.
 package cmd
 
 import (

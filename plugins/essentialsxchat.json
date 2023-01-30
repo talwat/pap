@@ -1,0 +1,43 @@
+{
+    "name": "essentialsxchat",
+    "version": "2.19.7",
+    "license": "GPL-3.0",
+    "description": "Provides chat control features for Essentials. Requires Permissions.",
+    "authors": [
+        "Zenexer",
+        "ementalo",
+        "Aelux",
+        "Brettflan",
+        "KimKandor",
+        "snowleo",
+        "ceulemans",
+        "Xeology",
+        "KHobbits",
+        "md_5",
+        "Okamosy",
+        "Iaccidentally",
+        "mdcfe",
+        "JRoy",
+        "triagonal"
+    ],
+    "site": "https://essentialsx.net",
+    "dependencies": [ "essentialsx" ],
+    "downloads": [
+        {
+            "type": "url",
+            "url": "https://github.com/EssentialsX/Essentials/releases/download/{version}/EssentialsXChat-{version}.jar",
+            "filename": "EssentialsXChat.jar"
+        }
+    ],
+    "install": {
+        "type": "simple"
+    },
+    "uninstall": {
+        "files": [
+            {
+                "type": "main",
+                "path": "EssentialsXChat.jar"
+            }
+        ]
+    }
+}

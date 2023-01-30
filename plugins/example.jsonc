@@ -1,0 +1,101 @@
+{
+    // The name of the plugin, should be exactly the same as the filename
+    "name": "example",
+
+    // Can also be "latest"
+    "version": "0.1",
+
+    // The description, it should end with a period
+    "description": "Example Description.",
+
+    // SPDX Identifier. Can also be "proprietary" or "unknown"
+    "license": "GPL-3.0",
+
+    // List of authors
+    "authors": [ "Person", "Another person" ], 
+
+    // The site or repository (optional)
+    "site": "https://www.example.com",
+
+    // The dependencies (optional)
+    "dependencies": [
+        "example"
+    ],
+
+    // Optional dependencies (optional)
+    "optionalDependencies": [
+        "vault"
+    ],
+
+    // The files to download
+    "downloads": [
+        {
+            // This can either be "jenkins" or "url"
+            // Jenkins: Get the latest successful build
+            // URL: Get from a predefined URL
+            "type": "jenkins", 
+
+            // The job to get from
+            "job": "https://ci.athion.net/job/Example",
+
+            // The artifact in jenkins to download
+            // This is a regex, however, if the version is not "latest" then {version} will be substitued with the version attribute
+            "artifact": "jarfile-bukkit-.*",
+
+            // The filename to save the plugin as
+            "filename": "plugin.jar"
+        },
+        {
+            // This can either be "jenkins" or "url"
+            // Jenkins: Get the latest successful build
+            // URL: Get from a predefined URL
+            "type": "url", 
+
+            // The url
+            "url": "https://www.example.com/plugin-{version}.jar",
+
+            // The filename to save the plugin as
+            "filename": "plugin.jar"
+        }
+    ],
+
+    // How to install the plugin
+    "install": {
+        // Can either be "simple" (Just downloads a jarfile)
+        // Or "custom" (Custom commands to install the jarfile)
+        "type": "simple",
+
+        // The commands to run if "custom"
+        "commands": {
+            // Commands to run on windows
+            // Uses powershell
+            "windows": [
+                "Rename-Item -Path plugin.jar -NewName something.jar"
+            ],
+
+            // Commands to run on unix-like operating systems (Linux, macOS, BSD, etc...)
+            // Uses sh
+            "unix": [
+                "mv plugin.jar something.jar"
+            ]
+        }
+    },
+
+    // How to uninstall the plugin
+    "uninstall": {
+        // Files to delete
+        "files": [
+            {
+                // The type of file being deleted, this can be "main", "config", "data" or "other"
+                "type": "main",
+
+                // The path, relative to the plugins directory
+                "path": "myPlugin.jar"
+            }
+        ]
+    },
+
+    // Defines an alias (optional)
+    // This overrides everything else, and just redirects to another package. This can also be a URL.
+    "alias": "exampleimproved"
+}

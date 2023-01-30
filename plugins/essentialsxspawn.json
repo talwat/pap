@@ -1,0 +1,41 @@
+{
+    "name": "essentialsxspawn",
+    "version": "2.19.7",
+    "license": "GPL-3.0",
+    "description": "Provides spawn control features for Essentials. Requires Permissions.",
+    "authors": [
+        "Zenexer",
+        "ementalo",
+        "Aelux",
+        "Brettflan",
+        "KimKandor",
+        "snowleo",
+        "ceulemans",
+        "Xeology",
+        "KHobbits",
+        "SupaHam",
+        "mdcfe",
+        "DoNotSpamPls",
+        "JRoy"
+    ],
+    "site": "https://essentialsx.net",
+    "dependencies": [ "essentialsx" ],
+    "downloads": [
+        {
+            "type": "url",
+            "url": "https://github.com/EssentialsX/Essentials/releases/download/{version}/EssentialsXSpawn-{version}.jar",
+            "filename": "EssentialsXSpawn.jar"
+        }
+    ],
+    "install": {
+        "type": "simple"
+    },
+    "uninstall": {
+        "files": [
+            {
+                "type": "main",
+                "path": "EssentialsXSpawn.jar"
+            }
+        ]
+    }
+}

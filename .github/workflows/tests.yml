@@ -3,8 +3,6 @@ on:
   push:
     tags:
       - v*
-    branches:
-      - main
   pull_request:
   workflow_dispatch:
 
@@ -36,6 +34,7 @@ jobs:
         os: [macos-latest, windows-latest, ubuntu-latest]
 
     runs-on: ${{ matrix.os }}
+
     steps:
       - uses: actions/setup-go@v3
         with:
@@ -43,36 +42,24 @@ jobs:
 
       - uses: actions/checkout@v3
 
-      - run: "go build ."
-      - run: "./pap -y help"
-      - run: "./pap -y download paper --experimental"
-      - run: "./pap -y download paper"
-      - run: "./pap -y download paper --version 1.19.2"
-      - run: "./pap -y download paper --version 1.19.2 --build 300"
-      - run: "./pap -y download paper --version 1.12.2 --build 1230"
-      - run: "./pap -y download paper --version 1.12.2"
-      - run: "./pap -y download paper --version latest --build latest --experimental"
-      - run: "./pap -y download paper --version 1.19.3 --build 319 --experimental"
-      - run: "./pap -y download paper --version 1.19.3 --build 319"
-      - run: "./pap -y download paper --version 1.12.2 --build latest"
+      - name: "Build pap"
+        run: "go build ."
 
-      - run: "./pap -y download purpur"
-      - run: "./pap -y download purpur --version 1.19.2"
-      - run: "./pap -y download purpur --version 1.14.2 --build 124"
-      - run: "./pap -y download purpur --version 1.14.2"
-      - run: "./pap -y download purpur --version latest"
-      - run: "./pap -y download purpur --version 1.19.3 --build 1881"
-      - run: "./pap -y download purpur --version 1.14.2 --build latest"
+      - name: "Run help"
+        run: "./pap -y help"
+      
+      - name: "Test self updater"
+        run: |
+          ./pap -y update
+          ./pap -y update --reinstall
 
-      - run: "./pap -y download official --snapshot"
-      - run: "./pap -y download official"
-      - run: "./pap -y download official --version 1.19.2"
-      - run: "./pap -y download official --version 1.12.2"
-      - run: "./pap -y download official --version latest --snapshot"
-      - run: "./pap -y download official --version 1.19.3 --snapshot"
-      - run: "./pap -y download official --version 18w07c"
-      - run: "./pap -y download official --version 1.2.5"
-      - run: "./pap -y download official --version 1.13-pre6"
+      - name: "Test plugin manager"
+        run: |
+          ./pap -y plugin install townyadvanced fawe
+          ./pap -y plugin uninstall townyadvanced fawe
+          ./pap -y plugin install townyadvanced townychat
+          ./pap -y plugin install geyser
+          ./pap -y plugin install --optional geyser
 
       - run: "./pap -y sign"
       - name: Read Signed EULA
@@ -257,16 +244,58 @@ jobs:
         if: matrix.os != 'windows-latest'
         run: "cat run.sh"
 
-      - run: "./pap -y properties reset"
+      - name: "Reset server.properties"
+        run: "./pap -y properties reset"
       - name: Read created server.properties
         run: "cat server.properties"
 
-      - run: "./pap -y properties get gamemode"
+      - name: "Get server property"
+        run: "./pap -y properties get gamemode"
     
-      - run: "./pap -y properties set gamemode creative"
+      - name: "Set server property"
+        run: "./pap -y properties set gamemode creative"
       - name: Read modified server.properties
         run: "cat server.properties"
 
-      - run: "./pap -y properties get gamemode"
-      - run: "./pap -y geyser"
-      - run: "./pap -y geyser --no-floodgate"
+      - name: "Get modifiedserver property"
+        run: "./pap -y properties get gamemode"
+      
+      - name: "Test geyser command"
+        run: |
+          ./pap -y geyser
+          ./pap -y geyser --no-floodgate
+
+      - name: "Test paper downloading"
+        run: |
+          ./pap -y download paper --experimental
+          ./pap -y download paper
+          ./pap -y download paper --version 1.19.2
+          ./pap -y download paper --version 1.19.2 --build 300
+          ./pap -y download paper --version 1.12.2 --build 1230
+          ./pap -y download paper --version 1.12.2
+          ./pap -y download paper --version latest --build latest --experimental
+          ./pap -y download paper --version 1.19.3 --build 319 --experimental
+          ./pap -y download paper --version 1.19.3 --build 319
+          ./pap -y download paper --version 1.12.2 --build latest
+
+      - name: "Test purpur downloading"
+        run: |
+          ./pap -y download purpur
+          ./pap -y download purpur --version 1.19.2
+          ./pap -y download purpur --version 1.14.2 --build 124
+          ./pap -y download purpur --version 1.14.2
+          ./pap -y download purpur --version latest
+          ./pap -y download purpur --version 1.19.3 --build 1881
+          ./pap -y download purpur --version 1.14.2 --build latest
+
+      - name: "Test official downloading"
+        run: |
+           ./pap -y download official --snapshot
+           ./pap -y download official
+           ./pap -y download official --version 1.19.2
+           ./pap -y download official --version 1.12.2
+           ./pap -y download official --version latest --snapshot
+           ./pap -y download official --version 1.19.3 --snapshot
+           ./pap -y download official --version 18w07c
+           ./pap -y download official --version 1.2.5
+           ./pap -y download official --version 1.13-pre6

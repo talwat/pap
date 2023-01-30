@@ -1,0 +1,27 @@
+{
+    "name": "townychat",
+    "version": "0.103",
+    "license": "CC-BY-NC-ND-3.0",
+    "description": "TownyChat plugin which hooks into Towny.",
+    "authors": [ "LlmDl", "phrstbrn", "Shade", "ElgarL" ],
+    "site": "https://townyadvanced.github.io/",
+    "downloads": [
+        {
+            "type": "url",
+            "url": "https://github.com/TownyAdvanced/TownyChat/releases/download/{version}/TownyChat-{version}.jar",
+            "filename": "TownyChat.jar"
+        }
+    ],
+    "dependencies": [ "townyadvanced" ],
+    "install": {
+        "type": "simple"
+    },
+    "uninstall": {
+        "files": [
+            {
+                "type": "main",
+                "path": "TownyChat.jar"
+            }
+        ]
+    }
+}

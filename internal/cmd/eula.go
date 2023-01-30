@@ -17,7 +17,7 @@ func EulaCommand(cCtx *cli.Context) error {
 eula=true`,
 		time.MinecraftDateNow(),
 	), fs.ReadWritePerm)
-	log.Log("signed eula")
+	log.Success("signed eula")
 
 	return nil
 }

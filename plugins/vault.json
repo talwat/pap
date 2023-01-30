@@ -1,0 +1,30 @@
+{
+    "name": "vault",
+    "version": "1.7.3",
+    "license": "LGPL-3.0",
+    "description": "Vault is a Chat, Permissions & Economy API to allow plugins to more easily hook into these systems without needing to hook each individual system themselves.",
+    "authors": [ "cereal", "Sleaker", "mung3r" ],
+    "site": "https://github.com/MilkBowl/Vault",
+    "downloads": [
+        {
+            "type": "url",
+            "url": "https://github.com/MilkBowl/Vault/releases/download/{version}/Vault.jar",
+            "filename": "Vault.jar"
+        }
+    ],
+    "install": {
+        "type": "simple"
+    },
+    "uninstall": {
+        "files": [
+            {
+                "type": "main",
+                "path": "Vault.jar"
+            },
+            {
+                "type": "config",
+                "path": "Vault"
+            }
+        ]
+    }
+}

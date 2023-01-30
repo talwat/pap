@@ -1,0 +1,50 @@
+{
+    "name": "essentialsx",
+    "version": "2.19.7",
+    "license": "GPL-3.0",
+    "description": "The modern Essentials suite for Spigot and Paper.",
+    "authors": [
+        "Zenexer",
+        "ementalo",
+        "Aelux",
+        "Brettflan",
+        "KimKandor",
+        "snowleo",
+        "ceulemans",
+        "Xeology",
+        "KHobbits",
+        "md_5",
+        "Iaccidentally",
+        "drtshock",
+        "vemacs",
+        "SupaHam",
+        "mdcfe",
+        "JRoy",
+        "pop4959"
+    ],
+    "site": "https://essentialsx.net",
+    "dependencies": [ "vault" ],
+    "optionalDependencies": [ "essentialsxchat", "essentialsxspawn" ],
+    "downloads": [
+        {
+            "type": "url",
+            "url": "https://github.com/EssentialsX/Essentials/releases/download/{version}/EssentialsX-{version}.jar",
+            "filename": "EssentialsX.jar"
+        }
+    ],
+    "install": {
+        "type": "simple"
+    },
+    "uninstall": {
+        "files": [
+            {
+                "type": "main",
+                "path": "EssentialsX.jar"
+            },
+            {
+                "type": "config",
+                "path": "EssentialsX"
+            }
+        ]
+    }
+}

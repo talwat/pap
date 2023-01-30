@@ -19,7 +19,7 @@ func DownloadPurpurCommand(cCtx *cli.Context) error {
 	//nolint:gosec // Not being used for security, only checksumming. Why does purpur use MD5?
 	checksum := net.Download(url, "purpur.jar", "purpur jarfile", md5.New(), fs.ReadWritePerm)
 
-	log.Log("done downloading")
+	log.Success("done downloading")
 	jarfiles.VerifyJarfile(checksum, build.MD5)
 
 	return nil

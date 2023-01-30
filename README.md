@@ -6,7 +6,7 @@
 [![License](https://img.shields.io/github/license/talwat/pap)](https://github.com/talwat/pap/blob/main/LICENSE)
 ![Go version](https://img.shields.io/github/go-mod/go-version/talwat/pap)
 
-A simplistic **pa**permc hel**p**er.
+A swiss army knife for minecraft servers.
 
 ## Table of contents
 
@@ -17,6 +17,7 @@ A simplistic **pa**permc hel**p**er.
     - [Sign the EULA](#sign-the-eula)
     - [Generate a script to run the jarfile](#generate-a-script-to-run-the-jarfile)
     - [Turn off pvp](#turn-off-pvp)
+    - [Install worldedit](#install-worldedit)
   - [Why though?](#why-though)
   - [Install](#install)
     - [Build Dependencies](#build-dependencies)
@@ -57,13 +58,18 @@ A simplistic **pa**permc hel**p**er.
 
 `pap properties set pvp false`
 
+### Install worldedit
+
+`pap plugin install worldedit`
+
 ## Why though?
 
 pap has a few purposes:
 
 - To simplify some of the common tasks you need to do when creating or managing a server (such as when you download/update the server jar.)
 - To easily and automatically verify the jars you download to avoid bad issues down the line.
-- And to provide an easy CLI to do common tasks like changing server.properties and signing EULA, for usage in scripts.
+- To provide an easy CLI to do common tasks like changing server.properties and signing EULA, for usage in scripts.
+- To quickly install plugins directly from their sources.
 
 ## Install
 
@@ -209,7 +215,9 @@ fish_add_path $HOME/.local/bin
 
 Anyone is welcome to contribute, and if someone can port pap to various package managers, it would be greatly appreciated.
 
-If you want more info about how to contribute, take a look at [CONTRIBUTING.md](CONTRIBUTING.md)
+If you want more info about how to contribute, take a look at [CONTRIBUTING.md](CONTRIBUTING.md).
+
+If you would like to add a plugin to the repository, take a look at [PLUGINS.md](PLUGINS.md).
 
 If you like pap, feel free to [star it on github](https://github.com/talwat/pap), or [vote for it on the AUR](https://aur.archlinux.org/packages/pap).
 

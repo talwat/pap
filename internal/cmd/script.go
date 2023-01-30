@@ -107,7 +107,7 @@ func output(name string, text string) {
 		log.OutputLog(text)
 	} else {
 		fs.WriteFile(name, text, fs.ExecutePerm)
-		log.Log("generated shell script as %s", name)
+		log.Success("generated shell script as %s", name)
 	}
 }
 

@@ -6,17 +6,18 @@ import (
 
 	"github.com/talwat/pap/internal/cmd"
 	"github.com/talwat/pap/internal/cmd/downloadcmds"
+	"github.com/talwat/pap/internal/cmd/plugincmds"
 	"github.com/talwat/pap/internal/cmd/propcmds"
 	"github.com/talwat/pap/internal/global"
 	"github.com/talwat/pap/internal/log"
 	"github.com/urfave/cli/v2"
 )
 
-//nolint:funlen,exhaustruct
+//nolint:funlen,exhaustruct,maintidx // Ignoring these issues because this file only serves to define commands.
 func main() {
 	app := &cli.App{
 		Name:    "pap",
-		Usage:   "a helper for papermc",
+		Usage:   "a swiss army knife for minecraft servers",
 		Version: global.Version,
 		Authors: []*cli.Author{
 			{
@@ -173,6 +174,48 @@ COPYRIGHT:
 				},
 			},
 			{
+				Name:      "plugin",
+				Aliases:   []string{"pl"},
+				Usage:     "manages plugins",
+				ArgsUsage: "[install|uninstall] [plugin]",
+				Subcommands: []*cli.Command{
+					{
+						Name:    "install",
+						Aliases: []string{"i"},
+						Usage:   "installs a plugin",
+						Action:  plugincmds.InstallCommand,
+						Flags: []cli.Flag{
+							&cli.BoolFlag{
+								Name:        "no-deps",
+								Value:       false,
+								Usage:       "whether to install and calculate dependencies",
+								Aliases:     []string{"no-dependencies"},
+								Destination: &global.NoDepsInput,
+							},
+							&cli.BoolFlag{
+								Name:        "install-optional-deps",
+								Value:       false,
+								Usage:       "whether to install optional dependencies",
+								Aliases:     []string{"optional"},
+								Destination: &global.InstallOptionalDepsInput,
+							},
+						},
+					},
+					{
+						Name:    "uninstall",
+						Aliases: []string{"u", "remove", "r"},
+						Usage:   "get property",
+						Action:  plugincmds.UninstallCommand,
+					},
+					{
+						Name:    "info",
+						Aliases: []string{"inf"},
+						Usage:   "get information about a plugin",
+						Action:  plugincmds.InfoCommand,
+					},
+				},
+			},
+			{
 				Name:    "script",
 				Aliases: []string{"sc"},
 				Usage:   "generate a script to run the jarfile",
@@ -218,6 +261,14 @@ COPYRIGHT:
 				Aliases: []string{"u"},
 				Usage:   "updates pap if there is a new version available",
 				Action:  cmd.UpdateCommand,
+				Flags: []cli.Flag{
+					&cli.BoolFlag{
+						Name:        "reinstall",
+						Aliases:     []string{"r"},
+						Usage:       "reinstalls even if pap is up to date",
+						Destination: &global.ReinstallInput,
+					},
+				},
 			},
 			{
 				Name:    "sign",
@@ -243,7 +294,7 @@ COPYRIGHT:
 			},
 			{
 				Name:      "properties",
-				Aliases:   []string{"p"},
+				Aliases:   []string{"pr"},
 				Usage:     "manages the server.properties file",
 				ArgsUsage: "[set|get] [property] [value]",
 				Subcommands: []*cli.Command{
@@ -251,7 +302,7 @@ COPYRIGHT:
 						Name:    "set",
 						Aliases: []string{"s"},
 						Usage:   "set property",
-						Action:  propcmds.EditPropertyCommand,
+						Action:  propcmds.SetPropertyCommand,
 					},
 					{
 						Name:    "get",

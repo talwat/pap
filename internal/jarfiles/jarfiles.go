@@ -1,8 +1,8 @@
+// Useful methods for downloading jarfiles
 package jarfiles
 
 import (
 	"encoding/hex"
-	"fmt"
 	"strings"
 
 	"github.com/talwat/pap/internal/log"
@@ -18,13 +18,12 @@ func VerifyJarfile(calculated []byte, proper string) {
 	log.Log("verifying downloaded jarfile...")
 
 	if checksum := hex.EncodeToString(calculated); checksum == proper {
-		log.Log("checksums match!")
+		log.Success("checksums match!")
 	} else {
 		log.RawError(
-			fmt.Sprintf("checksums (calculated: %s, proper: %s) don't match!",
-				checksum,
-				proper,
-			),
+			"checksums (calculated: %s, proper: %s) don't match!",
+			checksum,
+			proper,
 		)
 	}
 }
@@ -35,6 +34,8 @@ func APIError(err string, statusCode int) {
 	}
 }
 
+// Format API errors to comply with pap's log guidelines
+// https://github.com/talwat/pap/blob/main/CONTRIBUTING.md
 func FormatErrorMessage(msg string) string {
 	return strings.ToLower(strings.TrimSuffix(msg, "."))
 }
