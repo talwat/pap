@@ -4,6 +4,7 @@ import (
 	"crypto/sha256"
 
 	"github.com/talwat/pap/internal/cmd"
+	"github.com/talwat/pap/internal/fs"
 	"github.com/talwat/pap/internal/global"
 	"github.com/talwat/pap/internal/jarfiles"
 	"github.com/talwat/pap/internal/jarfiles/paper"
@@ -29,7 +30,7 @@ func DownloadPaperCommand(cCtx *cli.Context) error {
 
 	url, build := paper.GetURL(global.MinecraftVersionInput, global.JarBuildInput)
 
-	checksum := net.Download(url, "paper.jar", "paper jarfile", sha256.New())
+	checksum := net.Download(url, "paper.jar", "paper jarfile", sha256.New(), fs.ReadWritePerm)
 
 	log.Success("done downloading")
 	jarfiles.VerifyJarfile(checksum, build.Downloads.Application.Sha256)

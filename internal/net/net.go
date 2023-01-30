@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"hash"
 	"io"
+	"io/fs"
 	"net/http"
 	"os"
 	"strings"
@@ -83,7 +84,7 @@ func Get(url string, content interface{}) int {
 }
 
 // Set hash to nil in order to disable checksumming.
-func Download(url string, filename string, fileDesc string, hash hash.Hash) []byte {
+func Download(url string, filename string, fileDesc string, hash hash.Hash, perms fs.FileMode) []byte {
 	req, err := http.NewRequestWithContext(context.Background(), http.MethodGet, url, nil)
 	log.Error(err, "an error occurred while making a new request")
 
@@ -96,7 +97,7 @@ func Download(url string, filename string, fileDesc string, hash hash.Hash) []by
 
 	defer resp.Body.Close()
 
-	file, err := os.Create(filename)
+	file, err := os.OpenFile(filename, os.O_RDWR|os.O_CREATE|os.O_TRUNC, perms)
 	log.Error(err, "an error occurred while opening %s", filename)
 
 	defer file.Close()

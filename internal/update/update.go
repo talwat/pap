@@ -93,7 +93,7 @@ func Update() {
 	)
 	tmpPath := fmt.Sprintf("/tmp/pap-update-%s", version)
 
-	net.Download(url, tmpPath, fmt.Sprintf("pap %s", version), nil)
+	net.Download(url, tmpPath, fmt.Sprintf("pap %s", version), nil, fs.ExecutePerm)
 	log.Log("installing pap...")
 	fs.MoveFile(tmpPath, exe)
 
