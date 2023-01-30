@@ -21,6 +21,7 @@ func GeyserCommand(cCtx *cli.Context) error {
 		"plugins/Geyser-Spigot.jar",
 		"geyser",
 		sha256.New(),
+		fs.ReadWritePerm,
 	)
 
 	if !global.NoFloodGateInput {
@@ -30,6 +31,7 @@ func GeyserCommand(cCtx *cli.Context) error {
 			"plugins/floodgate-spigot.jar",
 			"floodgate",
 			sha256.New(),
+			fs.ReadWritePerm,
 		)
 	}
 
