@@ -261,6 +261,14 @@ COPYRIGHT:
 				Aliases: []string{"u"},
 				Usage:   "updates pap if there is a new version available",
 				Action:  cmd.UpdateCommand,
+				Flags: []cli.Flag{
+					&cli.BoolFlag{
+						Name:        "reinstall",
+						Aliases:     []string{"r"},
+						Usage:       "reinstalls even if pap is up to date",
+						Destination: &global.ReinstallInput,
+					},
+				},
 			},
 			{
 				Name:    "sign",

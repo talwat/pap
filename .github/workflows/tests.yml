@@ -47,6 +47,11 @@ jobs:
 
       - name: "Run help"
         run: "./pap -y help"
+      
+      - name: "Test self updater"
+        run: |
+          ./pap -y update
+          ./pap -y update --reinstall
 
       - name: "Test plugin manager"
         run: |

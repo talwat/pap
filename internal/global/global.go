@@ -27,4 +27,7 @@ var (
 	// Plugin.
 	NoDepsInput              = false
 	InstallOptionalDepsInput = false
+
+	// Update.
+	ReinstallInput = false
 )
