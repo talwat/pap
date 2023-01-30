@@ -104,7 +104,7 @@ func generateCommand() string {
 
 func output(name string, text string) {
 	if global.ScriptUseStdoutInput {
-		log.OuptutLog(text)
+		log.OutputLog(text)
 	} else {
 		fs.WriteFile(name, text, fs.ExecutePerm)
 		log.Log("generated shell script as %s", name)

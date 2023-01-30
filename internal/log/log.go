@@ -18,6 +18,14 @@ func Error(err error, msg string, params ...interface{}) {
 	}
 }
 
+func NewlineBeforeError(err error, msg string, params ...interface{}) {
+	if err != nil {
+		RawLog("\n")
+		RawError("%s: %s", fmt.Sprintf(msg, params...), err)
+		os.Exit(1)
+	}
+}
+
 func Log(msg string, params ...interface{}) {
 	RawLog("pap: %s\n", fmt.Sprintf(msg, params...))
 }
@@ -32,7 +40,7 @@ func RawLog(msg string, params ...interface{}) {
 
 // Like RawLog, but prints to stdout instead.
 // Note: This function outputs a trailing newline.
-func OuptutLog(msg string, params ...interface{}) {
+func OutputLog(msg string, params ...interface{}) {
 	fmt.Fprintf(os.Stdout, "%s\n", fmt.Sprintf(msg, params...))
 }
 
@@ -43,6 +51,10 @@ func RawError(msg string, params ...interface{}) {
 
 func Warn(msg string, params ...interface{}) {
 	Log("%swarning%s: %s", color.Yellow, color.Reset, fmt.Sprintf(msg, params...))
+}
+
+func Success(msg string, params ...interface{}) {
+	Log("%ssuccess%s: %s", color.Green, color.Reset, fmt.Sprintf(msg, params...))
 }
 
 func RawScan() string {
