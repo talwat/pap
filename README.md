@@ -96,8 +96,8 @@ Simply mark the downloaded binary as executable and move it.
 ##### Unix - System wide from releases
 
 ```sh
-sudo mv pap* /usr/local/bin/pap
-sudo chmod +x /usr/local/bin/pap
+sudo mv pap* /usr/bin/pap
+sudo chmod +x /usr/bin/pap
 ```
 
 ##### Unix - Local from releases
@@ -134,8 +134,8 @@ Finally, move it into your binary directory:
 ##### Unix - System wide from source
 
 ```sh
-sudo mv pap /usr/local/bin/pap
-sudo chmod +x /usr/local/bin/pap
+sudo mv pap /usr/bin/pap
+sudo chmod +x /usr/bin/pap
 ```
 
 ##### Unix - Local from source
