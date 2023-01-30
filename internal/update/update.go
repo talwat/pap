@@ -2,6 +2,7 @@ package update
 
 import (
 	"fmt"
+	"net/http"
 	"os"
 	"path/filepath"
 	"runtime"
@@ -15,25 +16,29 @@ import (
 
 func parseVersion(rawVersion string) []string {
 	noExtra := strings.Split(rawVersion, "-")[0]
+
 	return strings.Split(noExtra, ".")
 }
 
 func checkIfNewUpdate() string {
+	log.Log("checking for a new update...")
+
 	rawLatest, statusCode := net.GetPlainText("https://raw.githubusercontent.com/talwat/pap/main/version.txt")
 
-	if statusCode != 200 {
-		log.RawError("http request to get latest version returned %s", statusCode)
+	if statusCode != http.StatusOK {
+		log.RawError("http request to get latest version returned %d", statusCode)
 	}
 
 	latest := parseVersion(rawLatest)
 	current := parseVersion(global.Version)
 
-	for i := len(latest) - 1; i >= 0; i-- {
+	for idx := len(latest) - 1; idx >= 0; idx-- {
 		switch {
-		case latest[i] > current[i]:
+		case latest[idx] > current[idx]:
 			log.Log("out of date! current version is %s, latest is %s", global.Version, rawLatest)
+
 			return rawLatest
-		case latest[i] == current[i]:
+		case latest[idx] == current[idx]:
 			continue
 		}
 	}
@@ -56,7 +61,7 @@ func getExePath() string {
 	}
 
 	home, err := os.UserHomeDir()
-	log.Error(err, "an error occured while getting the user's error")
+	log.Error(err, "an error occurred while getting the user's home directory")
 
 	if evaluatedExe != "/usr/bin" || evaluatedExe != fmt.Sprintf("%s/.local/bin/pap", home) {
 		log.Warn("it seems like you installed pap in a location not specified by the install guide (%s)", evaluatedExe)
@@ -71,8 +76,15 @@ func Update() {
 	version := checkIfNewUpdate()
 
 	log.Log("finding exe...")
+
 	exe := getExePath()
-	url := fmt.Sprintf("https://github.com/talwat/pap/releases/download/v%s/pap_%s_macos_%s", version, version, runtime.GOARCH)
+	url := fmt.Sprintf(
+		"https://github.com/talwat/pap/releases/download/v%s/pap_%s_%s_%s",
+		version,
+		version,
+		runtime.GOOS,
+		runtime.GOARCH,
+	)
 	tmpPath := fmt.Sprintf("/tmp/pap-update-%s", version)
 
 	net.Download(url, tmpPath, fmt.Sprintf("pap %s", version), nil)

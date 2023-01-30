@@ -47,7 +47,7 @@ func DeletePath(path string) {
 	log.Error(err, "an error occurred while deleting %s", path)
 }
 
-func MoveFile(old string, new string) {
-	err := os.Rename(old, new)
-	log.Error(err, "an error occurred while moving %s to %s", old, new)
+func MoveFile(oldpath string, newpath string) {
+	err := os.Rename(oldpath, newpath)
+	log.Error(err, "an error occurred while moving %s to %s", oldpath, newpath)
 }

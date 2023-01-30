@@ -5,7 +5,7 @@ package global
 var (
 	Version = "0.11.0"
 
-	// CLI Options
+	// CLI Options.
 	AssumeDefaultInput          = false
 	MinecraftVersionInput       = "latest"
 	JarBuildInput               = "latest"

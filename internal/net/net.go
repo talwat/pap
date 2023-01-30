@@ -45,7 +45,7 @@ func newLoadingBar(maxBytes int64, desc string) *progressbar.ProgressBar {
 	return bar
 }
 
-// Like get, but just returns plaintext
+// Like get, but just returns plaintext.
 func GetPlainText(url string) (string, int) {
 	req, err := http.NewRequestWithContext(context.Background(), http.MethodGet, url, nil)
 	log.Error(err, "an error occurred while making request")
