@@ -12,14 +12,12 @@ import (
 	"github.com/urfave/cli/v2"
 )
 
-const version = "0.10.2"
-
 //nolint:funlen,exhaustruct
 func main() {
 	app := &cli.App{
 		Name:    "pap",
 		Usage:   "a helper for papermc",
-		Version: version,
+		Version: global.Version,
 		Authors: []*cli.Author{
 			{
 				Name: "talwat",
@@ -214,6 +212,12 @@ COPYRIGHT:
 						Destination: &global.ScriptUseStdoutInput,
 					},
 				},
+			},
+			{
+				Name:    "update",
+				Aliases: []string{"u"},
+				Usage:   "updates pap if there is a new version available",
+				Action:  cmd.UpdateCommand,
 			},
 			{
 				Name:    "sign",

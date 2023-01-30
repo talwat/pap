@@ -45,6 +45,22 @@ func newLoadingBar(maxBytes int64, desc string) *progressbar.ProgressBar {
 	return bar
 }
 
+// Like get, but just returns plaintext.
+func GetPlainText(url string) (string, int) {
+	req, err := http.NewRequestWithContext(context.Background(), http.MethodGet, url, nil)
+	log.Error(err, "an error occurred while making request")
+
+	resp, err := http.DefaultClient.Do(req)
+	log.Error(err, "an error occurred while sending request")
+
+	raw, err := io.ReadAll(resp.Body)
+	log.Error(err, "an error occurred while reading request body")
+
+	defer resp.Body.Close()
+
+	return string(raw), resp.StatusCode
+}
+
 // saves the decoded JSON data to the value of content.
 func Get(url string, content interface{}) int {
 	req, err := http.NewRequestWithContext(context.Background(), http.MethodGet, url, nil)

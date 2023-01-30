@@ -3,6 +3,9 @@ package global
 
 //nolint:gochecknoglobals
 var (
+	Version = "0.11.0"
+
+	// CLI Options.
 	AssumeDefaultInput          = false
 	MinecraftVersionInput       = "latest"
 	JarBuildInput               = "latest"
