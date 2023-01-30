@@ -8,9 +8,20 @@
 
 A swiss army knife for minecraft servers.
 
+## pap is close to 1.0 🎉
+
+pap is now feature complete (for now) and just needs testing & code reviewing.
+
+If you want, try installing pap and messing around with it.
+
+If you actually manage to break it, [open an issue](https://github.com/talwat/pap/issues).
+
+Or, make a PR.
+
 ## Table of contents
 
 - [pap](#pap)
+  - [pap is close to 1.0 🎉](#pap-is-close-to-10-)
   - [Table of contents](#table-of-contents)
   - [Examples](#examples)
     - [Download the latest papermc jarfile](#download-the-latest-papermc-jarfile)
@@ -37,6 +48,8 @@ A swiss army knife for minecraft servers.
         - [Bash](#bash)
         - [Zsh](#zsh)
         - [Fish](#fish)
+  - [Updating pap](#updating-pap)
+  - [Uninstalling pap](#uninstalling-pap)
   - [Contributing](#contributing)
   - [Dependencies](#dependencies)
 
@@ -209,6 +222,31 @@ Look at the [fish docs](https://fishshell.com/docs/current/tutorial.html#path) f
 
 ```sh
 fish_add_path $HOME/.local/bin
+```
+
+## Updating pap
+
+If you used a release and followed the install guide, you should be able to simply run:
+
+```sh
+pap update
+```
+
+## Uninstalling pap
+
+Simply delete the binary file you installed. pap does not create any files that you do not explicitly
+tell it to.
+
+So, if you did a system wide install do:
+
+```sh
+sudo rm /usr/bin/pap
+```
+
+or if you did a local install:
+
+```sh
+rm ~/.local/bin/pap
 ```
 
 ## Contributing
