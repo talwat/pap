@@ -50,7 +50,7 @@ func PluginDownload(plugin PluginInfo) {
 		url = SubstituteProps(plugin, url)
 		path := fmt.Sprintf("plugins/%s", download.Filename)
 
-		net.Download(url, path, plugin.Name, nil)
+		net.Download(url, path, plugin.Name, nil, fs.ReadWritePerm)
 
 		if strings.HasSuffix(path, ".zip") {
 			log.Log("unzipping %s...", path)
