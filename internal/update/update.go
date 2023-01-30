@@ -45,6 +45,8 @@ func checkIfNewUpdate() string {
 
 	if global.ReinstallInput {
 		log.Warn("pap is up to date, but --reinstall is set, so continuing")
+
+		return rawLatest
 	} else {
 		log.Log("pap is up to date")
 		os.Exit(0)
