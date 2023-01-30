@@ -3,10 +3,9 @@ package global
 
 //nolint:gochecknoglobals
 var (
-	// Global.
-	Version = "0.11.0"
+	Version = "0.12.0-plugin-manager-alpha"
 
-	// CLI Options.
+	// Global options.
 	AssumeDefaultInput = false
 
 	// Downloading Server Jarfiles.
