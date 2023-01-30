@@ -86,7 +86,7 @@ func GetPluginInfo(name string) PluginInfo {
 	default:
 		net.Get(
 			fmt.Sprintf(
-				"https://raw.githubusercontent.com/talwat/pap/plugin-manager/plugins/%s.json",
+				"https://raw.githubusercontent.com/talwat/pap/main/plugins/%s.json",
 				name,
 			), &info)
 	}

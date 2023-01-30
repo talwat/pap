@@ -3,7 +3,7 @@ package global
 
 //nolint:gochecknoglobals
 var (
-	Version = "0.12.0-plugin-manager-alpha"
+	Version = "0.12.0"
 
 	// Global options.
 	AssumeDefaultInput = false
