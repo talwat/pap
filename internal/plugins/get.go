@@ -48,7 +48,6 @@ func PluginDownload(plugin PluginInfo) {
 		}
 
 		url = SubstituteProps(plugin, url)
-
 		path := fmt.Sprintf("plugins/%s", download.Filename)
 
 		net.Download(url, path, plugin.Name, nil)
@@ -63,14 +62,18 @@ func PluginDownload(plugin PluginInfo) {
 	}
 }
 
+// This function will call itself in case of an alias.
 func GetPluginInfo(name string) PluginInfo {
 	var info PluginInfo
 
 	switch {
+	// If it's a url using http then use this:
 	case strings.HasPrefix(name, "https://") || strings.HasPrefix(name, "http://"):
 		net.Get(name, &info)
 
 		info.URL = name
+
+	// If it's file which ends in .json try reading it locally:
 	case strings.HasSuffix(name, ".json"):
 		raw := fs.ReadFile(name)
 		err := json.Unmarshal(raw, &info)
@@ -78,6 +81,8 @@ func GetPluginInfo(name string) PluginInfo {
 		log.Error(err, "an error occurred while parsing %s", name)
 
 		info.Path = name
+
+	// If it's neither try getting it from the repos.
 	default:
 		net.Get(
 			fmt.Sprintf(

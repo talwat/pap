@@ -16,7 +16,7 @@ import (
 	"github.com/talwat/pap/internal/log"
 )
 
-//nolint:gomnd // Nolint because most numbers are configuration options
+//nolint:gomnd // Nolint because most numbers are configuration options.
 func newLoadingBar(maxBytes int64, desc string) *progressbar.ProgressBar {
 	bar := progressbar.NewOptions64(
 		maxBytes,
@@ -66,6 +66,7 @@ func Get(url string, content interface{}) int {
 	return resp.StatusCode
 }
 
+// Set hash to nil in order to disable checksumming.
 func Download(url string, filename string, fileDesc string, hash hash.Hash) []byte {
 	req, err := http.NewRequestWithContext(context.Background(), http.MethodGet, url, nil)
 	log.Error(err, "an error occurred while making a new request")

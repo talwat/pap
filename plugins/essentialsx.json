@@ -23,7 +23,8 @@
         "pop4959"
     ],
     "site": "https://essentialsx.net",
-    "dependencies": [ "essentialsxchat", "essentialsxspawn", "vault" ],
+    "dependencies": [ "vault" ],
+    "optionalDependencies": [ "essentialsxchat", "essentialsxspawn" ],
     "downloads": [
         {
             "type": "url",

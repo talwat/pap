@@ -2,7 +2,33 @@ package plugins
 
 import (
 	"github.com/talwat/pap/internal/log"
+	"github.com/talwat/pap/internal/log/color"
 )
+
+func DisplayAdditionalInfo(plugin PluginInfo) {
+	if len(plugin.Note) < 1 && len(plugin.OptionalDependencies) < 1 {
+		return
+	}
+
+	log.RawLog("\n")
+	log.Log("additional information for %s%s%s", color.BrightBlue, plugin.Name, color.Reset)
+
+	if len(plugin.Note) > 0 {
+		log.Log("%simportant note%s from %s:", color.BrightBlue, color.Reset, plugin.Name)
+
+		for _, line := range plugin.Note {
+			log.RawLog("  %s\n", line)
+		}
+	}
+
+	if len(plugin.OptionalDependencies) > 0 {
+		log.Log("%soptional dependencies%s from %s:", color.BrightBlue, color.Reset, plugin.Name)
+
+		for _, dep := range plugin.OptionalDependencies {
+			log.RawLog("  %s\n", dep)
+		}
+	}
+}
 
 func PluginList(plugins []PluginInfo, deps []PluginInfo, operation string) {
 	log.Log("%s %d plugin(s):", operation, len(plugins))

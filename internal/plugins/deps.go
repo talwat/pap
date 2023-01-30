@@ -1,7 +1,9 @@
 package plugins
 
+// Check if a plugin exists in a list of plugins.
 func pluginExists(plugin PluginInfo, plugins []PluginInfo) bool {
 	for _, pluginToCheck := range plugins {
+		// Just check the name which should normally be unique.
 		if pluginToCheck.Name == plugin.Name {
 			return true
 		}
@@ -11,6 +13,8 @@ func pluginExists(plugin PluginInfo, plugins []PluginInfo) bool {
 }
 
 // Recursive function.
+// Gets a plugins dependencies and then calls itself to get that dependencies own dependencies.
+// This happens until it's done.
 func getDependencyLevel(deps []string, dest *[]PluginInfo, installed []PluginInfo) {
 	depsInfo := GetManyPluginInfo(deps)
 

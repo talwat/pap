@@ -1,3 +1,4 @@
+// Useful methods for downloading jarfiles
 package jarfiles
 
 import (
@@ -33,6 +34,8 @@ func APIError(err string, statusCode int) {
 	}
 }
 
+// Format API errors to comply with pap's log guidelines
+// https://github.com/talwat/pap/blob/main/CONTRIBUTING.md
 func FormatErrorMessage(msg string) string {
 	return strings.ToLower(strings.TrimSuffix(msg, "."))
 }
