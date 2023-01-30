@@ -67,9 +67,11 @@ func getExePath() string {
 	}
 
 	home, err := os.UserHomeDir()
+	homePath := fmt.Sprintf("%s/.local/bin/pap", home)
+
 	log.Error(err, "an error occurred while getting the user's home directory")
 
-	if evaluatedExe != "/usr/bin" || evaluatedExe != fmt.Sprintf("%s/.local/bin/pap", home) {
+	if evaluatedExe != "/usr/bin" && evaluatedExe != homePath {
 		log.Warn("it seems like you installed pap in a location not specified by the install guide (%s)", evaluatedExe)
 		log.Warn("if this is expected, you can ignore this.")
 		log.Continue("would like to continue?")
