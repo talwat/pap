@@ -63,7 +63,7 @@ func GetPlainText(url string) (string, int) {
 	return string(raw), resp.StatusCode
 }
 
-// saves the decoded JSON data to the value of content.
+// Saves the decoded JSON data to the value of content.
 func Get(url string, content interface{}) int {
 	req, err := http.NewRequestWithContext(context.Background(), http.MethodGet, url, nil)
 	log.Error(err, "an error occurred while making request")
