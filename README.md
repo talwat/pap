@@ -229,6 +229,12 @@ fish_add_path $HOME/.local/bin
 If you used a release and followed the install guide, you should be able to simply run:
 
 ```sh
+sudo pap update
+```
+
+or if you did a local install:
+
+```sh
 pap update
 ```
 
