@@ -3,6 +3,7 @@
 before:
   hooks:
     - go mod tidy
+    - go get -u ./...
 builds:
   - binary: pap
     goos:

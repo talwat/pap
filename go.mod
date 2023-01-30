@@ -4,7 +4,7 @@ go 1.18
 
 require (
 	github.com/schollz/progressbar/v3 v3.13.0
-	github.com/urfave/cli/v2 v2.24.1
+	github.com/urfave/cli/v2 v2.24.2
 	golang.org/x/sys v0.4.0
 )
 
