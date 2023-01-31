@@ -21,3 +21,5 @@ go.work
 test/
 dist/
 *.jar
+
+.DS_Store
