@@ -13,7 +13,11 @@ func GetLatestVersion() Version {
 
 	var versions Versions
 
-	net.Get("https://api.purpurmc.org/v2/purpur", "version list not found, please report this to https://github.com/talwat/pap/issues", &versions)
+	net.Get(
+		"https://api.purpurmc.org/v2/purpur",
+		"version list not found, please report this to https://github.com/talwat/pap/issues",
+		&versions,
+	)
 
 	log.Log("getting latest version info...")
 
