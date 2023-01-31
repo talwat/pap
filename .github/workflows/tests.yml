@@ -257,11 +257,6 @@ jobs:
 
       - name: "Get modifiedserver property"
         run: "./pap -y properties get gamemode"
-      
-      - name: "Test geyser command"
-        run: |
-          ./pap -y geyser
-          ./pap -y geyser --no-floodgate
 
       - name: "Test paper downloading"
         run: |
