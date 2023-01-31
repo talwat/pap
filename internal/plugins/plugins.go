@@ -2,6 +2,7 @@ package plugins
 
 import (
 	"fmt"
+	"path/filepath"
 	"runtime"
 	"strings"
 
@@ -37,7 +38,7 @@ func PluginInstall(plugin PluginInfo) {
 	log.Log("checking if plugin is already installed...")
 
 	for _, file := range plugin.Uninstall.Files {
-		if file.Type != "main" || !fs.FileExists(fmt.Sprintf("plugins/%s", file.Path)) {
+		if file.Type != "main" || !fs.FileExists(filepath.Join("plugins", file.Path)) {
 			continue
 		}
 
@@ -79,7 +80,7 @@ func PluginUninstall(plugin PluginInfo) {
 	log.Log("uninstalling %s...", name)
 
 	for _, file := range plugin.Uninstall.Files {
-		path := fmt.Sprintf("plugins/%s", SubstituteProps(plugin, file.Path))
+		path := filepath.Join("plugins", SubstituteProps(plugin, file.Path))
 
 		if file.Type == "" {
 			file.Type = "other"

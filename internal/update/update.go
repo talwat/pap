@@ -70,7 +70,7 @@ func getExePath() string {
 	}
 
 	home, err := os.UserHomeDir()
-	homePath := fmt.Sprintf("%s/.local/bin/pap", home)
+	homePath := filepath.Join(home, "/.local/bin/pap")
 
 	log.Error(err, "an error occurred while getting the user's home directory")
 

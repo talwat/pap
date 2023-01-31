@@ -3,6 +3,7 @@ package plugins
 import (
 	"encoding/json"
 	"fmt"
+	"path/filepath"
 	"regexp"
 	"strings"
 
@@ -52,7 +53,7 @@ func PluginDownload(plugin PluginInfo) {
 		}
 
 		url = SubstituteProps(plugin, url)
-		path := fmt.Sprintf("plugins/%s", download.Filename)
+		path := filepath.Join("plugins", download.Filename)
 
 		net.Download(
 			url,
