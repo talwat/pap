@@ -2,12 +2,19 @@ package exec
 
 import (
 	"bufio"
+	"errors"
 	"os/exec"
 	"runtime"
 	"strings"
 
 	"github.com/talwat/pap/internal/log"
 )
+
+func CommandExists(cmd string) bool {
+	_, err := exec.LookPath(cmd)
+
+	return errors.Is(err, exec.ErrNotFound)
+}
 
 func Run(workDir string, cmd string) {
 	log.NoNewline("running command %s", cmd)

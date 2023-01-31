@@ -1,5 +1,18 @@
 package plugins
 
+// Jenkins.
+type JenkinsArtifact struct {
+	FileName     string
+	DisplayName  string
+	RelativePath string
+}
+
+type JenkinsBuild struct {
+	Artifacts []JenkinsArtifact
+}
+
+// Part of PluginInfo.
+
 type Download struct {
 	Type     string
 	Filename string
@@ -31,33 +44,42 @@ type Uninstall struct {
 	Files []File
 }
 
-type PluginInfo struct {
-	Name                 string
-	Version              string
-	Description          string
-	License              string
-	Authors              []string
-	Site                 string
-	Dependencies         []string
-	Downloads            []Download
-	OptionalDependencies []string
-	Install              Install
-	Uninstall            Uninstall
-	Note                 []string
-
-	// Defined in pap, not in the json files themselves
-
+// Defined in pap, not in the json files themselves.
+type DefinedLater struct {
 	Path  string
 	URL   string
 	Alias string
 }
 
-type JenkinsArtifact struct {
-	FileName     string
-	DisplayName  string
-	RelativePath string
+// Metadata that isn't used for core operations in pap.
+type Metadata struct {
+	Description string
+	License     string
+	Authors     []string
+	Site        string
+	Note        []string
 }
 
-type JenkinsBuild struct {
-	Artifacts []JenkinsArtifact
+// Operation steps (installing and uninstalling).
+type Steps struct {
+	Install   Install
+	Uninstall Uninstall
+}
+
+// All dependencies including optional dependencies.
+type AllDependencies struct {
+	Dependencies         []string
+	OptionalDependencies []string
+}
+
+type PluginInfo struct {
+	Name    string
+	Version string
+
+	Downloads []Download
+
+	Metadata
+	AllDependencies
+	Steps
+	DefinedLater
 }
