@@ -47,13 +47,23 @@ func newLoadingBar(maxBytes int64, desc string) *progressbar.ProgressBar {
 	return bar
 }
 
-// Like get, but just returns plaintext.
-func GetPlainText(url string) (string, int) {
+func DoRequest(url string, notFoundMsg string) *http.Response {
 	req, err := http.NewRequestWithContext(context.Background(), http.MethodGet, url, nil)
 	log.Error(err, "an error occurred while making request")
 
 	resp, err := http.DefaultClient.Do(req)
 	log.Error(err, "an error occurred while sending request")
+
+	if resp.StatusCode == http.StatusNotFound {
+		log.RawError("404: %s (%s)", notFoundMsg, url)
+	}
+
+	return resp
+}
+
+// Like get, but just returns plaintext.
+func GetPlainText(url string, notFoundMsg string) (string, int) {
+	resp := DoRequest(url, notFoundMsg)
 
 	raw, err := io.ReadAll(resp.Body)
 	log.Error(err, "an error occurred while reading request body")
@@ -64,18 +74,10 @@ func GetPlainText(url string) (string, int) {
 }
 
 // Saves the decoded JSON data to the value of content.
-func Get(url string, content interface{}) int {
-	req, err := http.NewRequestWithContext(context.Background(), http.MethodGet, url, nil)
-	log.Error(err, "an error occurred while making request")
+func Get(url string, notFoundMsg string, content interface{}) int {
+	resp := DoRequest(url, notFoundMsg)
 
-	resp, err := http.DefaultClient.Do(req)
-	log.Error(err, "an error occurred while sending request")
-
-	if resp.StatusCode == http.StatusNotFound {
-		log.RawError("404: %s not found", url)
-	}
-
-	err = json.NewDecoder(resp.Body).Decode(&content)
+	err := json.NewDecoder(resp.Body).Decode(&content)
 	log.Error(err, "an error occurred while decoding response")
 
 	defer resp.Body.Close()
@@ -84,16 +86,15 @@ func Get(url string, content interface{}) int {
 }
 
 // Set hash to nil in order to disable checksumming.
-func Download(url string, filename string, fileDesc string, hash hash.Hash, perms fs.FileMode) []byte {
-	req, err := http.NewRequestWithContext(context.Background(), http.MethodGet, url, nil)
-	log.Error(err, "an error occurred while making a new request")
-
-	resp, err := http.DefaultClient.Do(req)
-	log.Error(err, "an error occurred while sending an http request")
-
-	if resp.StatusCode == http.StatusNotFound {
-		log.RawError("404: %s not found", url)
-	}
+func Download(
+	url string,
+	notFoundMsg string,
+	filename string,
+	fileDesc string,
+	hash hash.Hash,
+	perms fs.FileMode,
+) []byte {
+	resp := DoRequest(url, notFoundMsg)
 
 	defer resp.Body.Close()
 
@@ -123,14 +124,10 @@ func Download(url string, filename string, fileDesc string, hash hash.Hash, perm
 }
 
 // Download a file without keeping the hash or making a loading bar.
-func SimpleDownload(url string, filename string, fileDesc string) {
+func SimpleDownload(url string, notFoundMsg string, filename string, fileDesc string) {
 	log.Log("downloading %s...", fileDesc)
 
-	req, err := http.NewRequestWithContext(context.Background(), http.MethodGet, url, nil)
-	log.Error(err, "an error occurred while making a new request")
-
-	resp, err := http.DefaultClient.Do(req)
-	log.Error(err, "an error occurred while sending an http request")
+	resp := DoRequest(url, notFoundMsg)
 
 	defer resp.Body.Close()
 

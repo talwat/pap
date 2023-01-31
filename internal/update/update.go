@@ -23,7 +23,10 @@ func parseVersion(rawVersion string) []string {
 func checkIfNewUpdate() string {
 	log.Log("checking for a new update...")
 
-	rawLatest, statusCode := net.GetPlainText("https://raw.githubusercontent.com/talwat/pap/main/version.txt")
+	rawLatest, statusCode := net.GetPlainText(
+		"https://raw.githubusercontent.com/talwat/pap/main/version.txt",
+		"latest version information not found, please report this to https://github.com/talwat/pap/issues",
+	)
 
 	if statusCode != http.StatusOK {
 		log.RawError("http request to get latest version returned %d", statusCode)
@@ -81,23 +84,30 @@ func getExePath() string {
 }
 
 func Update() {
-	version := checkIfNewUpdate()
+	latest := checkIfNewUpdate()
 
 	log.Log("finding exe...")
 
 	exe := getExePath()
 	url := fmt.Sprintf(
 		"https://github.com/talwat/pap/releases/download/v%s/pap_%s_%s_%s",
-		version,
-		version,
+		latest,
+		latest,
 		runtime.GOOS,
 		runtime.GOARCH,
 	)
-	tmpPath := fmt.Sprintf("/tmp/pap-update-%s", version)
+	tmpPath := fmt.Sprintf("/tmp/pap-update-%s", latest)
 
-	net.Download(url, tmpPath, fmt.Sprintf("pap %s", version), nil, fs.ExecutePerm)
+	net.Download(
+		url,
+		"release not found, your OS or architecture may not be supported",
+		tmpPath,
+		fmt.Sprintf("pap %s", latest),
+		nil,
+		fs.ExecutePerm,
+	)
 	log.Log("installing pap...")
 	fs.MoveFile(tmpPath, exe)
 
-	log.Success("done!")
+	log.Success("done! updated pap to %s", latest)
 }

@@ -13,7 +13,11 @@ func GetLatestVersion() string {
 	var versions Versions
 
 	log.Log("getting latest version information")
-	net.Get("https://api.papermc.io/v2/projects/paper", &versions)
+	net.Get(
+		"https://api.papermc.io/v2/projects/paper",
+		"version information not found, please report this to https://github.com/talwat/pap/issues",
+		&versions,
+	)
 
 	return versions.Versions[len(versions.Versions)-1]
 }
@@ -24,7 +28,7 @@ func GetLatestBuild(version string) Build {
 	log.Log("getting latest build information")
 
 	url := fmt.Sprintf("https://api.papermc.io/v2/projects/paper/versions/%s/builds", version)
-	statusCode := net.Get(url, &builds)
+	statusCode := net.Get(url, fmt.Sprintf("build information for %s not found", version), &builds)
 
 	jarfiles.APIError(builds.Error, statusCode)
 
@@ -53,7 +57,7 @@ func GetSpecificBuild(version string, buildID string) Build {
 	var build Build
 
 	url := fmt.Sprintf("https://api.papermc.io/v2/projects/paper/versions/%s/builds/%s", version, buildID)
-	statusCode := net.Get(url, &build)
+	statusCode := net.Get(url, fmt.Sprintf("build %s of version %s not found", buildID, version), &build)
 
 	jarfiles.APIError(build.Error, statusCode)
 

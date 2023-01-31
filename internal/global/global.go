@@ -14,9 +14,6 @@ var (
 	PaperExperimentalBuildInput = false
 	OfficialUseSnapshotInput    = false
 
-	// Geyser.
-	NoFloodGateInput = false
-
 	// Script.
 	MemoryInput          = "2G"
 	AikarsInput          = false

@@ -30,7 +30,14 @@ func DownloadPaperCommand(cCtx *cli.Context) error {
 
 	url, build := paper.GetURL(global.MinecraftVersionInput, global.JarBuildInput)
 
-	checksum := net.Download(url, "paper.jar", "paper jarfile", sha256.New(), fs.ReadWritePerm)
+	checksum := net.Download(
+		url,
+		"resolved paper jarfile not found",
+		"paper.jar",
+		"paper jarfile",
+		sha256.New(),
+		fs.ReadWritePerm,
+	)
 
 	log.Success("done downloading")
 	jarfiles.VerifyJarfile(checksum, build.Downloads.Application.Sha256)

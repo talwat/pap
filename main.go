@@ -161,17 +161,9 @@ COPYRIGHT:
 			},
 			{
 				Name:    "geyser",
-				Aliases: []string{"d"},
+				Aliases: []string{"g"},
 				Usage:   "downloads geyser",
 				Action:  cmd.GeyserCommand,
-				Flags: []cli.Flag{
-					&cli.BoolFlag{
-						Name:        "no-floodgate",
-						Value:       false,
-						Usage:       "do not download floodgate",
-						Destination: &global.NoFloodGateInput,
-					},
-				},
 			},
 			{
 				Name:      "plugin",

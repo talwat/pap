@@ -28,8 +28,7 @@ func WritePropertiesFile(filename string, props map[string]interface{}) {
 		final += fmt.Sprintf("%s=%s\n", k, props[k])
 	}
 
-	err := os.WriteFile(filename, []byte(final), fs.ReadWritePerm)
-	log.Error(err, "an error occurred while writing properties file")
+	fs.WriteFile(filename, final, fs.ReadWritePerm)
 }
 
 func parsePropertiesLine(line string, conf map[string]interface{}) {
@@ -105,6 +104,7 @@ func ResetProperties() {
 	log.Continue("are you sure you would like to reset your server.properties file?")
 	net.SimpleDownload(
 		"https://raw.githubusercontent.com/talwat/pap/main/assets/default.server.properties",
+		"server properties file not found, please report this to https://github.com/talwat/pap/issues",
 		"server.properties",
 		"server properties file",
 	)

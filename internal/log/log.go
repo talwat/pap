@@ -39,6 +39,7 @@ func RawLog(msg string, params ...interface{}) {
 }
 
 // Like RawLog, but prints to stdout instead.
+//
 // Note: This function outputs a trailing newline.
 func OutputLog(msg string, params ...interface{}) {
 	fmt.Fprintf(os.Stdout, "%s\n", fmt.Sprintf(msg, params...))

@@ -20,7 +20,14 @@ func DownloadOfficialCommand(cCtx *cli.Context) error {
 	url, pkg := official.GetURL(global.MinecraftVersionInput)
 
 	//nolint:gosec // Not being used for security, only checksumming. No clue why mojang still uses SHA1.
-	checksum := net.Download(url, "server.jar", "official server jarfile", sha1.New(), fs.ReadWritePerm)
+	checksum := net.Download(
+		url,
+		"resolved official jarfile not found",
+		"server.jar",
+		"official server jarfile",
+		sha1.New(),
+		fs.ReadWritePerm,
+	)
 
 	log.Success("done downloading")
 	jarfiles.VerifyJarfile(checksum, pkg.Downloads.Server.SHA1)

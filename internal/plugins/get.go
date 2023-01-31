@@ -15,7 +15,11 @@ func GetJenkinsURL(download Download) string {
 	var jenkinsBuild JenkinsBuild
 
 	log.Log("getting jenkins build information...")
-	net.Get(fmt.Sprintf("%s/lastSuccessfulBuild/api/json", download.Job), &jenkinsBuild)
+	net.Get(
+		fmt.Sprintf("%s/lastSuccessfulBuild/api/json", download.Job),
+		"jenkins build not found, please report this to https://github.com/talwat/pap/issues",
+		&jenkinsBuild,
+	)
 
 	log.Log("finding correct artifact...")
 
@@ -50,7 +54,14 @@ func PluginDownload(plugin PluginInfo) {
 		url = SubstituteProps(plugin, url)
 		path := fmt.Sprintf("plugins/%s", download.Filename)
 
-		net.Download(url, path, plugin.Name, nil, fs.ReadWritePerm)
+		net.Download(
+			url,
+			fmt.Sprintf("%s not found, please report this to https://github.com/talwat/pap/issues", url),
+			path,
+			plugin.Name,
+			nil,
+			fs.ReadWritePerm,
+		)
 
 		if strings.HasSuffix(path, ".zip") {
 			log.Log("unzipping %s...", path)
@@ -69,7 +80,7 @@ func GetPluginInfo(name string) PluginInfo {
 	switch {
 	// If it's a url using http then use this:
 	case strings.HasPrefix(name, "https://") || strings.HasPrefix(name, "http://"):
-		net.Get(name, &info)
+		net.Get(name, fmt.Sprintf("plugin at %s not found", name), &info)
 
 		info.URL = name
 
@@ -88,7 +99,10 @@ func GetPluginInfo(name string) PluginInfo {
 			fmt.Sprintf(
 				"https://raw.githubusercontent.com/talwat/pap/main/plugins/%s.json",
 				name,
-			), &info)
+			),
+			fmt.Sprintf("package %s not found", name),
+			&info,
+		)
 	}
 
 	if info.Alias != "" {

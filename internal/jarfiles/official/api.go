@@ -1,6 +1,8 @@
 package official
 
 import (
+	"fmt"
+
 	"github.com/talwat/pap/internal/global"
 	"github.com/talwat/pap/internal/log"
 	"github.com/talwat/pap/internal/net"
@@ -24,7 +26,11 @@ func GetVersionManifest() Versions {
 
 	var versions Versions
 
-	net.Get("https://launchermeta.mojang.com/mc/game/version_manifest.json", &versions)
+	net.Get(
+		"https://launchermeta.mojang.com/mc/game/version_manifest.json",
+		"version manifest not found, please report this to https://github.com/talwat/pap/issues",
+		&versions,
+	)
 
 	return versions
 }
@@ -39,7 +45,7 @@ func GetSpecificPackage(version string) Package {
 
 	var pkg Package
 
-	net.Get(versionInfo.URL, &pkg)
+	net.Get(versionInfo.URL, fmt.Sprintf("package %s not found", version), &pkg)
 
 	return pkg
 }
@@ -47,22 +53,22 @@ func GetSpecificPackage(version string) Package {
 func GetLatestPackage() Package {
 	versions := GetVersionManifest()
 
-	var versionToGet string
+	var version string
 
 	if global.OfficialUseSnapshotInput {
-		versionToGet = versions.Latest.Snapshot
+		version = versions.Latest.Snapshot
 	} else {
-		versionToGet = versions.Latest.Release
+		version = versions.Latest.Release
 	}
 
-	log.Log("locating version %s...", versionToGet)
-	versionInfo := FindVersion(versions, versionToGet)
+	log.Log("locating version %s...", version)
+	versionInfo := FindVersion(versions, version)
 
-	log.Log("getting package for %s...", versionToGet)
+	log.Log("getting package for %s...", version)
 
 	var pkg Package
 
-	net.Get(versionInfo.URL, &pkg)
+	net.Get(versionInfo.URL, "latest package not found", &pkg)
 
 	return pkg
 }

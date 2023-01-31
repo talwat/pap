@@ -13,16 +13,22 @@ func GetLatestVersion() Version {
 
 	var versions Versions
 
-	net.Get("https://api.purpurmc.org/v2/purpur", &versions)
+	net.Get("https://api.purpurmc.org/v2/purpur", "version list not found, the purpur api could be down", &versions)
 
 	log.Log("getting latest version info...")
 
 	var version Version
 
+	versionID := versions.Versions[len(versions.Versions)-1]
+
 	net.Get(
 		fmt.Sprintf(
 			"https://api.purpurmc.org/v2/purpur/%s",
-			versions.Versions[len(versions.Versions)-1],
+			versionID,
+		),
+		fmt.Sprintf(
+			"version information for %s not found, please report this to https://github.com/talwat/pap/issues",
+			versionID,
 		),
 		&version,
 	)
@@ -39,6 +45,7 @@ func GetSpecificVersion(versionID string) Version {
 			"https://api.purpurmc.org/v2/purpur/%s",
 			versionID,
 		),
+		fmt.Sprintf("version information for %s not found", versionID),
 		&version,
 	)
 
@@ -60,6 +67,7 @@ func GetLatestBuild(version Version) Build {
 			version.Version,
 			buildID,
 		),
+		fmt.Sprintf("build information for %s not found", buildID),
 		&build,
 	)
 
@@ -76,6 +84,7 @@ func GetSpecificBuild(version Version, buildID string) Build {
 			version.Version,
 			buildID,
 		),
+		fmt.Sprintf("build information for %s not found", buildID),
 		&build,
 	)
 
