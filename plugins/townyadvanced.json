@@ -3,7 +3,7 @@
     "version": "0.98.6.0",
     "license": "CC-BY-NC-ND-3.0",
     "description": "Resident-Town-Nation hierarchy combined with a grid based protection system, many features and an expansive API.",
-    "authors": [ "LlmDl", "Warrior", "Shade", "ElgarL" ],
+    "authors": ["LlmDl", "Warrior", "Shade", "ElgarL"],
     "site": "https://townyadvanced.github.io/",
     "downloads": [
         {
@@ -12,7 +12,7 @@
             "filename": "Towny.Advanced.zip"
         }
     ],
-    "dependencies": [ "townychat" ],
+    "dependencies": ["townychat"],
     "install": {
         "type": "complex",
         "commands": {

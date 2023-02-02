@@ -3,9 +3,9 @@
     "version": "7.0.7",
     "license": "GPL-3.0",
     "description": "Protect your Minecraft server and lets players claim areas.",
-    "authors": [ "sk89q", "me4502", "wizjany_", "zmlaoeu" ],
+    "authors": ["sk89q", "me4502", "wizjany_", "zmlaoeu"],
     "site": "https://enginehub.org/worldguard",
-    "dependencies": [ "worldedit" ],
+    "dependencies": ["worldedit"],
     "downloads": [
         {
             "type": "url",

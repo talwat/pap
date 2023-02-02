@@ -3,9 +3,9 @@
     "version": "latest",
     "license": "MIT",
     "description": "A bridge/proxy allowing you to connect to Minecraft: Java Edition servers with Minecraft: Bedrock Edition.",
-    "authors": [ "GeyserMC" ],
+    "authors": ["GeyserMC"],
     "site": "https://geysermc.org/",
-    "optionalDependencies": [ "floodgate" ],
+    "optionalDependencies": ["floodgate"],
     "downloads": [
         {
             "type": "jenkins",

@@ -12,20 +12,16 @@
     "license": "GPL-3.0",
 
     // List of authors
-    "authors": [ "Person", "Another person" ], 
+    "authors": ["Person", "Another person"],
 
     // The site or repository (optional)
     "site": "https://www.example.com",
 
     // The dependencies (optional)
-    "dependencies": [
-        "example"
-    ],
+    "dependencies": ["example"],
 
     // Optional dependencies (optional)
-    "optionalDependencies": [
-        "vault"
-    ],
+    "optionalDependencies": ["vault"],
 
     // The files to download
     "downloads": [
@@ -33,7 +29,7 @@
             // This can either be "jenkins" or "url"
             // Jenkins: Get the latest successful build
             // URL: Get from a predefined URL
-            "type": "jenkins", 
+            "type": "jenkins",
 
             // The job to get from
             "job": "https://ci.athion.net/job/Example",
@@ -49,7 +45,7 @@
             // This can either be "jenkins" or "url"
             // Jenkins: Get the latest successful build
             // URL: Get from a predefined URL
-            "type": "url", 
+            "type": "url",
 
             // The url
             "url": "https://www.example.com/plugin-{version}.jar",
@@ -69,15 +65,11 @@
         "commands": {
             // Commands to run on windows
             // Uses powershell
-            "windows": [
-                "Rename-Item -Path plugin.jar -NewName something.jar"
-            ],
+            "windows": ["Rename-Item -Path plugin.jar -NewName something.jar"],
 
             // Commands to run on unix-like operating systems (Linux, macOS, BSD, etc...)
             // Uses sh
-            "unix": [
-                "mv plugin.jar something.jar"
-            ]
+            "unix": ["mv plugin.jar something.jar"]
         }
     },
 

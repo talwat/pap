@@ -3,7 +3,14 @@
     "version": "7.2.13",
     "license": "GPL-3.0",
     "description": "Minecraft map editor and mod.",
-    "authors": [ "sk89q", "Forge_User_84940863", "me4502", "octylFractal", "wizjany_", "zmlaoeu"],
+    "authors": [
+        "sk89q",
+        "Forge_User_84940863",
+        "me4502",
+        "octylFractal",
+        "wizjany_",
+        "zmlaoeu"
+    ],
     "site": "https://enginehub.org/worldedit",
     "downloads": [
         {

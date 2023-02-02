@@ -3,9 +3,7 @@
     "version": "latest",
     "license": "MIT",
     "description": "A permissions plugin for Minecraft servers.",
-    "authors": [
-        "Luck"
-    ],
+    "authors": ["Luck"],
     "site": "https://luckperms.net/",
     "downloads": [
         {

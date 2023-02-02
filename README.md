@@ -226,6 +226,8 @@ fish_add_path $HOME/.local/bin
 
 ## Updating pap
 
+**Note**: This will only work if you are running version 0.11.0 or higher. If not, just reinstall using the install guide.
+
 If you used a release and followed the install guide, you should be able to simply run:
 
 ```sh

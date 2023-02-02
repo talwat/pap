@@ -3,7 +3,13 @@
     "version": "latest",
     "license": "GPL-3.0",
     "description": "Blazingly fast world manipulation for builders, large networks and developers.",
-    "authors": [ "Empire92", "MattBDev", "IronApollo", "dordsor21", "NotMyFault" ],
+    "authors": [
+        "Empire92",
+        "MattBDev",
+        "IronApollo",
+        "dordsor21",
+        "NotMyFault"
+    ],
     "site": "https://www.spigotmc.org/resources/13932/",
     "downloads": [
         {

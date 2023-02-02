@@ -21,7 +21,7 @@
         "triagonal"
     ],
     "site": "https://essentialsx.net",
-    "dependencies": [ "essentialsx" ],
+    "dependencies": ["essentialsx"],
     "downloads": [
         {
             "type": "url",

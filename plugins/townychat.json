@@ -3,7 +3,7 @@
     "version": "0.103",
     "license": "CC-BY-NC-ND-3.0",
     "description": "TownyChat plugin which hooks into Towny.",
-    "authors": [ "LlmDl", "phrstbrn", "Shade", "ElgarL" ],
+    "authors": ["LlmDl", "phrstbrn", "Shade", "ElgarL"],
     "site": "https://townyadvanced.github.io/",
     "downloads": [
         {
@@ -12,7 +12,7 @@
             "filename": "TownyChat.jar"
         }
     ],
-    "dependencies": [ "townyadvanced" ],
+    "dependencies": ["townyadvanced"],
     "install": {
         "type": "simple"
     },
