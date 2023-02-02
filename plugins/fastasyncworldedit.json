@@ -8,7 +8,7 @@
     "downloads": [
         {
             "type": "jenkins",
-            "job": "https://ci.athion.net/job/FastAsyncWorldEdit",
+            "job": "https://ci.athion.net/job/FastAsyncWorldEdit/",
             "artifact": "FastAsyncWorldEdit-Bukkit-.*.jar",
             "filename": "FastAsyncWorldEdit.jar"
         }

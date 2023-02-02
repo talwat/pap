@@ -7,6 +7,7 @@
   - [A plugin is out of date](#a-plugin-is-out-of-date)
   - [A plugin isn't working](#a-plugin-isnt-working)
   - [Creating a plugin](#creating-a-plugin)
+    - [Getting a starting point](#getting-a-starting-point)
     - [Fields](#fields)
       - [`name`](#name)
       - [`version`](#version)
@@ -42,6 +43,20 @@ Every plugin has a json file in the `plugins` directory. This file tells pap how
 You can see [`plugins/example.jsonc`](plugins/example.jsonc) for a commented example on how to create a plugin and each field needed.
 
 Or, continue here for more detailed explanations.
+
+### Getting a starting point
+
+You can vastly speed up the proccess by generating a plugin if it's on [modrinth](https://modrinth.com/) or [spigotmc](https://spigotmc.org/). Just run:
+
+```sh
+pap plugin generate modrinth <slug>
+```
+
+or if your plugin is on spigot:
+
+```sh
+pap plugin generate spigot <name>
+```
 
 ### Fields
 

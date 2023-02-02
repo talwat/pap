@@ -1,0 +1,31 @@
+{
+    "name": "worldguard",
+    "version": "7.0.7",
+    "license": "GPL-3.0",
+    "description": "Protect your Minecraft server and lets players claim areas.",
+    "authors": [ "sk89q", "me4502", "wizjany_", "zmlaoeu" ],
+    "site": "https://enginehub.org/worldguard",
+    "dependencies": [ "worldedit" ],
+    "downloads": [
+        {
+            "type": "url",
+            "url": "https://mediafilez.forgecdn.net/files/3677/516/worldguard-bukkit-{version}-dist.jar",
+            "filename": "WorldGuard.jar"
+        }
+    ],
+    "install": {
+        "type": "simple"
+    },
+    "uninstall": {
+        "files": [
+            {
+                "type": "main",
+                "path": "WorldGuard.jar"
+            },
+            {
+                "type": "config",
+                "path": "WorldGuard"
+            }
+        ]
+    }
+}

@@ -1,9 +1,9 @@
 package jenkins
 
 type Artifact struct {
-	FileName     string `json:"file_name"`
-	DisplayName  string `json:"display_name"`
-	RelativePath string `json:"relative_path"`
+	FileName     string `json:"fileName"`
+	DisplayName  string `json:"displayPath"`
+	RelativePath string `json:"relativePath"`
 }
 
 type Build struct {

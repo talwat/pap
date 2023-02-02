@@ -1,3 +1,30 @@
 {
-    "alias": "fastasyncworldedit"
+    "name": "worldedit",
+    "version": "7.2.13",
+    "license": "GPL-3.0",
+    "description": "Minecraft map editor and mod.",
+    "authors": [ "sk89q", "Forge_User_84940863", "me4502", "octylFractal", "wizjany_", "zmlaoeu"],
+    "site": "https://enginehub.org/worldedit",
+    "downloads": [
+        {
+            "type": "url",
+            "url": "https://mediafilez.forgecdn.net/files/4162/203/worldedit-bukkit-{version}.jar",
+            "filename": "WorldEdit.jar"
+        }
+    ],
+    "install": {
+        "type": "simple"
+    },
+    "uninstall": {
+        "files": [
+            {
+                "type": "main",
+                "path": "WorldEdit.jar"
+            },
+            {
+                "type": "config",
+                "path": "WorldEdit"
+            }
+        ]
+    }
 }

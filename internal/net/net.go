@@ -10,7 +10,6 @@ import (
 	"io/fs"
 	"net/http"
 	"os"
-	"strings"
 	"time"
 
 	"github.com/schollz/progressbar/v3"
@@ -107,7 +106,7 @@ func Download(
 
 	bar := newLoadingBar(
 		resp.ContentLength,
-		fmt.Sprintf("pap: downloading %s", strings.ToLower(fileDesc)),
+		fmt.Sprintf("pap: downloading %s", fileDesc),
 	)
 
 	if hash == nil {

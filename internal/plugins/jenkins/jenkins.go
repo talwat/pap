@@ -13,8 +13,11 @@ func GetJenkinsURL(download paplug.Download) string {
 	var jenkinsBuild Build
 
 	log.Log("getting jenkins build information...")
+
+	url := fmt.Sprintf("%s/lastSuccessfulBuild/api/json", download.Job)
+
 	net.Get(
-		fmt.Sprintf("%s/lastSuccessfulBuild/api/json", download.Job),
+		url,
 		"jenkins build not found, please report this to https://github.com/talwat/pap/issues",
 		&jenkinsBuild,
 	)

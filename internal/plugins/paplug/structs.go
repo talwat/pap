@@ -9,7 +9,7 @@ type Download struct {
 	// If type is "jenkins"
 
 	Job      string `json:"job,omitempty"`
-	Artifact string `json:"artifacts,omitempty"`
+	Artifact string `json:"artifact,omitempty"`
 
 	// If type is "url"
 
