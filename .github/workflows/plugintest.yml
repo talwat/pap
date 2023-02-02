@@ -33,6 +33,9 @@ jobs:
 
       - name: "Test changed packages"
         run: |
+          "echo $GIT_DIFF_FILTERED"
+          "echo $GIT_DIFF"
+          "echo $MATCHED_FILES"
           "echo ${{ env.GIT_DIFF_FILTERED }}"
           "echo ${{ env.GIT_DIFF }}"
           "echo ${{ env.MATCHED_FILES }}"
