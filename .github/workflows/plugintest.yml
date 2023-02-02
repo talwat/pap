@@ -32,4 +32,8 @@ jobs:
             +plugins/*.json
 
       - name: "Test changed packages"
-        run: ./pap -y plugin install ${{ env.GIT_DIFF_FILTERED }}
+        run: |
+          "echo ${{ env.GIT_DIFF_FILTERED }}"
+          "echo ${{ env.GIT_DIFF }}"
+          "echo ${{ env.MATCHED_FILES }}"
+          "./pap -y plugin install ${{ env.GIT_DIFF_FILTERED }}"
