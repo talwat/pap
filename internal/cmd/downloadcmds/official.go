@@ -1,7 +1,7 @@
 package downloadcmds
 
+//nolint:gosec // Not being used for security, only checksumming. No clue why mojang still uses SHA1.
 import (
-	//nolint:gosec // Not being used for security, only checksumming. No clue why mojang still uses SHA1.
 	"crypto/sha1"
 
 	"github.com/talwat/pap/internal/fs"

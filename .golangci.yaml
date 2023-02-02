@@ -1,21 +1,11 @@
 linters:
   disable:
-    - maligned
-    - scopelint
-    - varcheck
-    - ifshort
-    - golint
-    - interfacer
-    - deadcode
-    - nosnakecase
     - exhaustivestruct
-    - rowserrcheck
-    - sqlclosecheck
-    - wastedassign
-    - structcheck
-
     - tagliatelle
     - exhaustruct
+    - nosnakecase
     - godox
+    - musttag
+    - gci
 
   enable-all: true

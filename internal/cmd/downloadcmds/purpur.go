@@ -1,7 +1,7 @@
 package downloadcmds
 
+//nolint:gosec // Not being used for security, only checksumming. Why does purpur use MD5?
 import (
-	//nolint:gosec // Not being used for security, only checksumming. Why does purpur use MD5?
 	"crypto/md5"
 
 	"github.com/talwat/pap/internal/fs"

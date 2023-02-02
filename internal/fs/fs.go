@@ -30,9 +30,7 @@ func ReadFile(name string) []byte {
 }
 
 func FileExists(filename string) bool {
-	_, err := os.Stat(filename)
-
-	if os.IsNotExist(err) {
+	if _, err := os.Stat(filename); os.IsNotExist(err) {
 		return false
 	} else if err != nil {
 		log.Error(err, "an error occurred while checking if %s exists", filename)

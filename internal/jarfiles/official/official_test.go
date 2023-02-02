@@ -26,9 +26,7 @@ func TestGetPackage(t *testing.T) {
 
 	pkg := official.GetPackage("1.12")
 
-	expected := "1.12"
-
-	if pkg.ID != expected {
+	if expected := "1.12"; pkg.ID != expected {
 		t.Errorf(`GetPackage("1.12") = "%s"; want "%s"`, pkg.ID, expected)
 	}
 }
