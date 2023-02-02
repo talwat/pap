@@ -22,7 +22,7 @@
         - [Full example](#full-example)
       - [`install`](#install)
       - [`uninstall`](#uninstall)
-      - [`note`](#note)
+      - [`note` _(optional)_](#note-optional)
     - [Testing your plugin](#testing-your-plugin)
 
 ## A plugin is out of date
@@ -267,7 +267,7 @@ For example:
 }
 ```
 
-#### `note`
+#### `note` _(optional)_
 
 The `note` attribute will be displayed at the end of the command, and is useful for displaying key information.
 

@@ -4,6 +4,7 @@ import (
 	"github.com/talwat/pap/internal/global"
 	"github.com/talwat/pap/internal/log"
 	"github.com/talwat/pap/internal/plugins"
+	"github.com/talwat/pap/internal/plugins/paplug"
 	"github.com/urfave/cli/v2"
 )
 
@@ -18,7 +19,7 @@ func InstallCommand(cCtx *cli.Context) error {
 	// The plugins instructed to be installed, this does not include dependencies.
 	pluginsNoDeps := pluginsToInstall
 
-	dependencies := []plugins.PluginInfo{}
+	dependencies := []paplug.PluginInfo{}
 
 	if !global.NoDepsInput {
 		log.Log("resolving dependencies...")

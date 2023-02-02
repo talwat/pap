@@ -14,6 +14,7 @@ import (
 	"time"
 
 	"github.com/schollz/progressbar/v3"
+	"github.com/talwat/pap/internal/global"
 	"github.com/talwat/pap/internal/log"
 )
 
@@ -49,6 +50,7 @@ func newLoadingBar(maxBytes int64, desc string) *progressbar.ProgressBar {
 
 func DoRequest(url string, notFoundMsg string) *http.Response {
 	req, err := http.NewRequestWithContext(context.Background(), http.MethodGet, url, nil)
+	req.Header.Set("User-Agent", fmt.Sprintf("talwat/pap/%s", global.Version))
 	log.Error(err, "an error occurred while making request")
 
 	resp, err := http.DefaultClient.Do(req)

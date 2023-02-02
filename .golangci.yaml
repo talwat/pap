@@ -15,5 +15,6 @@ linters:
     - structcheck
 
     - tagliatelle
+    - exhaustruct
 
   enable-all: true

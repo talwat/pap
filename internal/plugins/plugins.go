@@ -9,10 +9,11 @@ import (
 	"github.com/talwat/pap/internal/exec"
 	"github.com/talwat/pap/internal/fs"
 	"github.com/talwat/pap/internal/log"
+	"github.com/talwat/pap/internal/plugins/paplug"
 )
 
 // Substitutes parts of a string like {version} with their proper counterpart.
-func SubstituteProps(plugin PluginInfo, str string) string {
+func SubstituteProps(plugin paplug.PluginInfo, str string) string {
 	toReplace := map[string]string{
 		"version": plugin.Version,
 		"name":    plugin.Name,
@@ -27,7 +28,7 @@ func SubstituteProps(plugin PluginInfo, str string) string {
 	return final
 }
 
-func PluginInstall(plugin PluginInfo) {
+func PluginInstall(plugin paplug.PluginInfo) {
 	name := plugin.Name
 
 	log.Log("installing %s...", name)
@@ -74,7 +75,7 @@ func PluginInstall(plugin PluginInfo) {
 	log.Success("successfully installed %s", name)
 }
 
-func PluginUninstall(plugin PluginInfo) {
+func PluginUninstall(plugin paplug.PluginInfo) {
 	name := plugin.Name
 
 	log.Log("uninstalling %s...", name)
@@ -93,7 +94,7 @@ func PluginUninstall(plugin PluginInfo) {
 	log.Success("successfully uninstalled %s", name)
 }
 
-func PluginDoMany(plugins []PluginInfo, operation func(plugin PluginInfo)) {
+func PluginDoMany(plugins []paplug.PluginInfo, operation func(plugin paplug.PluginInfo)) {
 	for _, plugin := range plugins {
 		operation(plugin)
 	}

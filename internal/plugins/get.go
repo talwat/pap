@@ -4,43 +4,17 @@ import (
 	"encoding/json"
 	"fmt"
 	"path/filepath"
-	"regexp"
 	"strings"
 
 	"github.com/talwat/pap/internal/fs"
 	"github.com/talwat/pap/internal/log"
 	"github.com/talwat/pap/internal/net"
+	"github.com/talwat/pap/internal/plugins/jenkins"
+	"github.com/talwat/pap/internal/plugins/modrinth"
+	"github.com/talwat/pap/internal/plugins/paplug"
 )
 
-func GetJenkinsURL(download Download) string {
-	var jenkinsBuild JenkinsBuild
-
-	log.Log("getting jenkins build information...")
-	net.Get(
-		fmt.Sprintf("%s/lastSuccessfulBuild/api/json", download.Job),
-		"jenkins build not found, please report this to https://github.com/talwat/pap/issues",
-		&jenkinsBuild,
-	)
-
-	log.Log("finding correct artifact...")
-
-	for _, artifact := range jenkinsBuild.Artifacts {
-		matched, err := regexp.MatchString(download.Artifact, artifact.FileName)
-		log.Error(err, "an error occurred while checking if %s is the correct artifact", artifact.FileName)
-
-		if matched {
-			log.Log("using %s", artifact.FileName)
-
-			return fmt.Sprintf("%s/lastSuccessfulBuild/artifact/%s", download.Job, artifact.RelativePath)
-		}
-	}
-
-	log.RawError("no artifacts matched, please report this to https://github.com/talwat/pap/issues")
-
-	return ""
-}
-
-func PluginDownload(plugin PluginInfo) {
+func PluginDownload(plugin paplug.PluginInfo) {
 	for _, download := range plugin.Downloads {
 		var url string
 
@@ -49,7 +23,7 @@ func PluginDownload(plugin PluginInfo) {
 		if download.Type == "url" {
 			url = download.URL
 		} else if download.Type == "jenkins" {
-			url = GetJenkinsURL(download)
+			url = jenkins.GetJenkinsURL(download)
 		}
 
 		url = SubstituteProps(plugin, url)
@@ -59,7 +33,7 @@ func PluginDownload(plugin PluginInfo) {
 			url,
 			fmt.Sprintf("%s not found, please report this to https://github.com/talwat/pap/issues", url),
 			path,
-			plugin.Name,
+			download.Filename,
 			nil,
 			fs.ReadWritePerm,
 		)
@@ -75,8 +49,8 @@ func PluginDownload(plugin PluginInfo) {
 }
 
 // This function will call itself in case of an alias.
-func GetPluginInfo(name string) PluginInfo {
-	var info PluginInfo
+func GetPluginInfo(name string) paplug.PluginInfo {
+	var info paplug.PluginInfo
 
 	switch {
 	// If it's a url using http then use this:
@@ -94,7 +68,13 @@ func GetPluginInfo(name string) PluginInfo {
 
 		info.Path = name
 
-	// If it's neither try getting it from the repos.
+	// If it's a modrinth plugin try getting it from modrinth:
+	case strings.HasPrefix(name, "modrinth:"):
+		info = modrinth.GetPluginInfo(strings.TrimPrefix(name, "modrinth:"))
+
+		info.Source = "modrinth"
+
+	// If it's none of the options above try getting it from the repos:
 	default:
 		net.Get(
 			fmt.Sprintf(
@@ -115,8 +95,8 @@ func GetPluginInfo(name string) PluginInfo {
 	return info
 }
 
-func GetManyPluginInfo(plugins []string) []PluginInfo {
-	pluginInfo := []PluginInfo{}
+func GetManyPluginInfo(plugins []string) []paplug.PluginInfo {
+	pluginInfo := []paplug.PluginInfo{}
 
 	for _, plugin := range plugins {
 		pluginInfo = append(pluginInfo, GetPluginInfo(plugin))

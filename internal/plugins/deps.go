@@ -1,7 +1,9 @@
 package plugins
 
+import "github.com/talwat/pap/internal/plugins/paplug"
+
 // Check if a plugin exists in a list of plugins.
-func pluginExists(plugin PluginInfo, plugins []PluginInfo) bool {
+func pluginExists(plugin paplug.PluginInfo, plugins []paplug.PluginInfo) bool {
 	for _, pluginToCheck := range plugins {
 		// Just check the name which should normally be unique.
 		if pluginToCheck.Name == plugin.Name {
@@ -15,7 +17,7 @@ func pluginExists(plugin PluginInfo, plugins []PluginInfo) bool {
 // Recursive function.
 // Gets a plugins dependencies and then calls itself to get that dependencies own dependencies.
 // This happens until it's done.
-func getDependencyLevel(deps []string, dest *[]PluginInfo, installed []PluginInfo) {
+func getDependencyLevel(deps []string, dest *[]paplug.PluginInfo, installed []paplug.PluginInfo) {
 	depsInfo := GetManyPluginInfo(deps)
 
 	for _, dep := range depsInfo {
@@ -31,8 +33,8 @@ func getDependencyLevel(deps []string, dest *[]PluginInfo, installed []PluginInf
 	}
 }
 
-func GetDependencies(deps []string, installed []PluginInfo) []PluginInfo {
-	finalDeps := []PluginInfo{}
+func GetDependencies(deps []string, installed []paplug.PluginInfo) []paplug.PluginInfo {
+	finalDeps := []paplug.PluginInfo{}
 
 	getDependencyLevel(deps, &finalDeps, installed)
 

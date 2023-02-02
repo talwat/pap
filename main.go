@@ -7,6 +7,7 @@ import (
 	"github.com/talwat/pap/internal/cmd"
 	"github.com/talwat/pap/internal/cmd/downloadcmds"
 	"github.com/talwat/pap/internal/cmd/plugincmds"
+	"github.com/talwat/pap/internal/cmd/plugincmds/generatecmds"
 	"github.com/talwat/pap/internal/cmd/propcmds"
 	"github.com/talwat/pap/internal/global"
 	"github.com/talwat/pap/internal/log"
@@ -204,6 +205,25 @@ COPYRIGHT:
 						Aliases: []string{"inf"},
 						Usage:   "get information about a plugin",
 						Action:  plugincmds.InfoCommand,
+					},
+					{
+						Name:    "generate",
+						Aliases: []string{"gen"},
+						Usage:   "generate a plugin json file using a 3rd party plugin library",
+						Subcommands: []*cli.Command{
+							{
+								Name:    "modrinth",
+								Aliases: []string{"m"},
+								Usage:   "generate a plugin json file using modrinth",
+								Action:  generatecmds.GenerateModrinth,
+							},
+							{
+								Name:    "spigot",
+								Aliases: []string{"s"},
+								Usage:   "generate a plugin json file using spigotmc",
+								Action:  generatecmds.GenerateSpigot,
+							},
+						},
 					},
 				},
 			},

@@ -3,9 +3,10 @@ package plugins
 import (
 	"github.com/talwat/pap/internal/log"
 	"github.com/talwat/pap/internal/log/color"
+	"github.com/talwat/pap/internal/plugins/paplug"
 )
 
-func DisplayAdditionalInfo(plugin PluginInfo) {
+func DisplayAdditionalInfo(plugin paplug.PluginInfo) {
 	if len(plugin.Note) < 1 && len(plugin.OptionalDependencies) < 1 {
 		return
 	}
@@ -30,20 +31,26 @@ func DisplayAdditionalInfo(plugin PluginInfo) {
 	}
 }
 
-func PluginList(plugins []PluginInfo, deps []PluginInfo, operation string) {
+func displayPluginLine(name string, plugin paplug.PluginInfo) {
+	switch {
+	case plugin.Path != "":
+		log.RawLog("  %s %s (%s)\n", name, plugin.Version, plugin.Path)
+	case plugin.URL != "":
+		log.RawLog("  %s %s (%s)\n", name, plugin.Version, plugin.URL)
+	case plugin.Source != "":
+		log.RawLog("  %s %s (%s)\n", name, plugin.Version, plugin.Source)
+	default:
+		log.RawLog("  %s %s\n", name, plugin.Version)
+	}
+}
+
+func PluginList(plugins []paplug.PluginInfo, deps []paplug.PluginInfo, operation string) {
 	log.Log("%s %d plugin(s):", operation, len(plugins))
 
 	for _, plugin := range plugins {
 		name := plugin.Name
 
-		switch {
-		case plugin.Path != "":
-			log.RawLog("  %s %s (%s)\n", name, plugin.Version, plugin.Path)
-		case plugin.URL != "":
-			log.RawLog("  %s %s (%s)\n", name, plugin.Version, plugin.URL)
-		default:
-			log.RawLog("  %s %s\n", name, plugin.Version)
-		}
+		displayPluginLine(name, plugin)
 	}
 
 	for _, dep := range deps {

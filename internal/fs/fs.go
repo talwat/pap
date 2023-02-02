@@ -14,7 +14,11 @@ const (
 )
 
 func WriteFile(name string, text string, perms fs.FileMode) {
-	err := os.WriteFile(name, []byte(text), perms)
+	WriteFileByte(name, []byte(text), perms)
+}
+
+func WriteFileByte(name string, text []byte, perms fs.FileMode) {
+	err := os.WriteFile(name, text, perms)
 	log.Error(err, "an error occurred while writing %s", name)
 }
 
