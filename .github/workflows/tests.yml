@@ -58,6 +58,14 @@ jobs:
           ./pap -y plugin install townyadvanced townychat
           ./pap -y plugin install geyser
           ./pap -y plugin install --optional geyser
+          ./pap -y plugin install modrinth:essentialsx
+      
+      - name: "Test plugin manager generator"
+        run: |
+          ./pap -y plugin generate spigot essentialsx
+          cat essentialsx.json
+          ./pap -y plugin generate modrinth essentialsx
+          cat essentialsx.json
 
       - run: "./pap -y sign"
       - name: Read Signed EULA

@@ -10,6 +10,7 @@ func GenerateSpigot(cCtx *cli.Context) error {
 	args := cCtx.Args()
 
 	log.Log("getting plugins to write...")
+
 	pluginsToWrite := spigot.GetManyPluginInfo(args.Slice())
 
 	for _, plugin := range pluginsToWrite {

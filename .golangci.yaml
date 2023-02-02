@@ -16,5 +16,6 @@ linters:
 
     - tagliatelle
     - exhaustruct
+    - godox
 
   enable-all: true

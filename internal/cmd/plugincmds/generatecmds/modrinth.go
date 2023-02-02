@@ -10,6 +10,7 @@ func GenerateModrinth(cCtx *cli.Context) error {
 	args := cCtx.Args()
 
 	log.Log("getting plugins to write...")
+
 	pluginsToWrite := modrinth.GetManyPluginInfo(args.Slice())
 
 	for _, plugin := range pluginsToWrite {

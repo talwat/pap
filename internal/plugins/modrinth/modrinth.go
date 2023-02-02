@@ -27,6 +27,8 @@ func ConvertToPlugin(modrinthPlugin PluginInfo) paplug.PluginInfo {
 	plugin := paplug.PluginInfo{}
 
 	plugin.Name = modrinthPlugin.Slug
+	plugin.Name = strings.ToLower(plugin.Name)
+
 	plugin.Description = modrinthPlugin.Description
 	plugin.License = modrinthPlugin.License.ID
 	plugin.Site = getWebsite(modrinthPlugin)

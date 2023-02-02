@@ -20,12 +20,14 @@ func getWebsite(plugin PluginInfo) string {
 	}
 }
 
-// TODO: Also convert version
+// TODO: Also convert version.
 func ConvertToPlugin(spigotPlugin PluginInfo) paplug.PluginInfo {
 	plugin := paplug.PluginInfo{}
 
 	re := regexp.MustCompile("[[:^ascii:]]")
 	plugin.Name = re.ReplaceAllLiteralString(spigotPlugin.Name, "")
+	plugin.Name = strings.ToLower(plugin.Name)
+
 	plugin.Description = spigotPlugin.Tag
 	plugin.Site = getWebsite(spigotPlugin)
 
@@ -68,6 +70,7 @@ func Get(name string) PluginInfo {
 	var spigotPlugin []PluginInfo
 
 	net.Get(
+		//nolint:lll
 		fmt.Sprintf("https://api.spiget.org/v2/search/resources/%s?field=name&size=1&page=0&sort=-likes&fields=file%%2Ccontributors%%2Clikes%%2Cname%%2Ctag%%2CsourceCodeLink%%2CdonationLink%%2Cpremium", name),
 		fmt.Sprintf("spigot plugin %s not found", name),
 		&spigotPlugin,
