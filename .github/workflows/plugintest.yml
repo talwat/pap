@@ -29,7 +29,7 @@ jobs:
       - uses: technote-space/get-diff-action@v6
         with:
           PATTERNS: |
-            plugins/*.json
+            +plugins/*.json
 
       - name: "Test changed packages"
-        run: "./pap plugin install ${{ env.MATCHED_FILES }}"
+        run: "./pap -y plugin install ${{ env.MATCHED_FILES }}"
