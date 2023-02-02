@@ -32,4 +32,4 @@ jobs:
             +plugins/*.json
 
       - name: "Test changed packages"
-        run: "./pap -y plugin install ${{ env.MATCHED_FILES }}"
+        run: "./pap -y plugin install ${{ env.GIT_DIFF_FILTERED }}"
