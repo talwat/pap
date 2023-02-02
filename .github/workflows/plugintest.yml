@@ -10,7 +10,7 @@ permissions:
   pull-requests: read
 
 jobs:
-  unit-testing:
+  plugintest:
     strategy:
       matrix:
         os: [macos-latest, windows-latest, ubuntu-latest]
