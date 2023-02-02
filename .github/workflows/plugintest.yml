@@ -29,5 +29,4 @@ jobs:
         run: "go build ."
 
       - name: "Test changed packages"
-        run: |
-          "./pap -y plugin install $(./scripts/test_plugins.sh)"
+        run: "./pap -y plugin install $(./scripts/test_plugins.sh)"
