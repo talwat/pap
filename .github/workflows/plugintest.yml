@@ -21,22 +21,22 @@ jobs:
         with:
           go-version: 1.19
 
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v3]
+        with:
+          fetch-depth: 0
 
       - name: "Build pap"
         run: "go build ."
       
-      - uses: technote-space/get-diff-action@v6
+      - name: Get changed files
+        id: changed-files
+        uses: tj-actions/changed-files@v35  
         with:
-          PATTERNS: |
-            +plugins/*.json
+          files: |
+            plugin/*.json
 
       - name: "Test changed packages"
+        if: steps.changed-files-specific.outputs.any_changed == 'true'
         run: |
-          "echo $GIT_DIFF_FILTERED"
-          "echo $GIT_DIFF"
-          "echo $MATCHED_FILES"
-          "echo ${{ env.GIT_DIFF_FILTERED }}"
-          "echo ${{ env.GIT_DIFF }}"
-          "echo ${{ env.MATCHED_FILES }}"
-          "./pap -y plugin install ${{ env.GIT_DIFF_FILTERED }}"
+          "echo ${{ steps.changed-files-specific.outputs.all_changed_files }}"
+          "./pap -y plugin install ${{ steps.changed-files-specific.outputs.all_changed_files }}"
