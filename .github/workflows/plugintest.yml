@@ -33,9 +33,10 @@ jobs:
         uses: tj-actions/changed-files@v35  
         with:
           files: |
-            plugins/*.json
+            plugins/**
 
       - name: "Test changed packages"
+        if: steps.changed-files-specific.outputs.any_changed == 'true'
         run: |
           "echo ${{ steps.changed-files-specific.outputs.all_changed_files }}"
           "./pap -y plugin install ${{ steps.changed-files-specific.outputs.all_changed_files }}"
