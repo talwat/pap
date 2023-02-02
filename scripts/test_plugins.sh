@@ -5,7 +5,7 @@ filtered=()
 
 for i in $changes
 do
-  if [[ $i == plugins/* ]] && [[ -f $i ]]; then
+  if [[ $i == plugins/*.json ]] && [[ -f $i ]]; then
     filtered+=("$i")
   fi
 done
