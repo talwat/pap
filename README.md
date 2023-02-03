@@ -95,6 +95,9 @@ If you are obtaining pap from source, you will need these dependencies:
 
 ### Arch linux
 
+> **Info**
+> The AUR build might not have the latest version of pap, but it may be more stable.
+
 If you wish, pap can be installed from the AUR:
 
 ```sh
@@ -121,12 +124,20 @@ sudo chmod +x /usr/bin/pap
 
 ##### Unix - Local from releases
 
+> **Warning**
+> You may see an error that pap wasn't found, if you see this you may not have `~/.local/bin/` in your PATH.
+> See [common issues](#local-installation-not-found) on how to add it.
+
 ```sh
 mv pap* ~/.local/bin/pap
 chmod +x ~/.local/bin/pap
 ```
 
 #### Unix - From Source
+
+> **Warning**
+> `pap update` downloads and installs a binary, it does not compile it from source.
+> If you need to compile pap from source, don't use `pap update`.
 
 First, clone pap:
 
@@ -158,6 +169,10 @@ sudo chmod +x /usr/bin/pap
 ```
 
 ##### Unix - Local from source
+
+> **Warning**
+> You may see an error that pap wasn't found, if you see this you may not have `~/.local/bin/` in your PATH.
+> See [common issues](#local-installation-not-found) on how to add it.
 
 ```sh
 mv ~/.local/bin/pap
