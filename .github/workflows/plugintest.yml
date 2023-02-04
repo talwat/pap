@@ -37,5 +37,5 @@ jobs:
       - name: "Test changed packages"
         if: ${{ env.CHANGES != 'nochanges' }}
         run: |
-          echo ${{ env.CHANGES }}
+          echo $CHANGES
           ./pap -y plugin install $CHANGES
