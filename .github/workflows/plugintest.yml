@@ -34,7 +34,7 @@ jobs:
         if: ${{ env.CHANGES != 'nochanges' }}
         run: "go build ."
 
-      - name: "Test changed packages: {{ env.CHANGES }}"
+      - name: "Test changed packages: ${{ env.CHANGES }}"
         if: ${{ env.CHANGES != 'nochanges' }}
         run: |
           echo $CHANGES
