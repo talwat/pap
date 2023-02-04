@@ -23,20 +23,19 @@ jobs:
 
       - name: "Get diff"
         shell: bash
-        id: "getdiff"
-        run: "echo changes=$(./scripts/test_plugins.sh) >> $GITHUB_OUTPUT"
+        run: "export CHANGES=$(./scripts/test_plugins.sh)"
 
       - uses: actions/setup-go@v3
-        if: (steps.getdiff.outputs.changes != 'nochanges')
+        if: ${{ env.CHANGES != 'nochanges' }}
         with:
           go-version: '1.20'
 
       - name: "Build pap"
-        if: (steps.getdiff.outputs.changes != 'nochanges')
+        if: ${{ env.CHANGES != 'nochanges' }}
         run: "go build ."
 
       - name: "Test changed packages"
-        if: (steps.getdiff.outputs.changes != 'nochanges')
+        if: ${{ env.CHANGES != 'nochanges' }}
         run: |
-          echo ${{ steps.getdiff.outputs.changes }}
-          ./pap -y plugin install ${{ steps.checksecrets.outputs.changes }}
+          echo ${{ env.CHANGES }}
+          ./pap -y plugin install ${{ env.CHANGES }}
