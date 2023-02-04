@@ -10,7 +10,7 @@ do
   fi
 done
 
-if [[ ${#filtered[@]} ]]; then
+if [[ ${#filtered[@]} == 0 ]]; then
   echo "nochanges"
   exit 0
 fi
