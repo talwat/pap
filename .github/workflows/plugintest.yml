@@ -23,7 +23,7 @@ jobs:
 
       - name: "Get diff"
         shell: bash
-        run: "export CHANGES=$(./scripts/test_plugins.sh)"
+        run: echo "CHANGES=$(./scripts/test_plugins.sh)" >> $GITHUB_ENV
 
       - uses: actions/setup-go@v3
         if: ${{ env.CHANGES != 'nochanges' }}
@@ -34,7 +34,7 @@ jobs:
         if: ${{ env.CHANGES != 'nochanges' }}
         run: "go build ."
 
-      - name: "Test changed packages"
+      - name: "Test changed packages: {{ env.CHANGES }}"
         if: ${{ env.CHANGES != 'nochanges' }}
         run: |
           echo $CHANGES
