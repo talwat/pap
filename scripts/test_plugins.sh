@@ -10,4 +10,10 @@ do
   fi
 done
 
+if [[ ${#filtered[@]} ]]; then
+  echo "nochanges"
+  exit 0
+fi
+
 echo "${filtered[@]}"
+exit 0

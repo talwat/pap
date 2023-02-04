@@ -17,16 +17,24 @@ jobs:
 
     runs-on: ${{ matrix.os }}
     steps:
+      - name: "Get diff"
+        id: "getdiff"
+        run: "echo changes=$(./scripts/test_plugins.sh) >> $GITHUB_OUTPUT"
+
       - uses: actions/setup-go@v3
+        if: (steps.checksecrets.outputs.changes != 'nochanges')
         with:
           go-version: '1.20'
 
       - uses: actions/checkout@v3
+        if: (steps.checksecrets.outputs.changes != 'nochanges')
         with:
           fetch-depth: 0
 
       - name: "Build pap"
+        if: (steps.checksecrets.outputs.changes != 'nochanges')
         run: "go build ."
 
       - name: "Test changed packages"
+        if: (steps.checksecrets.outputs.changes != 'nochanges')
         run: "./pap -y plugin install $(./scripts/test_plugins.sh)"
