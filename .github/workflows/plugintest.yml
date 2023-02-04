@@ -22,6 +22,7 @@ jobs:
           fetch-depth: 0
 
       - name: "Get diff"
+        shell: bash
         id: "getdiff"
         run: "echo changes=$(./scripts/test_plugins.sh) >> $GITHUB_OUTPUT"
 
