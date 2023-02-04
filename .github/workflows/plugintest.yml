@@ -38,4 +38,4 @@ jobs:
         if: ${{ env.CHANGES != 'nochanges' }}
         run: |
           echo ${{ env.CHANGES }}
-          ./pap -y plugin install ${{ env.CHANGES }}
+          ./pap -y plugin install $CHANGES
