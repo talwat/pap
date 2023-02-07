@@ -129,6 +129,7 @@ sudo chmod +x /usr/bin/pap
 > See [common issues](#local-installation-not-found) on how to add it.
 
 ```sh
+mkdir -p ~/.local/bin
 mv pap* ~/.local/bin/pap
 chmod +x ~/.local/bin/pap
 ```
@@ -175,13 +176,14 @@ sudo chmod +x /usr/bin/pap
 > See [common issues](#local-installation-not-found) on how to add it.
 
 ```sh
-mv ~/.local/bin/pap
+mkdir -p ~/.local/bin
+mv pap ~/.local/bin/pap
 chmod +x ~/.local/bin/pap
 ```
 
 ### Windows
 
-pap **does** work on windows, but the install steps listed are for unix-like systems.
+pap **does** work on windows, but windows has a ~~bad~~ different way to CLI apps.
 
 #### Windows - From Releases _(recommended)_
 
