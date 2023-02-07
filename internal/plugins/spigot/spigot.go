@@ -5,6 +5,7 @@ import (
 	"regexp"
 	"strings"
 
+	"github.com/talwat/pap/internal/log"
 	"github.com/talwat/pap/internal/net"
 	"github.com/talwat/pap/internal/plugins/paplug"
 )
@@ -18,6 +19,25 @@ func getWebsite(plugin PluginInfo) string {
 	default:
 		return fmt.Sprintf("https://www.spigotmc.org/resources/%d", plugin.ID)
 	}
+}
+
+func ConvertDownload(plugin PluginInfo, path string) paplug.Download {
+	download := paplug.Download{}
+	download.Type = "url"
+	download.Filename = path
+
+	if !plugin.Premium && plugin.File.FileType == ".jar" {
+		download.URL = fmt.Sprintf("https://api.spiget.org/v2/resources/%d/download", plugin.ID)
+	} else {
+		download.URL = paplug.Undefined
+		log.Warn(
+			"%s does not support downloading. if you are downloading %s as a plugin, you will get an error",
+			plugin.Name,
+			plugin.Name,
+		)
+	}
+
+	return download
 }
 
 func ConvertToPlugin(spigotPlugin PluginInfo) paplug.PluginInfo {
@@ -65,18 +85,7 @@ func ConvertToPlugin(spigotPlugin PluginInfo) paplug.PluginInfo {
 
 	plugin.Uninstall.Files = append(plugin.Uninstall.Files, file)
 
-	// Download
-	download := paplug.Download{}
-	download.Type = "url"
-	download.Filename = path
-
-	if !spigotPlugin.Premium && spigotPlugin.File.FileType == ".jar" {
-		download.URL = fmt.Sprintf("https://api.spiget.org/v2/resources/%d/download", spigotPlugin.ID)
-	} else {
-		download.URL = paplug.Undefined
-	}
-
-	plugin.Downloads = append(plugin.Downloads, download)
+	plugin.Downloads = append(plugin.Downloads, ConvertDownload(spigotPlugin, path))
 
 	return plugin
 }
