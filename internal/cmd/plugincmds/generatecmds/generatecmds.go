@@ -6,8 +6,21 @@ import (
 
 	"github.com/talwat/pap/internal/fs"
 	"github.com/talwat/pap/internal/log"
-	"github.com/talwat/pap/internal/plugins/paplug"
+	"github.com/talwat/pap/internal/plugins/sources"
+	"github.com/talwat/pap/internal/plugins/sources/paplug"
 )
+
+func Generate(getPluginInfo func(plugin string) paplug.PluginInfo, plugins []string) {
+	log.Log("getting plugins to write...")
+
+	pluginsToWrite := sources.GetManyPluginInfo(plugins, getPluginInfo)
+
+	for _, plugin := range pluginsToWrite {
+		WritePlugin(plugin)
+	}
+
+	log.Success("all plugins generated successfully!")
+}
 
 func WritePlugin(plugin paplug.PluginInfo) {
 	unmarshaled, err := json.MarshalIndent(plugin, "", "    ")

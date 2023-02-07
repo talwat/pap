@@ -1,6 +1,6 @@
 package plugins
 
-import "github.com/talwat/pap/internal/plugins/paplug"
+import "github.com/talwat/pap/internal/plugins/sources/paplug"
 
 // Check if a plugin exists in a list of plugins.
 func pluginExists(plugin paplug.PluginInfo, plugins []paplug.PluginInfo) bool {

@@ -6,7 +6,7 @@ import (
 
 	"github.com/talwat/pap/internal/log"
 	"github.com/talwat/pap/internal/net"
-	"github.com/talwat/pap/internal/plugins/paplug"
+	"github.com/talwat/pap/internal/plugins/sources/paplug"
 )
 
 func GetJenkinsURL(download paplug.Download) string {

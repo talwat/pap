@@ -52,10 +52,10 @@ You can vastly speed up the proccess by generating a plugin if it's on [modrinth
 pap plugin generate modrinth <slug>
 ```
 
-or if your plugin is on spigot:
+or if your plugin is on spigotmc:
 
 ```sh
-pap plugin generate spigot <name>
+pap plugin generate spigotmc <name>
 ```
 
 ### Fields

@@ -3,7 +3,7 @@ package plugins
 import (
 	"github.com/talwat/pap/internal/log"
 	"github.com/talwat/pap/internal/log/color"
-	"github.com/talwat/pap/internal/plugins/paplug"
+	"github.com/talwat/pap/internal/plugins/sources/paplug"
 )
 
 func DisplayAdditionalInfo(plugin paplug.PluginInfo) {

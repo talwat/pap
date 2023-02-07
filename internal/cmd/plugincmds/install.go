@@ -4,7 +4,7 @@ import (
 	"github.com/talwat/pap/internal/global"
 	"github.com/talwat/pap/internal/log"
 	"github.com/talwat/pap/internal/plugins"
-	"github.com/talwat/pap/internal/plugins/paplug"
+	"github.com/talwat/pap/internal/plugins/sources/paplug"
 	"github.com/urfave/cli/v2"
 )
 

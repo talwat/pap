@@ -10,9 +10,10 @@ import (
 	"github.com/talwat/pap/internal/log"
 	"github.com/talwat/pap/internal/net"
 	"github.com/talwat/pap/internal/plugins/jenkins"
-	"github.com/talwat/pap/internal/plugins/modrinth"
-	"github.com/talwat/pap/internal/plugins/paplug"
-	"github.com/talwat/pap/internal/plugins/spigot"
+	"github.com/talwat/pap/internal/plugins/sources/bukkit"
+	"github.com/talwat/pap/internal/plugins/sources/modrinth"
+	"github.com/talwat/pap/internal/plugins/sources/paplug"
+	"github.com/talwat/pap/internal/plugins/sources/spigotmc"
 )
 
 func PluginDownload(plugin paplug.PluginInfo) {
@@ -49,7 +50,33 @@ func PluginDownload(plugin paplug.PluginInfo) {
 	}
 }
 
+func trimPluginName(name string, prefixes []string) string {
+	trimmedName := name
+
+	for _, prefix := range prefixes {
+		trimmedName = strings.TrimPrefix(trimmedName, prefix)
+	}
+
+	return trimmedName
+}
+
+func getPluginFromSource(
+	name string,
+	source string,
+	prefixes []string,
+	getPluginInfo func(name string) paplug.PluginInfo,
+) paplug.PluginInfo {
+	pluginName := trimPluginName(name, prefixes)
+
+	info := getPluginInfo(pluginName)
+	info.Source = source
+
+	return info
+}
+
 // This function will call itself in case of an alias.
+//
+//nolint:funlen
 func GetPluginInfo(name string) paplug.PluginInfo {
 	var info paplug.PluginInfo
 
@@ -71,19 +98,32 @@ func GetPluginInfo(name string) paplug.PluginInfo {
 
 	// If it's a modrinth plugin try getting it from modrinth:
 	case strings.HasPrefix(name, "modrinth:"):
-		info = modrinth.GetPluginInfo(strings.TrimPrefix(name, "modrinth:"))
-
-		info.Source = "modrinth"
+		info = getPluginFromSource(
+			name,
+			"modrinth",
+			[]string{"modrinth:"},
+			modrinth.GetPluginInfo,
+		)
 
 	// If it's a spigot plugin try getting it from spigotmc:
 	case strings.HasPrefix(name, "spigot:"),
 		strings.HasPrefix(name, "spigotmc:"):
-		pluginName := strings.TrimPrefix(name, "spigot:")
-		pluginName = strings.TrimPrefix(pluginName, "spigotmc:")
-		pluginName = strings.ReplaceAll(pluginName, "_", " ")
-		info = spigot.GetPluginInfo(pluginName)
+		info = getPluginFromSource(
+			strings.ReplaceAll(name, "_", " "),
+			"spigotmc",
+			[]string{"spigot:", "spigotmc:"},
+			spigotmc.GetPluginInfo,
+		)
 
-		info.Source = "spigotmc"
+	// If it's a bukkit plugin try getting it from bukkit:
+	case strings.HasPrefix(name, "bukkit:"),
+		strings.HasPrefix(name, "bukkitdev:"):
+		info = getPluginFromSource(
+			name,
+			"bukkit",
+			[]string{"bukkit:", "bukkitdev:"},
+			bukkit.GetPluginInfo,
+		)
 
 	// If it's none of the options above try getting it from the repos:
 	default:

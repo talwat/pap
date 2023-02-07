@@ -1,4 +1,4 @@
-package spigot
+package spigotmc
 
 // Structs that are defined by different api routes
 

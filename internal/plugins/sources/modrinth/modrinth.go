@@ -5,7 +5,8 @@ import (
 	"strings"
 
 	"github.com/talwat/pap/internal/net"
-	"github.com/talwat/pap/internal/plugins/paplug"
+	"github.com/talwat/pap/internal/plugins/sources"
+	"github.com/talwat/pap/internal/plugins/sources/paplug"
 )
 
 func getWebsite(plugin PluginInfo) string {
@@ -19,16 +20,14 @@ func getWebsite(plugin PluginInfo) string {
 	case plugin.DiscordURL != "":
 		return plugin.DiscordURL
 	default:
-		return paplug.Undefined
+		return fmt.Sprintf("https://modrinth.com/mod/%s", plugin.Slug)
 	}
 }
 
 func ConvertToPlugin(modrinthPlugin PluginInfo) paplug.PluginInfo {
 	plugin := paplug.PluginInfo{}
 
-	plugin.Name = modrinthPlugin.Slug
-	plugin.Name = strings.ToLower(plugin.Name)
-
+	plugin.Name = sources.ParseName(modrinthPlugin.Slug)
 	plugin.Description = modrinthPlugin.Description
 	plugin.License = modrinthPlugin.License.ID
 	plugin.Site = getWebsite(modrinthPlugin)
@@ -89,15 +88,4 @@ func Get(name string) PluginInfo {
 // Gets & converts to the standard pap format.
 func GetPluginInfo(name string) paplug.PluginInfo {
 	return ConvertToPlugin(Get(name))
-}
-
-// Note: This also converts the plugins to the standard pap format.
-func GetManyPluginInfo(names []string) []paplug.PluginInfo {
-	infos := []paplug.PluginInfo{}
-
-	for _, name := range names {
-		infos = append(infos, GetPluginInfo(name))
-	}
-
-	return infos
 }

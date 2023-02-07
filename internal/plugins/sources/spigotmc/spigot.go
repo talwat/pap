@@ -1,13 +1,13 @@
-package spigot
+package spigotmc
 
 import (
 	"fmt"
-	"regexp"
 	"strings"
 
 	"github.com/talwat/pap/internal/log"
 	"github.com/talwat/pap/internal/net"
-	"github.com/talwat/pap/internal/plugins/paplug"
+	"github.com/talwat/pap/internal/plugins/sources"
+	"github.com/talwat/pap/internal/plugins/sources/paplug"
 )
 
 func getWebsite(plugin PluginInfo) string {
@@ -29,7 +29,7 @@ func ConvertDownload(plugin PluginInfo, path string) paplug.Download {
 	if !plugin.Premium && plugin.File.FileType == ".jar" {
 		download.URL = fmt.Sprintf("https://api.spiget.org/v2/resources/%d/download", plugin.ID)
 	} else {
-		download.URL = paplug.Undefined
+		download.URL = sources.Undefined
 		log.Warn(
 			"%s does not support downloading. if you are downloading %s as a plugin, you will get an error",
 			plugin.Name,
@@ -43,10 +43,7 @@ func ConvertDownload(plugin PluginInfo, path string) paplug.Download {
 func ConvertToPlugin(spigotPlugin PluginInfo) paplug.PluginInfo {
 	plugin := paplug.PluginInfo{}
 
-	re := regexp.MustCompile("[[:^ascii:]]")
-	plugin.Name = re.ReplaceAllLiteralString(spigotPlugin.Name, "")
-	plugin.Name = strings.ToLower(plugin.Name)
-
+	plugin.Name = sources.ParseName(spigotPlugin.Name)
 	plugin.Description = spigotPlugin.Tag
 	plugin.Site = getWebsite(spigotPlugin)
 
@@ -70,7 +67,7 @@ func ConvertToPlugin(spigotPlugin PluginInfo) paplug.PluginInfo {
 	plugin.OptionalDependencies = []string{}
 
 	if spigotPlugin.SourceCodeLink != "" {
-		plugin.License = paplug.Undefined
+		plugin.License = sources.Undefined
 	} else {
 		plugin.License = "proprietary"
 	}
@@ -122,15 +119,4 @@ func Get(name string) PluginInfo {
 // Gets & converts to the standard pap format.
 func GetPluginInfo(name string) paplug.PluginInfo {
 	return ConvertToPlugin(Get(name))
-}
-
-// Note: This also converts the plugins to the standard pap format.
-func GetManyPluginInfo(names []string) []paplug.PluginInfo {
-	infos := []paplug.PluginInfo{}
-
-	for _, name := range names {
-		infos = append(infos, GetPluginInfo(name))
-	}
-
-	return infos
 }

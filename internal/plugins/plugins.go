@@ -9,7 +9,7 @@ import (
 	"github.com/talwat/pap/internal/exec"
 	"github.com/talwat/pap/internal/fs"
 	"github.com/talwat/pap/internal/log"
-	"github.com/talwat/pap/internal/plugins/paplug"
+	"github.com/talwat/pap/internal/plugins/sources/paplug"
 )
 
 // Substitutes parts of a string like {version} with their proper counterpart.

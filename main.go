@@ -218,10 +218,16 @@ COPYRIGHT:
 								Action:  generatecmds.GenerateModrinth,
 							},
 							{
-								Name:    "spigot",
+								Name:    "spigotmc",
 								Aliases: []string{"s"},
 								Usage:   "generate a plugin json file using spigotmc",
-								Action:  generatecmds.GenerateSpigot,
+								Action:  generatecmds.GenerateSpigotMC,
+							},
+							{
+								Name:    "bukkit",
+								Aliases: []string{"b"},
+								Usage:   "generate a plugin json file using bukkit",
+								Action:  generatecmds.GenerateBukkit,
 							},
 						},
 					},

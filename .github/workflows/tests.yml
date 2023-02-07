@@ -67,13 +67,17 @@ jobs:
           ls plugins
           ./pap -y plugin install spigot:death_signs
           ls plugins
+          ./pap -y plugin install bukkit:holographic-displays
+          ls plugins
       
       - name: "Test plugin manager generator"
         run: |
-          ./pap -y plugin generate spigot essentialsx
+          ./pap -y plugin generate spigotmc essentialsx
           cat essentialsx.json
           ./pap -y plugin generate modrinth essentialsx
           cat essentialsx.json
+          ./pap -y plugin generate bukkit holographic-displays
+          cat holographic-displays.json
 
       - run: "./pap -y sign"
       - name: Read Signed EULA
