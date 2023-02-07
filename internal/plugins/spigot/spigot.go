@@ -16,11 +16,10 @@ func getWebsite(plugin PluginInfo) string {
 	case plugin.DonationLink != "":
 		return plugin.DonationLink
 	default:
-		return paplug.Undefined
+		return fmt.Sprintf("https://www.spigotmc.org/resources/%d", plugin.ID)
 	}
 }
 
-// TODO: Also convert version.
 func ConvertToPlugin(spigotPlugin PluginInfo) paplug.PluginInfo {
 	plugin := paplug.PluginInfo{}
 
@@ -36,14 +35,25 @@ func ConvertToPlugin(spigotPlugin PluginInfo) paplug.PluginInfo {
 	}
 
 	plugin.Install.Type = "simple"
-	plugin.Authors = strings.Split(spigotPlugin.Contributors, ", ")
+
+	if spigotPlugin.Contributors == "" {
+		plugin.Authors = append(plugin.Authors, spigotPlugin.Resolved.Author.Name)
+	} else {
+		plugin.Authors = strings.Split(spigotPlugin.Contributors, ", ")
+	}
+
+	plugin.Version = spigotPlugin.Resolved.LatestVersion.Name
 
 	// Unknown vars
 	plugin.Note = []string{}
 	plugin.Dependencies = []string{}
 	plugin.OptionalDependencies = []string{}
-	plugin.Version = paplug.Undefined
-	plugin.License = paplug.Undefined
+
+	if spigotPlugin.SourceCodeLink != "" {
+		plugin.License = paplug.Undefined
+	} else {
+		plugin.License = "proprietary"
+	}
 
 	// File & Download
 	path := fmt.Sprintf("%s.jar", plugin.Name)
@@ -59,7 +69,12 @@ func ConvertToPlugin(spigotPlugin PluginInfo) paplug.PluginInfo {
 	download := paplug.Download{}
 	download.Type = "url"
 	download.Filename = path
-	download.URL = paplug.Undefined
+
+	if !spigotPlugin.Premium && spigotPlugin.File.FileType == ".jar" {
+		download.URL = fmt.Sprintf("https://api.spiget.org/v2/resources/%d/download", spigotPlugin.ID)
+	} else {
+		download.URL = paplug.Undefined
+	}
 
 	plugin.Downloads = append(plugin.Downloads, download)
 
@@ -67,16 +82,32 @@ func ConvertToPlugin(spigotPlugin PluginInfo) paplug.PluginInfo {
 }
 
 func Get(name string) PluginInfo {
-	var spigotPlugin []PluginInfo
+	var plugins []PluginInfo
 
 	net.Get(
 		//nolint:lll
-		fmt.Sprintf("https://api.spiget.org/v2/search/resources/%s?field=name&size=1&page=0&sort=-likes&fields=file%%2Ccontributors%%2Clikes%%2Cname%%2Ctag%%2CsourceCodeLink%%2CdonationLink%%2Cpremium", name),
+		fmt.Sprintf("https://api.spiget.org/v2/search/resources/%s?field=name&size=1&page=0&sort=-likes&fields=file,contributors,likes,name,tag,sourceCodeLink,donationLink,premium,id,version,author", name),
 		fmt.Sprintf("spigot plugin %s not found", name),
-		&spigotPlugin,
+		&plugins,
 	)
 
-	return spigotPlugin[0]
+	plugin := plugins[0]
+
+	net.Get(
+		fmt.Sprintf("https://api.spiget.org/v2/authors/%d?fields=name", plugin.Author.ID),
+		fmt.Sprintf("spigot author %d not found", plugin.Author.ID),
+		&plugin.Resolved.Author,
+	)
+
+	version := plugin.Version.ID
+
+	net.Get(
+		fmt.Sprintf("https://api.spiget.org/v2/resources/%d/versions/%d?fields=name", plugin.ID, version),
+		fmt.Sprintf("spigot version %d not found", version),
+		&plugin.Resolved.LatestVersion,
+	)
+
+	return plugin
 }
 
 // Gets & converts to the standard pap format.

@@ -54,11 +54,19 @@ jobs:
       - name: "Test plugin manager"
         run: |
           ./pap -y plugin install townyadvanced fawe
+          ls plugins
           ./pap -y plugin uninstall townyadvanced fawe
+          ls plugins
           ./pap -y plugin install townyadvanced townychat
+          ls plugins
           ./pap -y plugin install geyser
+          ls plugins
           ./pap -y plugin install --optional geyser
+          ls plugins
           ./pap -y plugin install modrinth:essentialsx
+          ls plugins
+          ./pap -y plugin install spigot:death_signs
+          ls plugins
       
       - name: "Test plugin manager generator"
         run: |

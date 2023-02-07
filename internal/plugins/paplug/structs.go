@@ -1,7 +1,5 @@
 package paplug
 
-// Part of PluginInfo.
-
 type Download struct {
 	Type     string `json:"type"`
 	Filename string `json:"filename"`

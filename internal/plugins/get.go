@@ -12,6 +12,7 @@ import (
 	"github.com/talwat/pap/internal/plugins/jenkins"
 	"github.com/talwat/pap/internal/plugins/modrinth"
 	"github.com/talwat/pap/internal/plugins/paplug"
+	"github.com/talwat/pap/internal/plugins/spigot"
 )
 
 func PluginDownload(plugin paplug.PluginInfo) {
@@ -73,6 +74,16 @@ func GetPluginInfo(name string) paplug.PluginInfo {
 		info = modrinth.GetPluginInfo(strings.TrimPrefix(name, "modrinth:"))
 
 		info.Source = "modrinth"
+
+	// If it's a spigot plugin try getting it from spigotmc:
+	case strings.HasPrefix(name, "spigot:"),
+		strings.HasPrefix(name, "spigotmc:"):
+		pluginName := strings.TrimPrefix(name, "spigot:")
+		pluginName = strings.TrimPrefix(pluginName, "spigotmc:")
+		pluginName = strings.ReplaceAll(pluginName, "_", " ")
+		info = spigot.GetPluginInfo(pluginName)
+
+		info.Source = "spigotmc"
 
 	// If it's none of the options above try getting it from the repos:
 	default:
