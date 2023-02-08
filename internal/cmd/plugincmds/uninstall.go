@@ -7,11 +7,15 @@ import (
 )
 
 func UninstallCommand(cCtx *cli.Context) error {
-	args := cCtx.Args()
+	args := cCtx.Args().Slice()
 
-	info := plugins.GetManyPluginInfo(args.Slice())
+	if len(args) < 1 {
+		log.RawError("you must specify plugins to uninstall")
+	}
 
 	log.Log("fetching plugins...")
+	info := plugins.GetManyPluginInfo(args)
+
 	plugins.PluginList(info, nil, "uninstalling")
 	plugins.PluginDoMany(info, plugins.PluginUninstall)
 

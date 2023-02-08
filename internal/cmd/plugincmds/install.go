@@ -9,12 +9,16 @@ import (
 )
 
 func InstallCommand(cCtx *cli.Context) error {
-	args := cCtx.Args()
+	args := cCtx.Args().Slice()
+
+	if len(args) < 1 {
+		log.RawError("you must specify plugins to install")
+	}
 
 	log.Log("fetching plugins...")
 
 	// This will later also contain the dependencies.
-	pluginsToInstall := plugins.GetManyPluginInfo(args.Slice())
+	pluginsToInstall := plugins.GetManyPluginInfo(args)
 
 	// The plugins instructed to be installed, this does not include dependencies.
 	pluginsNoDeps := pluginsToInstall

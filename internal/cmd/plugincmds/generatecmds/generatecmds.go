@@ -11,6 +11,10 @@ import (
 )
 
 func Generate(getPluginInfo func(plugin string) paplug.PluginInfo, plugins []string) {
+	if len(plugins) < 1 {
+		log.RawError("you must specify plugins to generate")
+	}
+
 	log.Log("getting plugins to write...")
 
 	pluginsToWrite := sources.GetManyPluginInfo(plugins, getPluginInfo)
