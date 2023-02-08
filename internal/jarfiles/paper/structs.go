@@ -2,18 +2,28 @@ package paper
 
 // Note: Uneeded values have been omitted from the original API responses.
 
+// Structs that are set directly to the API response and may have an 'error' attribute.
+type Errorable struct {
+	Error string
+}
+
 type Builds struct {
 	Builds []Build
-	Error  string
+	Errorable
+}
+
+type BuildMetadata struct {
+	Time    string
+	Changes []Change
 }
 
 type Build struct {
 	Build     int
-	Time      string
 	Channel   string
-	Changes   []Change
 	Downloads Downloads
-	Error     string
+
+	Errorable
+	BuildMetadata
 }
 
 type Change struct {
@@ -26,11 +36,6 @@ type Downloads struct {
 }
 
 type Application struct {
-	Name   string
-	Sha256 string `json:"sha256"`
-}
-
-type MojangMappings struct {
 	Name   string
 	Sha256 string `json:"sha256"`
 }
