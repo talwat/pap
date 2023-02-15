@@ -41,8 +41,8 @@ func checkIfNewUpdate() string {
 	log.Debug("parsed current version: %s", current)
 
 	for idx := len(latest) - 1; idx >= 0; idx-- {
-		if idx > len(current)-1 {
-			log.Debug("%dth part of the version number is undefined, assuming 0 to avoid a panic", idx)
+		if idx > len(current) {
+			log.Debug("part %s of the version number is undefined, assuming 0 to avoid a panic", idx)
 
 			current[idx] = "0"
 		}
