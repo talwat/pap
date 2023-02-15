@@ -52,7 +52,7 @@ func checkIfNewUpdate() string {
 		)
 	}
 
-	for idx := latestLen - 1; idx >= 0; idx-- {
+	for idx := range latest {
 		switch {
 		case latest[idx] < current[idx]:
 			log.Debug("%s > %s, assuming you are using a development version", current[idx], latest[idx])
