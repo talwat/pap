@@ -45,46 +45,46 @@ jobs:
         run: "go build ."
 
       - name: "Run help"
-        run: "./pap -y help"
+        run: "./pap -y -d help"
       
       - name: "Test self updater"
         run: |
-          ./pap -y update
+          ./pap -y -d update
 
       - name: "Test plugin manager"
         run: |
-          ./pap -y plugin install townyadvanced fawe
+          ./pap -y -d plugin install townyadvanced fawe
           ls plugins
-          ./pap -y plugin uninstall townyadvanced fawe
+          ./pap -y -d plugin uninstall townyadvanced fawe
           ls plugins
-          ./pap -y plugin install townyadvanced townychat
+          ./pap -y -d plugin install townyadvanced townychat
           ls plugins
-          ./pap -y plugin install geyser
+          ./pap -y -d plugin install geyser
           ls plugins
-          ./pap -y plugin install --optional geyser
+          ./pap -y -d plugin install --optional geyser
           ls plugins
-          ./pap -y plugin install modrinth:essentialsx
+          ./pap -y -d plugin install modrinth:essentialsx
           ls plugins
-          ./pap -y plugin install spigot:death_signs
+          ./pap -y -d plugin install spigot:death_signs
           ls plugins
-          ./pap -y plugin install bukkit:holographic-displays
+          ./pap -y -d plugin install bukkit:holographic-displays
           ls plugins
       
       - name: "Test plugin manager generator"
         run: |
-          ./pap -y plugin generate spigotmc essentialsx
+          ./pap -y -d plugin generate spigotmc essentialsx
           cat essentialsx.json
-          ./pap -y plugin generate modrinth essentialsx
+          ./pap -y -d plugin generate modrinth essentialsx
           cat essentialsx.json
-          ./pap -y plugin generate bukkit holographic-displays
+          ./pap -y -d plugin generate bukkit holographic-displays
           cat holographic-displays.json
 
-      - run: "./pap -y sign"
+      - run: "./pap -y -d sign"
       - name: Read Signed EULA
         run: "cat eula.txt"
 
-      - run: "./pap -y script"
-      - run: "./pap -y script --stdout"
+      - run: "./pap -y -d script"
+      - run: "./pap -y -d script --stdout"
       - name: Read Generated Script (windows)
         if: matrix.os == 'windows-latest'
         run: "cat run.bat"
@@ -92,8 +92,8 @@ jobs:
         if: matrix.os != 'windows-latest'
         run: "cat run.sh"
 
-      - run: "./pap -y script -mem 2G"
-      - run: "./pap -y script -mem 2G --stdout"
+      - run: "./pap -y -d script -mem 2G"
+      - run: "./pap -y -d script -mem 2G --stdout"
       - name: Read Generated Script (windows)
         if: matrix.os == 'windows-latest'
         run: "cat run.bat"
@@ -101,8 +101,8 @@ jobs:
         if: matrix.os != 'windows-latest'
         run: "cat run.sh"
 
-      - run: "./pap -y script -mem 13G"
-      - run: "./pap -y script -mem 13G --stdout"
+      - run: "./pap -y -d script -mem 13G"
+      - run: "./pap -y -d script -mem 13G --stdout"
       - name: Read Generated Script (windows)
         if: matrix.os == 'windows-latest'
         run: "cat run.bat"
@@ -110,8 +110,8 @@ jobs:
         if: matrix.os != 'windows-latest'
         run: "cat run.sh"
 
-      - run: "./pap -y script -mem 13G -gui"
-      - run: "./pap -y script -mem 13G -gui --stdout"
+      - run: "./pap -y -d script -mem 13G -gui"
+      - run: "./pap -y -d script -mem 13G -gui --stdout"
       - name: Read Generated Script (windows)
         if: matrix.os == 'windows-latest'
         run: "cat run.bat"
@@ -119,8 +119,8 @@ jobs:
         if: matrix.os != 'windows-latest'
         run: "cat run.sh"
 
-      - run: "./pap -y script -mem 2000M"
-      - run: "./pap -y script -mem 2000M --stdout"
+      - run: "./pap -y -d script -mem 2000M"
+      - run: "./pap -y -d script -mem 2000M --stdout"
       - name: Read Generated Script (windows)
         if: matrix.os == 'windows-latest'
         run: "cat run.bat"
@@ -128,8 +128,8 @@ jobs:
         if: matrix.os != 'windows-latest'
         run: "cat run.sh"
 
-      - run: "./pap -y script -mem 2000M -gui"
-      - run: "./pap -y script -mem 2000M -gui --stdout"
+      - run: "./pap -y -d script -mem 2000M -gui"
+      - run: "./pap -y -d script -mem 2000M -gui --stdout"
       - name: Read Generated Script (windows)
         if: matrix.os == 'windows-latest'
         run: "cat run.bat"
@@ -137,8 +137,8 @@ jobs:
         if: matrix.os != 'windows-latest'
         run: "cat run.sh"
 
-      - run: "./pap -y script -jar wow.jar"
-      - run: "./pap -y script -jar wow.jar --stdout"
+      - run: "./pap -y -d script -jar wow.jar"
+      - run: "./pap -y -d script -jar wow.jar --stdout"
       - name: Read Generated Script (windows)
         if: matrix.os == 'windows-latest'
         run: "cat run.bat"
@@ -146,8 +146,8 @@ jobs:
         if: matrix.os != 'windows-latest'
         run: "cat run.sh"
 
-      - run: "./pap -y script -jar wow.jar -gui"
-      - run: "./pap -y script -jar wow.jar -gui --stdout"
+      - run: "./pap -y -d script -jar wow.jar -gui"
+      - run: "./pap -y -d script -jar wow.jar -gui --stdout"
       - name: Read Generated Script (windows)
         if: matrix.os == 'windows-latest'
         run: "cat run.bat"
@@ -155,8 +155,8 @@ jobs:
         if: matrix.os != 'windows-latest'
         run: "cat run.sh"
 
-      - run: "./pap -y script -jar -gui wow.jar"
-      - run: "./pap -y script -jar -gui wow.jar --stdout"
+      - run: "./pap -y -d script -jar -gui wow.jar"
+      - run: "./pap -y -d script -jar -gui wow.jar --stdout"
       - name: Read Generated Script (windows)
         if: matrix.os == 'windows-latest'
         run: "cat run.bat"
@@ -164,8 +164,8 @@ jobs:
         if: matrix.os != 'windows-latest'
         run: "cat run.sh"
 
-      - run: "./pap -y script -jar wow.jar -mem 4G -gui"
-      - run: "./pap -y script -jar wow.jar -mem 4G -gui --stdout"
+      - run: "./pap -y -d script -jar wow.jar -mem 4G -gui"
+      - run: "./pap -y -d script -jar wow.jar -mem 4G -gui --stdout"
       - name: Read Generated Script (windows)
         if: matrix.os == 'windows-latest'
         run: "cat run.bat"
@@ -173,8 +173,8 @@ jobs:
         if: matrix.os != 'windows-latest'
         run: "cat run.sh"
 
-      - run: "./pap -y script -aikars -mem 2G"
-      - run: "./pap -y script -aikars -mem 2G --stdout"
+      - run: "./pap -y -d script -aikars -mem 2G"
+      - run: "./pap -y -d script -aikars -mem 2G --stdout"
       - name: Read Generated Script (windows)
         if: matrix.os == 'windows-latest'
         run: "cat run.bat"
@@ -182,8 +182,8 @@ jobs:
         if: matrix.os != 'windows-latest'
         run: "cat run.sh"
 
-      - run: "./pap -y script -aikars -mem 13G"
-      - run: "./pap -y script -aikars -mem 13G --stdout"
+      - run: "./pap -y -d script -aikars -mem 13G"
+      - run: "./pap -y -d script -aikars -mem 13G --stdout"
       - name: Read Generated Script (windows)
         if: matrix.os == 'windows-latest'
         run: "cat run.bat"
@@ -191,8 +191,8 @@ jobs:
         if: matrix.os != 'windows-latest'
         run: "cat run.sh"
 
-      - run: "./pap -y script -aikars -mem 13G -gui"
-      - run: "./pap -y script -aikars -mem 13G -gui --stdout"
+      - run: "./pap -y -d script -aikars -mem 13G -gui"
+      - run: "./pap -y -d script -aikars -mem 13G -gui --stdout"
       - name: Read Generated Script (windows)
         if: matrix.os == 'windows-latest'
         run: "cat run.bat"
@@ -200,8 +200,8 @@ jobs:
         if: matrix.os != 'windows-latest'
         run: "cat run.sh"
 
-      - run: "./pap -y script -aikars -mem 2000M"
-      - run: "./pap -y script -aikars -mem 2000M --stdout"
+      - run: "./pap -y -d script -aikars -mem 2000M"
+      - run: "./pap -y -d script -aikars -mem 2000M --stdout"
       - name: Read Generated Script (windows)
         if: matrix.os == 'windows-latest'
         run: "cat run.bat"
@@ -209,8 +209,8 @@ jobs:
         if: matrix.os != 'windows-latest'
         run: "cat run.sh"
 
-      - run: "./pap -y script -aikars -mem 2000M -gui"
-      - run: "./pap -y script -aikars -mem 2000M -gui --stdout"
+      - run: "./pap -y -d script -aikars -mem 2000M -gui"
+      - run: "./pap -y -d script -aikars -mem 2000M -gui --stdout"
       - name: Read Generated Script (windows)
         if: matrix.os == 'windows-latest'
         run: "cat run.bat"
@@ -218,8 +218,8 @@ jobs:
         if: matrix.os != 'windows-latest'
         run: "cat run.sh"
 
-      - run: "./pap -y script -aikars -jar wow.jar"
-      - run: "./pap -y script -aikars -jar wow.jar --stdout"
+      - run: "./pap -y -d script -aikars -jar wow.jar"
+      - run: "./pap -y -d script -aikars -jar wow.jar --stdout"
       - name: Read Generated Script (windows)
         if: matrix.os == 'windows-latest'
         run: "cat run.bat"
@@ -227,8 +227,8 @@ jobs:
         if: matrix.os != 'windows-latest'
         run: "cat run.sh"
 
-      - run: "./pap -y script -aikars -jar wow.jar -gui"
-      - run: "./pap -y script -aikars -jar wow.jar -gui --stdout"
+      - run: "./pap -y -d script -aikars -jar wow.jar -gui"
+      - run: "./pap -y -d script -aikars -jar wow.jar -gui --stdout"
       - name: Read Generated Script (windows)
         if: matrix.os == 'windows-latest'
         run: "cat run.bat"
@@ -236,8 +236,8 @@ jobs:
         if: matrix.os != 'windows-latest'
         run: "cat run.sh"
 
-      - run: "./pap -y script -aikars -jar -gui wow.jar"
-      - run: "./pap -y script -aikars -jar -gui wow.jar --stdout"
+      - run: "./pap -y -d script -aikars -jar -gui wow.jar"
+      - run: "./pap -y -d script -aikars -jar -gui wow.jar --stdout"
       - name: Read Generated Script (windows)
         if: matrix.os == 'windows-latest'
         run: "cat run.bat"
@@ -245,8 +245,8 @@ jobs:
         if: matrix.os != 'windows-latest'
         run: "cat run.sh"
 
-      - run: "./pap -y script -aikars -jar wow.jar -mem 4G -gui"
-      - run: "./pap -y script -aikars -jar wow.jar -mem 4G -gui --stdout"
+      - run: "./pap -y -d script -aikars -jar wow.jar -mem 4G -gui"
+      - run: "./pap -y -d script -aikars -jar wow.jar -mem 4G -gui --stdout"
       - name: Read Generated Script (windows)
         if: matrix.os == 'windows-latest'
         run: "cat run.bat"
@@ -254,7 +254,7 @@ jobs:
         if: matrix.os != 'windows-latest'
         run: "cat run.sh"
 
-      - run: "./pap -y version"
+      - run: "./pap -y -d version"
       - name: Read Generated Script (windows)
         if: matrix.os == 'windows-latest'
         run: "cat run.bat"
@@ -263,52 +263,52 @@ jobs:
         run: "cat run.sh"
 
       - name: "Reset server.properties"
-        run: "./pap -y properties reset"
+        run: "./pap -y -d properties reset"
       - name: Read created server.properties
         run: "cat server.properties"
 
       - name: "Get server property"
-        run: "./pap -y properties get gamemode"
+        run: "./pap -y -d properties get gamemode"
     
       - name: "Set server property"
-        run: "./pap -y properties set gamemode creative"
+        run: "./pap -y -d properties set gamemode creative"
       - name: Read modified server.properties
         run: "cat server.properties"
 
       - name: "Get modifiedserver property"
-        run: "./pap -y properties get gamemode"
+        run: "./pap -y -d properties get gamemode"
 
       - name: "Test paper downloading"
         run: |
-          ./pap -y download paper --experimental
-          ./pap -y download paper
-          ./pap -y download paper --version 1.19.2
-          ./pap -y download paper --version 1.19.2 --build 300
-          ./pap -y download paper --version 1.12.2 --build 1230
-          ./pap -y download paper --version 1.12.2
-          ./pap -y download paper --version latest --build latest --experimental
-          ./pap -y download paper --version 1.19.3 --build 319 --experimental
-          ./pap -y download paper --version 1.19.3 --build 319
-          ./pap -y download paper --version 1.12.2 --build latest
+          ./pap -y -d download paper --experimental
+          ./pap -y -d download paper
+          ./pap -y -d download paper --version 1.19.2
+          ./pap -y -d download paper --version 1.19.2 --build 300
+          ./pap -y -d download paper --version 1.12.2 --build 1230
+          ./pap -y -d download paper --version 1.12.2
+          ./pap -y -d download paper --version latest --build latest --experimental
+          ./pap -y -d download paper --version 1.19.3 --build 319 --experimental
+          ./pap -y -d download paper --version 1.19.3 --build 319
+          ./pap -y -d download paper --version 1.12.2 --build latest
 
       - name: "Test purpur downloading"
         run: |
-          ./pap -y download purpur
-          ./pap -y download purpur --version 1.19.2
-          ./pap -y download purpur --version 1.14.2 --build 124
-          ./pap -y download purpur --version 1.14.2
-          ./pap -y download purpur --version latest
-          ./pap -y download purpur --version 1.19.3 --build 1881
-          ./pap -y download purpur --version 1.14.2 --build latest
+          ./pap -y -d download purpur
+          ./pap -y -d download purpur --version 1.19.2
+          ./pap -y -d download purpur --version 1.14.2 --build 124
+          ./pap -y -d download purpur --version 1.14.2
+          ./pap -y -d download purpur --version latest
+          ./pap -y -d download purpur --version 1.19.3 --build 1881
+          ./pap -y -d download purpur --version 1.14.2 --build latest
 
       - name: "Test official downloading"
         run: |
-           ./pap -y download official --snapshot
-           ./pap -y download official
-           ./pap -y download official --version 1.19.2
-           ./pap -y download official --version 1.12.2
-           ./pap -y download official --version latest --snapshot
-           ./pap -y download official --version 1.19.3 --snapshot
-           ./pap -y download official --version 18w07c
-           ./pap -y download official --version 1.2.5
-           ./pap -y download official --version 1.13-pre6
+           ./pap -y -d download official --snapshot
+           ./pap -y -d download official
+           ./pap -y -d download official --version 1.19.2
+           ./pap -y -d download official --version 1.12.2
+           ./pap -y -d download official --version latest --snapshot
+           ./pap -y -d download official --version 1.19.3 --snapshot
+           ./pap -y -d download official --version 18w07c
+           ./pap -y -d download official --version 1.2.5
+           ./pap -y -d download official --version 1.13-pre6
