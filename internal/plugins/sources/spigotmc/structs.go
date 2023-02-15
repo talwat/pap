@@ -36,23 +36,27 @@ type Version struct {
 	ID int
 }
 
-// Metadata that isn't used for core operations in pap.
 type Metadata struct {
 	Contributors string
 	Tag          string
 	Likes        int
 	Author       Author
 
-	Version Version
 	Links
+}
+
+// Information used to check if a plugin is able to be downloaded.
+type DownloadInfo struct {
+	Premium bool
+	File    File
 }
 
 type PluginInfo struct {
 	Name    string
-	File    File
+	Version Version
 	ID      int
-	Premium bool
 
 	Metadata
+	DownloadInfo
 	Resolved Resolved
 }

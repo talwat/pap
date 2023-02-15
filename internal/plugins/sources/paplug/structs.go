@@ -1,17 +1,22 @@
 package paplug
 
+// If type is "jenkins".
+type JenkinsDownload struct {
+	Job      string `json:"job,omitempty"`
+	Artifact string `json:"artifact,omitempty"`
+}
+
+// If type is "url".
+type URLDownload struct {
+	URL string `json:"url,omitempty"`
+}
+
 type Download struct {
 	Type     string `json:"type"`
 	Filename string `json:"filename"`
 
-	// If type is "jenkins"
-
-	Job      string `json:"job,omitempty"`
-	Artifact string `json:"artifact,omitempty"`
-
-	// If type is "url"
-
-	URL string `json:"url,omitempty"`
+	JenkinsDownload
+	URLDownload
 }
 
 type Commands struct {
@@ -43,10 +48,16 @@ type DefinedLater struct {
 // Metadata that isn't used for core operations in pap.
 type Metadata struct {
 	Description string   `json:"description"`
-	License     string   `json:"license"`
 	Authors     []string `json:"authors"`
-	Site        string   `json:"site,omitempty"`
 	Note        []string `json:"note,omitempty"`
+
+	LessImportantMetadata
+}
+
+// Metadata that is not very important.
+type LessImportantMetadata struct {
+	License string `json:"license"`
+	Site    string `json:"site,omitempty"`
 }
 
 // Operation steps (installing and uninstalling).

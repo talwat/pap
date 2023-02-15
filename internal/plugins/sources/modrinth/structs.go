@@ -13,15 +13,18 @@ type Websites struct {
 	DiscordURL string `json:"discord_url"`
 }
 
-type PluginInfo struct {
-	Slug        string
+type Metadata struct {
 	Description string
-
-	License License
+	License     License
 	Websites
+}
 
-	Versions        []string
+type PluginInfo struct {
+	Slug string
+
 	ResolvedVersion Version
+	Versions        []string
+	Metadata
 }
 
 // /version

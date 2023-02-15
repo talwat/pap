@@ -275,7 +275,7 @@ jobs:
       - name: Read modified server.properties
         run: "cat server.properties"
 
-      - name: "Get modifiedserver property"
+      - name: "Get modified server property"
         run: "./pap -y -d properties get gamemode"
 
       - name: "Test paper downloading"

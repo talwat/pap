@@ -2,6 +2,9 @@ package purpur
 
 // Note: Uneeded values have been omitted from the original API responses.
 
+type Errorable struct {
+	Error string
+}
 type Versions struct {
 	Versions []string
 }
@@ -9,7 +12,8 @@ type Versions struct {
 type Version struct {
 	Builds  BuildsList
 	Version string
-	Error   string
+
+	Errorable
 }
 
 type BuildsList struct {
@@ -17,16 +21,21 @@ type BuildsList struct {
 	Latest string
 }
 
-type Build struct {
-	Build     string
-	Commits   []Commit
-	MD5       string
-	Timestamp int
-	Error     string
-}
-
 type Commit struct {
 	Description string
 	Hash        string
 	Timestamp   int
+}
+
+type BuildMetadata struct {
+	Timestamp int
+	Commits   []Commit
+}
+
+type Build struct {
+	Build string
+	MD5   string
+
+	Errorable
+	BuildMetadata
 }
