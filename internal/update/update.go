@@ -40,13 +40,19 @@ func checkIfNewUpdate() string {
 	current := parseVersion(global.Version)
 	log.Debug("parsed current version: %s", current)
 
-	for idx := len(latest) - 1; idx >= 0; idx-- {
-		if idx > len(current) {
-			log.Debug("part %s of the version number is undefined, assuming 0 to avoid a panic", idx)
+	latestLen := len(latest)
+	currentLen := len(current)
 
-			current[idx] = "0"
-		}
+	if latestLen != currentLen {
+		log.RawError(
+			//nolint:lll
+			"latest (%s) and current (%s) version are different lengths, please report this issue to https://github.com/talwat/pap/issues",
+			latest,
+			current,
+		)
+	}
 
+	for idx := latestLen - 1; idx >= 0; idx-- {
 		switch {
 		case latest[idx] > current[idx]:
 			log.Log("out of date! current version is %s, latest is %s", global.Version, rawLatest)

@@ -7,5 +7,6 @@ linters:
     - godox
     - musttag
     - gci
+    - ifshort
 
   enable-all: true
