@@ -55,6 +55,7 @@ func checkIfNewUpdate() string {
 	for idx := latestLen - 1; idx >= 0; idx-- {
 		switch {
 		case latest[idx] > current[idx]:
+			log.Debug("%s > %s, out of date!", latest[idx])
 			log.Log("out of date! current version is %s, latest is %s", global.Version, rawLatest)
 
 			return rawLatest
