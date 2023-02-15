@@ -54,12 +54,17 @@ func checkIfNewUpdate() string {
 
 	for idx := latestLen - 1; idx >= 0; idx-- {
 		switch {
+		case latest[idx] < current[idx]:
+			log.Debug("%s > %s, assuming you are using a development version", current[idx], latest[idx])
+
+			log.Log("pap is newer than the current latest version (you are a developer?)")
+			os.Exit(0)
 		case latest[idx] > current[idx]:
-			log.Debug("%s > %s, out of date!", latest[idx])
+			log.Debug("%s > %s, out of date!", latest[idx], current[idx])
 			log.Log("out of date! current version is %s, latest is %s", global.Version, rawLatest)
 
 			return rawLatest
-		case latest[idx] == current[idx]:
+		default:
 			continue
 		}
 	}
