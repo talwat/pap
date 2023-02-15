@@ -28,10 +28,18 @@ func GetURL(versionInput string, buildID string) (string, Build) {
 
 	log.Log("using paper version %s", version)
 
+	// Format time
+	log.Debug("raw time: %s", build.Time)
+
 	time, err := time.Parse(time.RFC3339, build.Time)
 	log.Error(err, "an error occurred while parsing date supplied by papermc api")
 
-	log.Log("using paper build %d (%s), changes:", build.Build, time.Format("2006-01-02"))
+	formattedTime := time.Format("2006-01-02")
+
+	log.Debug("formatted time: %s", formattedTime)
+
+	// Log final info
+	log.Log("using paper build %d (%s), changes:", build.Build, formattedTime)
 
 	for _, change := range build.Changes {
 		log.RawLog("  (%s) %s\n", change.Commit, change.Summary)

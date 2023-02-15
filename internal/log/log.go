@@ -46,12 +46,18 @@ func OutputLog(msg string, params ...interface{}) {
 }
 
 func RawError(msg string, params ...interface{}) {
-	Log("%serror%s: %s", color.Red, color.Reset, fmt.Sprintf(msg, params...))
+	Log("%serror%s: %s", color.BrightRed, color.Reset, fmt.Sprintf(msg, params...))
 	os.Exit(1)
 }
 
 func Warn(msg string, params ...interface{}) {
 	Log("%swarning%s: %s", color.Yellow, color.Reset, fmt.Sprintf(msg, params...))
+}
+
+func Debug(msg string, params ...interface{}) {
+	if global.Debug {
+		Log("%sdebug%s: %s", color.Magenta, color.Reset, fmt.Sprintf(msg, params...))
+	}
 }
 
 func Success(msg string, params ...interface{}) {

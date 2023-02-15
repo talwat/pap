@@ -1,6 +1,9 @@
 package plugins
 
-import "github.com/talwat/pap/internal/plugins/sources/paplug"
+import (
+	"github.com/talwat/pap/internal/log"
+	"github.com/talwat/pap/internal/plugins/sources/paplug"
+)
 
 // Check if a plugin exists in a list of plugins.
 func pluginExists(plugin paplug.PluginInfo, plugins []paplug.PluginInfo) bool {
@@ -21,11 +24,15 @@ func getDependencyLevel(deps []string, dest *[]paplug.PluginInfo, installed []pa
 	depsInfo := GetManyPluginInfo(deps)
 
 	for _, dep := range depsInfo {
+		log.Debug("checking if %s already marked for installation...", dep.Name)
+
 		if pluginExists(dep, append(*dest, installed...)) {
 			return
 		}
 
 		*dest = append(*dest, dep)
+
+		log.Debug("checking if %s has subdependencies...", dep.Name)
 
 		if len(dep.Dependencies) > 0 {
 			getDependencyLevel(dep.Dependencies, dest, installed)

@@ -24,6 +24,7 @@ func GetLatestVersion() Version {
 	var version Version
 
 	versionID := versions.Versions[len(versions.Versions)-1]
+	log.Debug("latest version: %s", versionID)
 
 	net.Get(
 		fmt.Sprintf(
@@ -44,6 +45,7 @@ func GetSpecificVersion(versionID string) Version {
 	log.Log("getting info for %s...", versionID)
 
 	var version Version
+
 	statusCode := net.Get(
 		fmt.Sprintf(
 			"https://api.purpurmc.org/v2/purpur/%s",
@@ -62,6 +64,7 @@ func GetLatestBuild(version Version) Build {
 	log.Log("getting latest build info...")
 
 	buildID := version.Builds.Latest
+	log.Debug("latest build: %s", buildID)
 
 	var build Build
 

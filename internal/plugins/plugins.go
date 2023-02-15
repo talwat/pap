@@ -22,6 +22,7 @@ func SubstituteProps(plugin paplug.PluginInfo, str string) string {
 	final := str
 
 	for key, value := range toReplace {
+		log.Debug("substituting %s with %s", key, value)
 		final = strings.ReplaceAll(final, fmt.Sprintf("{%s}", key), value)
 	}
 
@@ -62,8 +63,12 @@ func PluginInstall(plugin paplug.PluginInfo) {
 	var cmds []string
 
 	if runtime.GOOS == "windows" {
+		log.Debug("using windows commands...")
+
 		cmds = plugin.Install.Commands.Windows
 	} else {
+		log.Debug("using unix commands...")
+
 		cmds = plugin.Install.Commands.Unix
 	}
 

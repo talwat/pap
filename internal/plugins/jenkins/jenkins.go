@@ -25,6 +25,8 @@ func GetJenkinsURL(download paplug.Download) string {
 	log.Log("finding correct artifact...")
 
 	for _, artifact := range jenkinsBuild.Artifacts {
+		log.Debug("checking if %s matches %s...", artifact.FileName, download.Artifact)
+
 		matched, err := regexp.MatchString(download.Artifact, artifact.FileName)
 		log.Error(err, "an error occurred while checking if %s is the correct artifact", artifact.FileName)
 

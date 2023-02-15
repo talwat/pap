@@ -2,7 +2,6 @@ package bukkit
 
 import (
 	"fmt"
-	"strings"
 
 	"github.com/talwat/pap/internal/log"
 	"github.com/talwat/pap/internal/net"
@@ -12,12 +11,8 @@ import (
 
 func ConvertToPlugin(bukkitProject Project) paplug.PluginInfo {
 	plugin := paplug.PluginInfo{}
-	plugin.Name = sources.ParseName(bukkitProject.Slug)
+	plugin.Name = sources.FormatName(bukkitProject.Slug)
 	plugin.Site = fmt.Sprintf("https://dev.bukkit.org/projects/%s", plugin.Name)
-
-	if !strings.HasSuffix(plugin.Description, ".") {
-		plugin.Description += "."
-	}
 
 	plugin.Install.Type = "simple"
 
@@ -28,6 +23,7 @@ func ConvertToPlugin(bukkitProject Project) paplug.PluginInfo {
 	plugin.Version = sources.Undefined
 	plugin.Description = sources.Undefined
 	plugin.License = sources.Undefined
+	plugin.Description = sources.Undefined
 
 	// File & Download
 	// TODO: Use latest release, because currently this just uses the latest regardless of whether it is stable.

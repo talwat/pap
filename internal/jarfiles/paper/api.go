@@ -19,7 +19,10 @@ func GetLatestVersion() string {
 		&versions,
 	)
 
-	return versions.Versions[len(versions.Versions)-1]
+	version := versions.Versions[len(versions.Versions)-1]
+	log.Debug("latest version: %s", version)
+
+	return version
 }
 
 func GetLatestBuild(version string) Build {
@@ -36,6 +39,8 @@ func GetLatestBuild(version string) Build {
 	latest := builds.Builds[len(builds.Builds)-1]
 
 	if global.PaperExperimentalBuildInput {
+		log.Debug("using latest build (%d) regardless", latest.Build)
+
 		return latest
 	}
 

@@ -12,19 +12,80 @@ import (
 	"github.com/urfave/cli/v2"
 )
 
+// Flags is the base flags.
+//
+//nolint:gochecknoglobals
+var Flags = []string{
+	"-Xms" + global.MemoryInput,
+	"-Xmx" + global.MemoryInput,
+}
+
+// Aikars defines aikars flags.
+// See https://docs.papermc.io/paper/aikars-flags for more info.
+//
+//nolint:gochecknoglobals
+var Aikars = []string{
+	"-XX:+UseG1GC",
+	"-XX:+ParallelRefProcEnabled",
+	"-XX:MaxGCPauseMillis=200",
+	"-XX:+UnlockExperimentalVMOptions",
+	"-XX:+DisableExplicitGC",
+	"-XX:+AlwaysPreTouch",
+	"-XX:G1HeapWastePercent=5",
+	"-XX:G1MixedGCCountTarget=4",
+	"-XX:G1MixedGCLiveThresholdPercent=90",
+	"-XX:G1RSetUpdatingPauseTimePercent=5",
+	"-XX:SurvivorRatio=32",
+	"-XX:+PerfDisableSharedMem",
+	"-XX:MaxTenuringThreshold=1",
+	"-Dusing.aikars.flags=https://mcflags.emc.gs",
+	"-Daikars.new.flags=true",
+}
+
+// LargeMemFlags are used if allocated memory is bigger than 12 GB.
+//
+//nolint:gochecknoglobals
+var LargeMemFlags = []string{
+	"-XX:G1NewSizePercent=40",
+	"-XX:G1MaxNewSizePercent=50",
+	"-XX:G1HeapRegionSize=16M",
+	"-XX:G1ReservePercent=15",
+	"-XX:InitiatingHeapOccupancyPercent=20",
+}
+
+// SmallMemFlags are used if allocated memory is smaller than 12 GB.
+//
+//nolint:gochecknoglobals
+var SmallMemFlags = []string{
+	"-XX:G1NewSizePercent=30",
+	"-XX:G1MaxNewSizePercent=40",
+	"-XX:G1HeapRegionSize=8M",
+	"-XX:G1ReservePercent=20",
+	"-XX:InitiatingHeapOccupancyPercent=15",
+}
+
 func memInputToMegabytes(memInput string) int {
 	switch {
 	case strings.HasSuffix(global.MemoryInput, "G"): // Memory is specified in gigabytes (G)
+		log.Debug("using gigabytes as memory unit")
+
 		gigabytes, err := strconv.Atoi(strings.TrimSuffix(memInput, "G"))
 		log.Error(err, "invalid memory amount")
 
 		// How many megabytes are in one gigabyte
 		const MBInGB = 1000
 
-		return gigabytes * MBInGB
+		megabytes := gigabytes * MBInGB
+		log.Debug("memory amount in megabytes: %d", megabytes)
+
+		return megabytes
 	case strings.HasSuffix(global.MemoryInput, "M"): // Memory is specified in megabytes (M)
+		log.Debug("using megabytes as memory unit")
+
 		megabytes, err := strconv.Atoi(strings.TrimSuffix(memInput, "M"))
 		log.Error(err, "invalid memory amount")
+
+		log.Debug("memory amount in megabytes: %d", megabytes)
 
 		return megabytes
 	default:
@@ -34,72 +95,42 @@ func memInputToMegabytes(memInput string) int {
 	}
 }
 
-//nolint:funlen // Ignoring because most of the length comes from the flag definitions
-func generateCommand() string {
+func generateAikars() []string {
+	flagsToUse := Aikars
+
 	// Specified RAM in megabytes
 	ram := memInputToMegabytes(global.MemoryInput)
-
-	flags := []string{
-		"-Xms" + global.MemoryInput,
-		"-Xmx" + global.MemoryInput,
-	}
-
-	aikars := []string{
-		"-XX:+UseG1GC",
-		"-XX:+ParallelRefProcEnabled",
-		"-XX:MaxGCPauseMillis=200",
-		"-XX:+UnlockExperimentalVMOptions",
-		"-XX:+DisableExplicitGC",
-		"-XX:+AlwaysPreTouch",
-		"-XX:G1HeapWastePercent=5",
-		"-XX:G1MixedGCCountTarget=4",
-		"-XX:G1MixedGCLiveThresholdPercent=90",
-		"-XX:G1RSetUpdatingPauseTimePercent=5",
-		"-XX:SurvivorRatio=32",
-		"-XX:+PerfDisableSharedMem",
-		"-XX:MaxTenuringThreshold=1",
-		"-Dusing.aikars.flags=https://mcflags.emc.gs",
-		"-Daikars.new.flags=true",
-	}
-
-	// If allocated memory is bigger than 12 GB
-	largeMemFlags := []string{
-		"-XX:G1NewSizePercent=40",
-		"-XX:G1MaxNewSizePercent=50",
-		"-XX:G1HeapRegionSize=16M",
-		"-XX:G1ReservePercent=15",
-		"-XX:InitiatingHeapOccupancyPercent=20",
-	}
-
-	// If allocated memory is smaller than 12 GB
-	smallMemFlags := []string{
-		"-XX:G1NewSizePercent=30",
-		"-XX:G1MaxNewSizePercent=40",
-		"-XX:G1HeapRegionSize=8M",
-		"-XX:G1ReservePercent=20",
-		"-XX:InitiatingHeapOccupancyPercent=15",
-	}
 
 	// What is considered a lot of ram
 	const largeRAM = 12000
 
 	if ram > largeRAM {
-		aikars = append(aikars, largeMemFlags...)
+		log.Debug("there is more than 12G of ram, using large ram flags")
+
+		flagsToUse = append(flagsToUse, LargeMemFlags...)
 	} else {
-		aikars = append(aikars, smallMemFlags...)
+		log.Debug("there is less than 12G of ram, using small ram flags")
+
+		flagsToUse = append(flagsToUse, SmallMemFlags...)
 	}
+
+	return flagsToUse
+}
+
+func generateCommand() string {
+	flagsToUse := Flags
 
 	if global.AikarsInput {
-		flags = append(flags, aikars...)
+		flagsToUse = append(flagsToUse, generateAikars()...)
 	}
 
-	flags = append(flags, "-jar "+global.JarInput)
+	flagsToUse = append(flagsToUse, fmt.Sprintf("-jar %s", global.JarInput))
 
 	if !global.GUIInput {
-		flags = append(flags, "--nogui")
+		flagsToUse = append(flagsToUse, "--nogui")
 	}
 
-	return fmt.Sprintf("java %s", strings.Join(flags, " "))
+	return fmt.Sprintf("java %s", strings.Join(flagsToUse, " "))
 }
 
 func output(name string, text string) {

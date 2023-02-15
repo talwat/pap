@@ -83,21 +83,26 @@ func GetPluginInfo(name string) paplug.PluginInfo {
 	switch {
 	// If it's a url using http then use this:
 	case strings.HasPrefix(name, "https://") || strings.HasPrefix(name, "http://"):
+		log.Debug("using url (%s)", name)
 		net.Get(name, fmt.Sprintf("plugin at %s not found", name), &info)
 
 		info.URL = name
 
 	// If it's file which ends in .json try reading it locally:
 	case strings.HasSuffix(name, ".json"):
+		log.Debug("using local json file (%s)", name)
 		raw := fs.ReadFile(name)
-		err := json.Unmarshal(raw, &info)
 
+		log.Debug("unmarshaling %s...", name)
+
+		err := json.Unmarshal(raw, &info)
 		log.Error(err, "an error occurred while parsing %s", name)
 
 		info.Path = name
 
 	// If it's a modrinth plugin try getting it from modrinth:
 	case strings.HasPrefix(name, "modrinth:"):
+		log.Debug("using modrinth (%s)", name)
 		info = getPluginFromSource(
 			name,
 			"modrinth",
@@ -108,6 +113,7 @@ func GetPluginInfo(name string) paplug.PluginInfo {
 	// If it's a spigot plugin try getting it from spigotmc:
 	case strings.HasPrefix(name, "spigot:"),
 		strings.HasPrefix(name, "spigotmc:"):
+		log.Debug("using spigotmc (%s)", name)
 		info = getPluginFromSource(
 			strings.ReplaceAll(name, "_", " "),
 			"spigotmc",
@@ -118,6 +124,7 @@ func GetPluginInfo(name string) paplug.PluginInfo {
 	// If it's a bukkit plugin try getting it from bukkit:
 	case strings.HasPrefix(name, "bukkit:"),
 		strings.HasPrefix(name, "bukkitdev:"):
+		log.Debug("using bukkitdev (%s)", name)
 		info = getPluginFromSource(
 			name,
 			"bukkit",
@@ -127,6 +134,7 @@ func GetPluginInfo(name string) paplug.PluginInfo {
 
 	// If it's none of the options above try getting it from the repos:
 	default:
+		log.Debug("using repos (%s)", name)
 		net.Get(
 			fmt.Sprintf(
 				"https://raw.githubusercontent.com/talwat/pap/main/plugins/%s.json",

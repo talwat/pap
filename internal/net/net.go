@@ -13,6 +13,7 @@ import (
 	"time"
 
 	"github.com/schollz/progressbar/v3"
+	papfs "github.com/talwat/pap/internal/fs"
 	"github.com/talwat/pap/internal/global"
 	"github.com/talwat/pap/internal/log"
 )
@@ -48,9 +49,16 @@ func newLoadingBar(maxBytes int64, desc string) *progressbar.ProgressBar {
 }
 
 func DoRequest(url string, notFoundMsg string) *http.Response {
+	log.Debug("making a new request to %s", url)
+
 	req, err := http.NewRequestWithContext(context.Background(), http.MethodGet, url, nil)
-	req.Header.Set("User-Agent", fmt.Sprintf("talwat/pap/%s", global.Version))
 	log.Error(err, "an error occurred while making request")
+
+	userAgent := fmt.Sprintf("talwat/pap/%s", global.Version)
+	req.Header.Set("User-Agent", userAgent)
+
+	log.Debug("using user-agent %s", userAgent)
+	log.Debug("doing request to %s", url)
 
 	resp, err := http.DefaultClient.Do(req)
 	log.Error(err, "an error occurred while sending request")
@@ -59,12 +67,16 @@ func DoRequest(url string, notFoundMsg string) *http.Response {
 		log.RawError("404: %s (%s)", notFoundMsg, url)
 	}
 
+	log.Debug("status code %d", resp.StatusCode)
+
 	return resp
 }
 
 // Like get, but just returns plaintext.
 func GetPlainText(url string, notFoundMsg string) (string, int) {
 	resp := DoRequest(url, notFoundMsg)
+
+	log.Debug("reading response body...")
 
 	raw, err := io.ReadAll(resp.Body)
 	log.Error(err, "an error occurred while reading request body")
@@ -77,6 +89,8 @@ func GetPlainText(url string, notFoundMsg string) (string, int) {
 // Saves the decoded JSON data to the value of content.
 func Get(url string, notFoundMsg string, content interface{}) int {
 	resp := DoRequest(url, notFoundMsg)
+
+	log.Debug("decoding json response")
 
 	err := json.NewDecoder(resp.Body).Decode(&content)
 	log.Error(err, "an error occurred while decoding response")
@@ -96,12 +110,9 @@ func Download(
 	perms fs.FileMode,
 ) []byte {
 	resp := DoRequest(url, notFoundMsg)
-
 	defer resp.Body.Close()
 
-	file, err := os.OpenFile(filename, os.O_RDWR|os.O_CREATE|os.O_TRUNC, perms)
-	log.Error(err, "an error occurred while opening %s", filename)
-
+	file := papfs.OpenFile(filename, perms)
 	defer file.Close()
 
 	bar := newLoadingBar(
@@ -109,7 +120,13 @@ func Download(
 		fmt.Sprintf("pap: downloading %s", fileDesc),
 	)
 
+	log.Debug("reading response body...")
+
+	var err error
+
 	if hash == nil {
+		log.Debug("hash is nil, not writing to hash")
+
 		_, err = io.Copy(io.MultiWriter(file, bar), resp.Body)
 	} else {
 		_, err = io.Copy(io.MultiWriter(file, bar, hash), resp.Body)
@@ -121,6 +138,8 @@ func Download(
 		return nil
 	}
 
+	log.Debug("calculating hash...")
+
 	return hash.Sum(nil)
 }
 
@@ -129,15 +148,14 @@ func SimpleDownload(url string, notFoundMsg string, filename string, fileDesc st
 	log.Log("downloading %s...", fileDesc)
 
 	resp := DoRequest(url, notFoundMsg)
-
 	defer resp.Body.Close()
 
-	file, err := os.Create(filename)
-	log.Error(err, "an error occurred while opening %s", filename)
-
+	file := papfs.OpenFile(filename, papfs.ReadWritePerm)
 	defer file.Close()
 
-	_, err = io.Copy(file, resp.Body)
+	log.Debug("reading response body...")
+
+	_, err := io.Copy(file, resp.Body)
 
 	log.Error(err, "An error occurred while writing %s", fileDesc)
 	log.Log("done downloading")

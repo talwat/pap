@@ -3,10 +3,11 @@ package global
 
 //nolint:gochecknoglobals
 var (
-	Version = "0.12.5"
+	Version = "0.13-beta"
 
 	// Global options.
 	AssumeDefaultInput = false
+	Debug              = false
 
 	// Downloading Server Jarfiles.
 	MinecraftVersionInput       = "latest"

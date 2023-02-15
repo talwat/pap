@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"strings"
 
+	"github.com/talwat/pap/internal/log"
 	"github.com/talwat/pap/internal/net"
 	"github.com/talwat/pap/internal/plugins/sources"
 	"github.com/talwat/pap/internal/plugins/sources/paplug"
@@ -12,14 +13,25 @@ import (
 func getWebsite(plugin PluginInfo) string {
 	switch {
 	case plugin.SourceURL != "":
+		log.Debug("source url isn't empty, using it (%s)", plugin.SourceURL)
+
 		return plugin.SourceURL
 	case plugin.WikiURL != "":
+		log.Debug("wiki url isn't empty, using it (%s)", plugin.WikiURL)
+
 		return plugin.WikiURL
 	case plugin.IssuesURL != "":
+		log.Debug("issues url isn't empty, using it (%s)", plugin.IssuesURL)
+
 		return plugin.IssuesURL
 	case plugin.DiscordURL != "":
+		log.Debug("discord url isn't empty, using it (%s)", plugin.DiscordURL)
+
 		return plugin.DiscordURL
 	default:
+		url := fmt.Sprintf("https://modrinth.com/mod/%s", plugin.Slug)
+		log.Debug("no links defined, falling back to modrinth page (%s)", url)
+
 		return fmt.Sprintf("https://modrinth.com/mod/%s", plugin.Slug)
 	}
 }
@@ -27,7 +39,7 @@ func getWebsite(plugin PluginInfo) string {
 func ConvertToPlugin(modrinthPlugin PluginInfo) paplug.PluginInfo {
 	plugin := paplug.PluginInfo{}
 
-	plugin.Name = sources.ParseName(modrinthPlugin.Slug)
+	plugin.Name = sources.FormatName(modrinthPlugin.Slug)
 	plugin.Description = modrinthPlugin.Description
 	plugin.License = modrinthPlugin.License.ID
 	plugin.Site = getWebsite(modrinthPlugin)
@@ -44,17 +56,9 @@ func ConvertToPlugin(modrinthPlugin PluginInfo) paplug.PluginInfo {
 	plugin.Dependencies = []string{}
 	plugin.OptionalDependencies = []string{}
 
-	var version Version
+	plugin.Version = modrinthPlugin.ResolvedVersion.VersionNumber
 
-	net.Get(
-		fmt.Sprintf("https://api.modrinth.com/v2/version/%s", modrinthPlugin.Versions[0]),
-		fmt.Sprintf("version %s not found", modrinthPlugin.Versions[0]),
-		&version,
-	)
-
-	plugin.Version = version.VersionNumber
-
-	for _, file := range version.Files {
+	for _, file := range modrinthPlugin.ResolvedVersion.Files {
 		download := paplug.Download{}
 
 		download.Type = "url"
@@ -80,6 +84,14 @@ func Get(name string) PluginInfo {
 		fmt.Sprintf("https://api.modrinth.com/v2/project/%s", name),
 		fmt.Sprintf("modrinth plugin %s not found", name),
 		&modrinthPlugin,
+	)
+
+	version := modrinthPlugin.Versions[0]
+
+	net.Get(
+		fmt.Sprintf("https://api.modrinth.com/v2/version/%s", version),
+		fmt.Sprintf("version %s not found", version),
+		&modrinthPlugin.ResolvedVersion,
 	)
 
 	return modrinthPlugin

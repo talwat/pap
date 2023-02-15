@@ -68,6 +68,13 @@ COPYRIGHT:
 				Aliases:     []string{"y"},
 				Destination: &global.AssumeDefaultInput,
 			},
+			&cli.BoolFlag{
+				Name:        "debug",
+				Value:       false,
+				Usage:       "print extra information for debugging or troubleshooting",
+				Aliases:     []string{"d"},
+				Destination: &global.Debug,
+			},
 		},
 		Commands: []*cli.Command{
 			{

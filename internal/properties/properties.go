@@ -4,7 +4,6 @@ package properties
 import (
 	"bufio"
 	"fmt"
-	"os"
 	"sort"
 	"strings"
 
@@ -15,6 +14,8 @@ import (
 )
 
 func WritePropertiesFile(filename string, props map[string]interface{}) {
+	log.Debug("writing properties file...")
+
 	keys := make([]string, 0)
 	final := fmt.Sprintf("#Minecraft server properties\n#%s\n", time.MinecraftDateNow())
 
@@ -34,8 +35,10 @@ func WritePropertiesFile(filename string, props map[string]interface{}) {
 func parsePropertiesLine(line string, conf map[string]interface{}) {
 	equalIdx := strings.Index(line, "=")
 
-	// If "=" is smaller than 0, (eg. -1 which means "=" isn't in the line), skip.
-	if equalIdx < 0 {
+	// If "=" is -1 (which means "=" isn't in the line), skip.
+	if equalIdx == -1 {
+		log.Debug("'%s' does not include an = sign, skipping...", line)
+
 		return
 	}
 
@@ -44,6 +47,8 @@ func parsePropertiesLine(line string, conf map[string]interface{}) {
 
 	// If the key is empty, skip.
 	if len(key) == 0 {
+		log.Log("the key is empty, skiping...")
+
 		return
 	}
 
@@ -60,23 +65,25 @@ func parsePropertiesLine(line string, conf map[string]interface{}) {
 }
 
 func ReadPropertiesFile(filename string) map[string]interface{} {
+	log.Debug("reading properties file...")
+
 	conf := map[string]interface{}{}
 
 	if len(filename) == 0 {
 		return conf
 	}
 
-	file, err := os.Open(filename)
-	log.Error(err, "an error occurred while opening properties file")
+	file := fs.OpenFile(filename, fs.ReadWritePerm)
 
 	defer file.Close()
 
 	scanner := bufio.NewScanner(file)
 	for scanner.Scan() {
-		parsePropertiesLine(scanner.Text(), conf)
+		line := scanner.Text()
+		parsePropertiesLine(line, conf)
 	}
 
-	err = scanner.Err()
+	err := scanner.Err()
 	log.Error(err, "an error occurred while parsing the properties file")
 
 	return conf
@@ -92,7 +99,6 @@ func SetProperty(prop string, val string) {
 	props[prop] = val
 
 	log.Log("writing server properties...")
-
 	WritePropertiesFile("server.properties", props)
 
 	log.Success("successfully set %s to %s", prop, val)

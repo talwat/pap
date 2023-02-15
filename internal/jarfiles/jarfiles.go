@@ -18,6 +18,7 @@ func VerifyJarfile(calculated []byte, proper string) {
 	log.Log("verifying downloaded jarfile...")
 
 	if checksum := hex.EncodeToString(calculated); checksum == proper {
+		log.Debug("%s == %s", checksum, proper)
 		log.Success("checksums match!")
 	} else {
 		log.RawError(

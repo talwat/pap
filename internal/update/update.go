@@ -32,8 +32,13 @@ func checkIfNewUpdate() string {
 		log.RawError("http request to get latest version returned %d", statusCode)
 	}
 
+	log.Debug("raw latest version: %s", rawLatest)
+
 	latest := parseVersion(rawLatest)
+	log.Debug("parsed latest version: %s", latest)
+
 	current := parseVersion(global.Version)
+	log.Debug("parsed current version: %s", current)
 
 	for idx := len(latest) - 1; idx >= 0; idx-- {
 		switch {
@@ -61,11 +66,15 @@ func checkIfNewUpdate() string {
 func getExePath() string {
 	exe, err := os.Executable()
 	log.Error(err, "an error occurred while finding location of currently installed executable")
+	log.Debug("executable path: %s", exe)
 
 	evaluatedExe, err := filepath.EvalSymlinks(exe)
 	log.Error(err, "an error occurred while locating location of original executable, perhaps a broken symlink")
+	log.Debug("evaluated exe: %s", evaluatedExe)
 
 	if runtime.GOOS == "windows" {
+		log.Debug("running on windows, skipping path check")
+
 		return evaluatedExe
 	}
 
@@ -73,6 +82,7 @@ func getExePath() string {
 	homePath := filepath.Join(home, "/.local/bin/pap")
 
 	log.Error(err, "an error occurred while getting the user's home directory")
+	log.Debug("pap local: %s", homePath)
 
 	if evaluatedExe != "/usr/bin" && evaluatedExe != homePath {
 		log.Warn("it seems like you installed pap in a location not specified by the install guide (%s)", evaluatedExe)
@@ -96,6 +106,7 @@ func Update() {
 		runtime.GOOS,
 		runtime.GOARCH,
 	)
+
 	tmpPath := fmt.Sprintf("/tmp/pap-update-%s", latest)
 
 	net.Download(
@@ -106,6 +117,7 @@ func Update() {
 		nil,
 		fs.ExecutePerm,
 	)
+
 	log.Log("installing pap...")
 	fs.MoveFile(tmpPath, exe)
 

@@ -20,7 +20,8 @@ type PluginInfo struct {
 	License License
 	Websites
 
-	Versions []string
+	Versions        []string
+	ResolvedVersion Version
 }
 
 // /version

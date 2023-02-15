@@ -7,6 +7,7 @@ import (
 	"runtime"
 	"strings"
 
+	"github.com/talwat/pap/internal/global"
 	"github.com/talwat/pap/internal/log"
 )
 
@@ -22,11 +23,16 @@ func Run(workDir string, cmd string) {
 	var cmdObj *exec.Cmd
 
 	if runtime.GOOS == "windows" {
+		log.Debug("using powershell")
+
 		cmdObj = exec.Command("powershell", "-command", cmd)
 	} else {
+		log.Debug("using sh")
+
 		cmdObj = exec.Command("sh", "-c", cmd)
 	}
 
+	log.Debug("using working directory %s", workDir)
 	cmdObj.Dir = workDir
 
 	cmdReader, err := cmdObj.StdoutPipe()
@@ -41,9 +47,13 @@ func Run(workDir string, cmd string) {
 	scanner := bufio.NewScanner(cmdReader)
 
 	for scanner.Scan() {
-		output += scanner.Text() + "\n"
+		output += scanner.Text()
 
-		log.RawLog(".")
+		if global.Debug {
+			log.Debug("%s", output)
+		} else {
+			log.RawLog(".")
+		}
 	}
 
 	output = strings.TrimSpace(output)
