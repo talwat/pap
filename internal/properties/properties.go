@@ -62,6 +62,8 @@ func parsePropertiesLine(line string, conf map[string]interface{}) {
 
 	// Save the value to the key in the conf map.
 	conf[key] = val
+
+	log.Debug("parsed %s. %s=%s", line, key, val)
 }
 
 func ReadPropertiesFile(filename string) map[string]interface{} {
