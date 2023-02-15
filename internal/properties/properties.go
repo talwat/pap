@@ -63,18 +63,13 @@ func parsePropertiesLine(line string, conf map[string]interface{}) {
 	// Save the value to the key in the conf map.
 	conf[key] = val
 
-	log.Debug("parsed %s. %s=%s", line, key, val)
+	log.Debug("parsed line %s. parsed line: %s=%s", line, key, val)
 }
 
 func ReadPropertiesFile(filename string) map[string]interface{} {
 	log.Debug("reading properties file...")
 
-	conf := map[string]interface{}{}
-
-	if len(filename) == 0 {
-		return conf
-	}
-
+	props := map[string]interface{}{}
 	file := fs.OpenFile(filename, fs.ReadWritePerm)
 
 	defer file.Close()
@@ -82,13 +77,13 @@ func ReadPropertiesFile(filename string) map[string]interface{} {
 	scanner := bufio.NewScanner(file)
 	for scanner.Scan() {
 		line := scanner.Text()
-		parsePropertiesLine(line, conf)
+		parsePropertiesLine(line, props)
 	}
 
 	err := scanner.Err()
 	log.Error(err, "an error occurred while parsing the properties file")
 
-	return conf
+	return props
 }
 
 func SetProperty(prop string, val string) {

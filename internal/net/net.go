@@ -112,7 +112,7 @@ func Download(
 	resp := DoRequest(url, notFoundMsg)
 	defer resp.Body.Close()
 
-	file := papfs.OpenFile(filename, perms)
+	file := papfs.CreateFile(filename, perms)
 	defer file.Close()
 
 	bar := newLoadingBar(
@@ -150,7 +150,7 @@ func SimpleDownload(url string, notFoundMsg string, filename string, fileDesc st
 	resp := DoRequest(url, notFoundMsg)
 	defer resp.Body.Close()
 
-	file := papfs.OpenFile(filename, papfs.ReadWritePerm)
+	file := papfs.CreateFile(filename, papfs.ReadWritePerm)
 	defer file.Close()
 
 	log.Debug("reading response body...")

@@ -66,10 +66,19 @@ func MoveFile(oldpath string, newpath string) {
 	log.Error(err, "an error occurred while moving %s to %s", oldpath, newpath)
 }
 
-func OpenFile(filename string, perms fs.FileMode) *os.File {
+func CreateFile(filename string, perms fs.FileMode) *os.File {
 	log.Debug("opening %s...", filename)
 
 	file, err := os.OpenFile(filename, os.O_RDWR|os.O_CREATE|os.O_TRUNC, perms)
+	log.Error(err, "an error occurred while opening %s", filename)
+
+	return file
+}
+
+func OpenFile(filename string, perms fs.FileMode) *os.File {
+	log.Debug("opening %s...", filename)
+
+	file, err := os.Open(filename)
 	log.Error(err, "an error occurred while opening %s", filename)
 
 	return file
