@@ -60,6 +60,13 @@ func Debug(msg string, params ...interface{}) {
 	}
 }
 
+func NewlineBeforeDebug(msg string, params ...interface{}) {
+	if global.Debug {
+		RawLog("\n")
+		Log("%sdebug%s: %s", color.Magenta, color.Reset, fmt.Sprintf(msg, params...))
+	}
+}
+
 func Success(msg string, params ...interface{}) {
 	Log("%ssuccess%s: %s", color.Green, color.Reset, fmt.Sprintf(msg, params...))
 }

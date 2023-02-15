@@ -14,7 +14,7 @@
     ],
     "dependencies": ["townychat"],
     "install": {
-        "type": "complex",
+        "type": "custom",
         "commands": {
             "windows": [
                 "Move-Item -Force -Path 'Towny Advanced {version}/Towny-{version}.jar' -Destination ./",
@@ -22,8 +22,8 @@
                 "Rename-Item -Force -Path Towny-{version}.jar -NewName Towny.jar"
             ],
             "unix": [
-                "mv 'Towny Advanced {version}'/Towny-{version}.jar Towny.jar",
-                "rm -rf 'Towny Advanced {version}'"
+                "mv -v 'Towny Advanced {version}'/Towny-{version}.jar Towny.jar",
+                "rm -rvf 'Towny Advanced {version}'"
             ]
         }
     },

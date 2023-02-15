@@ -23,11 +23,11 @@ func Run(workDir string, cmd string) {
 	var cmdObj *exec.Cmd
 
 	if runtime.GOOS == "windows" {
-		log.Debug("using powershell")
+		log.NewlineBeforeDebug("using powershell")
 
 		cmdObj = exec.Command("powershell", "-command", cmd)
 	} else {
-		log.Debug("using sh")
+		log.NewlineBeforeDebug("using sh")
 
 		cmdObj = exec.Command("sh", "-c", cmd)
 	}
@@ -50,7 +50,7 @@ func Run(workDir string, cmd string) {
 		output += scanner.Text()
 
 		if global.Debug {
-			log.Debug("%s", output)
+			log.RawLog("  %s\n", output)
 		} else {
 			log.RawLog(".")
 		}

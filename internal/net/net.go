@@ -120,13 +120,9 @@ func Download(
 		fmt.Sprintf("pap: downloading %s", fileDesc),
 	)
 
-	log.Debug("reading response body...")
-
 	var err error
 
 	if hash == nil {
-		log.Debug("hash is nil, not writing to hash")
-
 		_, err = io.Copy(io.MultiWriter(file, bar), resp.Body)
 	} else {
 		_, err = io.Copy(io.MultiWriter(file, bar, hash), resp.Body)
@@ -137,8 +133,6 @@ func Download(
 	if hash == nil {
 		return nil
 	}
-
-	log.Debug("calculating hash...")
 
 	return hash.Sum(nil)
 }
