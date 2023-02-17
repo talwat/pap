@@ -1,6 +1,7 @@
 package plugincmds
 
 import (
+	"fmt"
 	"strings"
 
 	"github.com/talwat/pap/internal/log"
@@ -8,8 +9,20 @@ import (
 	"github.com/urfave/cli/v2"
 )
 
-func join(value []string) string {
-	return strings.Join(value, ", ")
+func DisplayLineString(output *string, key string, value string) {
+	if value == "" {
+		return
+	}
+
+	*output += fmt.Sprintf("%s: %s\n", key, value)
+}
+
+func DisplayLineArray(output *string, key string, value []string) {
+	if len(value) <= 0 {
+		return
+	}
+
+	*output += fmt.Sprintf("%s: %s\n", key, strings.Join(value, ", "))
 }
 
 func InfoCommand(cCtx *cli.Context) error {
@@ -17,25 +30,19 @@ func InfoCommand(cCtx *cli.Context) error {
 	name := args.Get(0)
 
 	plugin := plugins.GetPluginInfo(name)
+	output := ""
 
-	output := "name: " + plugin.Name + "\n"
-	output += "version: " + plugin.Version + "\n"
+	// Not using a map because golang doesn't preserve order (annoyingly).
 
-	if plugin.Site != "" {
-		output += "site: " + plugin.Site + "\n"
-	}
+	DisplayLineString(&output, "name", plugin.Name)
+	DisplayLineString(&output, "version", plugin.Version)
+	DisplayLineString(&output, "site", plugin.Site)
+	DisplayLineString(&output, "description", plugin.Description)
+	DisplayLineString(&output, "license", plugin.License)
 
-	output += "description: " + plugin.Description + "\n"
-	output += "license: " + plugin.License + "\n"
-	output += "authors: " + join(plugin.Authors) + "\n"
-
-	if len(plugin.Dependencies) > 0 {
-		output += "dependencies: " + join(plugin.Dependencies) + "\n"
-	}
-
-	if len(plugin.OptionalDependencies) > 0 {
-		output += "optional dependencies:" + join(plugin.OptionalDependencies) + "\n"
-	}
+	DisplayLineArray(&output, "authors", plugin.Authors)
+	DisplayLineArray(&output, "dependencies", plugin.Dependencies)
+	DisplayLineArray(&output, "optional dependencies", plugin.OptionalDependencies)
 
 	log.OutputLog(strings.TrimSpace(output))
 
