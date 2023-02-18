@@ -9,7 +9,7 @@ import (
 )
 
 func DisplayNote(plugin paplug.PluginInfo) {
-	if len(plugin.Note) < 1 {
+	if len(plugin.Note) == 0 {
 		return
 	}
 
@@ -21,7 +21,7 @@ func DisplayNote(plugin paplug.PluginInfo) {
 }
 
 func DisplayOptionalDependencies(plugin paplug.PluginInfo) {
-	if len(plugin.OptionalDependencies) < 1 {
+	if len(plugin.OptionalDependencies) == 0 {
 		return
 	}
 
@@ -33,7 +33,7 @@ func DisplayOptionalDependencies(plugin paplug.PluginInfo) {
 }
 
 func DisplayAdditionalInfo(plugin paplug.PluginInfo) {
-	if len(plugin.Note) < 1 && len(plugin.OptionalDependencies) < 1 {
+	if len(plugin.Note) == 0 && len(plugin.OptionalDependencies) == 0 {
 		return
 	}
 
@@ -63,7 +63,7 @@ func displayPluginLine(plugin paplug.PluginInfo, isDependency bool) {
 	log.RawLog("%s\n", pluginLine)
 }
 
-// List out plugins
+// List out plugins.
 func PluginList(plugins []paplug.PluginInfo, deps []paplug.PluginInfo, operation string) {
 	log.Log("%s %d plugin(s):", operation, len(plugins))
 
