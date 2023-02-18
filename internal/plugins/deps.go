@@ -1,6 +1,7 @@
 package plugins
 
 import (
+	"github.com/talwat/pap/internal/global"
 	"github.com/talwat/pap/internal/log"
 	"github.com/talwat/pap/internal/plugins/sources/paplug"
 )
@@ -46,4 +47,25 @@ func GetDependencies(deps []string, installed []paplug.PluginInfo) []paplug.Plug
 	getDependencyLevel(deps, &finalDeps, installed)
 
 	return finalDeps
+}
+
+func ResolveDependencies(plugins []paplug.PluginInfo) []paplug.PluginInfo {
+	deps := []paplug.PluginInfo{}
+
+	if global.NoDepsInput {
+		return deps
+	}
+
+	log.Log("resolving dependencies...")
+
+	for _, plugin := range plugins {
+		deps = append(deps, GetDependencies(plugin.Dependencies, plugins)...)
+
+		// Append optional dependencies aswell
+		if global.InstallOptionalDepsInput {
+			deps = append(deps, GetDependencies(plugin.OptionalDependencies, deps)...)
+		}
+	}
+
+	return deps
 }

@@ -63,6 +63,7 @@ func displayPluginLine(plugin paplug.PluginInfo, isDependency bool) {
 	log.RawLog("%s\n", pluginLine)
 }
 
+// List out plugins
 func PluginList(plugins []paplug.PluginInfo, deps []paplug.PluginInfo, operation string) {
 	log.Log("%s %d plugin(s):", operation, len(plugins))
 
