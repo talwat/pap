@@ -56,7 +56,7 @@ func Get(name string) Project {
 		&projects,
 	)
 
-	if len(projects) < 1 {
+	if len(projects) == 0 {
 		log.RawError("bukkitdev plugin %s not found", name)
 	}
 

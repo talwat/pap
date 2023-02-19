@@ -9,7 +9,7 @@ import (
 func InstallCommand(cCtx *cli.Context) error {
 	args := cCtx.Args().Slice()
 
-	if len(args) < 1 {
+	if len(args) == 0 {
 		log.RawError("you must specify plugins to install")
 	}
 

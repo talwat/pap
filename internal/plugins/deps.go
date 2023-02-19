@@ -35,7 +35,7 @@ func getDependencyLevel(deps []string, dest *[]paplug.PluginInfo, installed []pa
 
 		log.Debug("checking if %s has subdependencies...", dep.Name)
 
-		if len(dep.Dependencies) > 0 {
+		if len(dep.Dependencies) != 0 {
 			getDependencyLevel(dep.Dependencies, dest, installed)
 		}
 	}

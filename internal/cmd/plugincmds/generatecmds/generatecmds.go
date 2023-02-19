@@ -11,7 +11,7 @@ import (
 )
 
 func Generate(getPluginInfo func(plugin string) paplug.PluginInfo, plugins []string) {
-	if len(plugins) < 1 {
+	if len(plugins) == 0 {
 		log.RawError("you must specify plugins to generate")
 	}
 

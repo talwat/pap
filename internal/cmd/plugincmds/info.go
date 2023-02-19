@@ -18,7 +18,7 @@ func DisplayLineString(output *string, key string, value string) {
 }
 
 func DisplayLineArray(output *string, key string, value []string) {
-	if len(value) <= 0 {
+	if len(value) == 0 {
 		return
 	}
 
