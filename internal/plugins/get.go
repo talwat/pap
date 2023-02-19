@@ -94,7 +94,7 @@ func getBukkitdev(name string, info *paplug.PluginInfo) {
 	)
 }
 
-// Get from the repositories, eg: 'plugin'
+// Get from the repositories, eg: 'plugin'.
 func getRepos(name string, info *paplug.PluginInfo) {
 	log.Debug("using repos (%s)", name)
 	net.Get(

@@ -28,6 +28,30 @@ func getWebsite(plugin PluginInfo) string {
 	}
 }
 
+func getAuthors(plugin PluginInfo) []string {
+	if plugin.Contributors == "" {
+		log.Debug("contributors is empty, using authors information (%s)", plugin.Resolved.Author.Name)
+
+		return []string{plugin.Resolved.Author.Name}
+	}
+
+	log.Debug("contributors is not empty, splitting it by ', ' (%s)", plugin.Contributors)
+
+	return strings.Split(plugin.Contributors, ", ")
+}
+
+func getLicense(plugin PluginInfo) string {
+	if plugin.SourceCodeLink != "" {
+		log.Debug("source code link is not empty, using unknown license")
+
+		return sources.Undefined
+	}
+
+	log.Debug("source code link is empty, assuming app is proprietary")
+
+	return "proprietary"
+}
+
 // Path is the parsed filename for the plugin jarfile.
 func ConvertDownload(plugin PluginInfo, path string) paplug.Download {
 	download := paplug.Download{}
@@ -56,16 +80,10 @@ func ConvertToPlugin(spigotPlugin PluginInfo) paplug.PluginInfo {
 	plugin.Name = sources.FormatName(spigotPlugin.Name)
 	plugin.Description = sources.FormatDesc(spigotPlugin.Tag)
 	plugin.Site = getWebsite(spigotPlugin)
+	plugin.Authors = getAuthors(spigotPlugin)
+	plugin.License = getLicense(spigotPlugin)
 
 	plugin.Install.Type = "simple"
-
-	if spigotPlugin.Contributors == "" {
-		plugin.Authors = append(plugin.Authors, spigotPlugin.Resolved.Author.Name)
-		log.Debug("contributors is empty, using authors information (%s)", spigotPlugin.Resolved.Author.Name)
-	} else {
-		plugin.Authors = strings.Split(spigotPlugin.Contributors, ", ")
-		log.Debug("contributors is not empty, splitting it by ', ' (%s)", spigotPlugin.Contributors)
-	}
 
 	plugin.Version = spigotPlugin.Resolved.LatestVersion.Name
 
@@ -74,30 +92,21 @@ func ConvertToPlugin(spigotPlugin PluginInfo) paplug.PluginInfo {
 	plugin.Dependencies = []string{}
 	plugin.OptionalDependencies = []string{}
 
-	if spigotPlugin.SourceCodeLink != "" {
-		log.Debug("source code link is not empty, using unknown license")
-
-		plugin.License = sources.Undefined
-	} else {
-		log.Debug("source code link is empty, assuming app is proprietary")
-
-		plugin.License = "proprietary"
-	}
-
 	// File & Download
 	path := fmt.Sprintf("%s.jar", plugin.Name)
 
 	log.Debug("plugin jarfile path: %s", path)
 
 	// File
+	log.Debug("adding uninstall file...")
+
 	file := paplug.File{}
 	file.Path = path
 	file.Type = "other"
 
-	log.Debug("adding uninstall file...")
-
 	plugin.Uninstall.Files = append(plugin.Uninstall.Files, file)
 
+	// Download
 	log.Debug("adding download...")
 
 	plugin.Downloads = append(plugin.Downloads, ConvertDownload(spigotPlugin, path))
