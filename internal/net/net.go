@@ -105,7 +105,7 @@ func Download(
 	url string,
 	notFoundMsg string,
 	filename string,
-	fileDesc string,
+	filedesc string,
 	hash hash.Hash,
 	perms fs.FileMode,
 ) []byte {
@@ -117,7 +117,7 @@ func Download(
 
 	bar := newLoadingBar(
 		resp.ContentLength,
-		fmt.Sprintf("pap: downloading %s", fileDesc),
+		fmt.Sprintf("pap: downloading %s", filedesc),
 	)
 
 	var err error
@@ -128,7 +128,7 @@ func Download(
 		_, err = io.Copy(io.MultiWriter(file, bar, hash), resp.Body)
 	}
 
-	log.Error(err, "An error occurred while writing %s", fileDesc)
+	log.Error(err, "An error occurred while writing %s", filedesc)
 
 	if hash == nil {
 		return nil
