@@ -92,6 +92,7 @@ If you are obtaining pap from source, you will need these dependencies:
 
 - [Go](https://go.dev/) 1.18 or later
 - [Git](https://git-scm.com/)
+- [Make](https://en.wikipedia.org/wiki/Make_(software))
 
 ### Arch linux
 
@@ -118,8 +119,7 @@ Simply mark the downloaded binary as executable and move it.
 ##### Unix - System wide from releases
 
 ```sh
-sudo mv pap* /usr/bin/pap
-sudo chmod +x /usr/bin/pap
+install -Dm755 pap* /usr/bin/pap
 ```
 
 ##### Unix - Local from releases
@@ -129,9 +129,7 @@ sudo chmod +x /usr/bin/pap
 > See [common issues](#local-installation-not-found) on how to add it.
 
 ```sh
-mkdir -p ~/.local/bin
-mv pap* ~/.local/bin/pap
-chmod +x ~/.local/bin/pap
+install -Dm755 pap* ~/.local/bin/pap
 ```
 
 #### Unix - From Source
@@ -157,7 +155,7 @@ git checkout <tag>
 And then build:
 
 ```sh
-go build .
+make
 ```
 
 Finally, move it into your binary directory:
@@ -165,8 +163,7 @@ Finally, move it into your binary directory:
 ##### Unix - System wide from source
 
 ```sh
-sudo mv pap /usr/bin/pap
-sudo chmod +x /usr/bin/pap
+make install PREFIX=/usr
 ```
 
 ##### Unix - Local from source
@@ -176,9 +173,7 @@ sudo chmod +x /usr/bin/pap
 > See [common issues](#local-installation-not-found) on how to add it.
 
 ```sh
-mkdir -p ~/.local/bin
-mv pap ~/.local/bin/pap
-chmod +x ~/.local/bin/pap
+make install
 ```
 
 ### Windows
@@ -208,7 +203,10 @@ git checkout <tag>
 And then build:
 
 ```sh
-go build .
+# Use `make` if you have it, otherwise:
+
+mkdir -vp build
+go build -o build
 ```
 
 Finally, [put it into path](https://stackoverflow.com/questions/4822400/register-an-exe-so-you-can-run-it-from-any-command-line-in-windows#:~:text=Go%20to%20%22My%20computer%20%2D%3E,exe%20's%20directory%20into%20path.).
