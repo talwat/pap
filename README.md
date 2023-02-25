@@ -114,8 +114,6 @@ and download the fitting binary for your system from there.
 
 pap is available on most architectures and operating systems, so you will rarely need to compile it from source.
 
-Simply mark the downloaded binary as executable and move it.
-
 ##### Unix - System wide from releases
 
 ```sh
