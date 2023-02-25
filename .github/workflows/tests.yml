@@ -69,6 +69,8 @@ jobs:
           ls plugins
           ./pap -y -d plugin install bukkit:holographic-displays
           ls plugins
+          ./pap -y -d plugin install --experimental bukkit:worldguard
+          ls plugins
       
       - name: "Test plugin manager generator"
         run: |

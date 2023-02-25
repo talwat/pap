@@ -3,6 +3,7 @@ package bukkit
 import (
 	"fmt"
 
+	"github.com/talwat/pap/internal/global"
 	"github.com/talwat/pap/internal/log"
 	"github.com/talwat/pap/internal/net"
 	"github.com/talwat/pap/internal/plugins/sources"
@@ -11,6 +12,14 @@ import (
 
 // Gets the latest stable build.
 func getLatestBuild(project Project) File {
+	latest := project.ResolvedFiles[len(project.ResolvedFiles)-1]
+
+	if global.PluginExperimentalInput {
+		log.Debug("using latest file (%d) regardless", latest.FileName)
+
+		return latest
+	}
+
 	// Iterate through project.ResolvedFiles backwards
 	for i := len(project.ResolvedFiles) - 1; i >= 0; i-- {
 		if project.ResolvedFiles[i].ReleaseType == "release" { // "release" usually means stable
@@ -18,9 +27,9 @@ func getLatestBuild(project Project) File {
 		}
 	}
 
-	log.Continue("warning: no stable build found, would you like to use the latest experimental build?")
+	log.Continue("warning: no stable build found, would you like to use the latest experimental file?")
 
-	return project.ResolvedFiles[len(project.ResolvedFiles)-1]
+	return latest
 }
 
 func ConvertToPlugin(bukkitProject Project) paplug.PluginInfo {

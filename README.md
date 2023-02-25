@@ -117,7 +117,7 @@ pap is available on most architectures and operating systems, so you will rarely
 ##### Unix - System wide from releases
 
 ```sh
-install -Dm755 pap* /usr/bin/pap
+sudo install -Dm755 pap* /usr/bin/pap
 ```
 
 ##### Unix - Local from releases
@@ -161,7 +161,7 @@ Finally, move it into your binary directory:
 ##### Unix - System wide from source
 
 ```sh
-make install PREFIX=/usr
+sudo make install PREFIX=/usr
 ```
 
 ##### Unix - Local from source
