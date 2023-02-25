@@ -9,6 +9,20 @@ import (
 	"github.com/talwat/pap/internal/plugins/sources/paplug"
 )
 
+// Gets the latest stable build.
+func getLatestBuild(project Project) File {
+	// Iterate through project.ResolvedFiles backwards
+	for i := len(project.ResolvedFiles) - 1; i >= 0; i-- {
+		if project.ResolvedFiles[i].ReleaseType == "release" { // "release" usually means stable
+			return project.ResolvedFiles[i] // Stable build found, return it
+		}
+	}
+
+	log.Continue("warning: no stable build found, would you like to use the latest experimental build?")
+
+	return project.ResolvedFiles[len(project.ResolvedFiles)-1]
+}
+
 func ConvertToPlugin(bukkitProject Project) paplug.PluginInfo {
 	plugin := paplug.PluginInfo{}
 	plugin.Name = sources.FormatName(bukkitProject.Slug)
@@ -26,8 +40,7 @@ func ConvertToPlugin(bukkitProject Project) paplug.PluginInfo {
 	plugin.Description = sources.Undefined
 
 	// File & Download
-	// TODO: Use latest release, because currently this just uses the latest regardless of whether it is stable.
-	latestFile := bukkitProject.ResolvedFiles[len(bukkitProject.ResolvedFiles)-1]
+	latestFile := getLatestBuild(bukkitProject)
 
 	// File
 	file := paplug.File{}

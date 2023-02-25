@@ -108,7 +108,7 @@ COPYRIGHT:
 							&cli.BoolFlag{
 								Name:        "paper-experimental",
 								Value:       false,
-								Usage:       "takes the latest build regardless. also bypasses warning prompt",
+								Usage:       "takes the latest build regardless",
 								Aliases:     []string{"experimental", "e"},
 								Destination: &global.PaperExperimentalBuildInput,
 							},
@@ -198,6 +198,13 @@ COPYRIGHT:
 								Usage:       "whether to install optional dependencies",
 								Aliases:     []string{"optional"},
 								Destination: &global.InstallOptionalDepsInput,
+							},
+							&cli.BoolFlag{
+								Name:        "plugin-experimental",
+								Value:       false,
+								Usage:       "takes the latest version regardless",
+								Aliases:     []string{"experimental"},
+								Destination: &global.PluginExperimentalInput,
 							},
 						},
 					},

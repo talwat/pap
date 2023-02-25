@@ -33,7 +33,7 @@ type Links struct {
 }
 
 type Version struct {
-	ID int
+	ID uint32
 }
 
 type Metadata struct {
@@ -54,7 +54,7 @@ type DownloadInfo struct {
 type PluginInfo struct {
 	Name    string
 	Version Version
-	ID      int
+	ID      uint32
 
 	Metadata
 	DownloadInfo

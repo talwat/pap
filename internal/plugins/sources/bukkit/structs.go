@@ -4,7 +4,7 @@ package bukkit
 
 type Project struct {
 	Slug string
-	ID   int
+	ID   uint32
 
 	ResolvedFiles []File
 }

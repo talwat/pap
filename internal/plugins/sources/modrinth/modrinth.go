@@ -86,6 +86,9 @@ func Get(name string) PluginInfo {
 		&modrinthPlugin,
 	)
 
+	// This may take a beta version.
+	// But to get only a stable one it would require sending a GET request for potentially every version.
+	// Which is very slow.
 	version := modrinthPlugin.Versions[0]
 
 	net.Get(

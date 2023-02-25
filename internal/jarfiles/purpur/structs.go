@@ -24,7 +24,7 @@ type BuildsList struct {
 type Commit struct {
 	Description string
 	Hash        string
-	Timestamp   int
+	Timestamp   uint64
 }
 
 type BuildMetadata struct {

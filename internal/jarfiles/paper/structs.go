@@ -18,7 +18,7 @@ type BuildMetadata struct {
 }
 
 type Build struct {
-	Build     int
+	Build     uint16
 	Channel   string
 	Downloads Downloads
 
