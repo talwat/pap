@@ -10,6 +10,7 @@ import (
 	"github.com/talwat/pap/internal/plugins/sources/paplug"
 )
 
+// Gets a plugins website by checking it's links.
 func getWebsite(plugin PluginInfo) string {
 	switch {
 	case plugin.SourceCodeLink != "":
@@ -28,6 +29,7 @@ func getWebsite(plugin PluginInfo) string {
 	}
 }
 
+// Gets a plugins author(s).
 func getAuthors(plugin PluginInfo) []string {
 	if plugin.Contributors == "" {
 		log.Debug("contributors is empty, using authors information (%s)", plugin.Resolved.Author.Name)
@@ -40,6 +42,7 @@ func getAuthors(plugin PluginInfo) []string {
 	return strings.Split(plugin.Contributors, ", ")
 }
 
+// Gets a plugins license by checking if it has a source code link.
 func getLicense(plugin PluginInfo) string {
 	if plugin.SourceCodeLink != "" {
 		log.Debug("source code link is not empty, using unknown license")
@@ -52,7 +55,9 @@ func getLicense(plugin PluginInfo) string {
 	return "proprietary"
 }
 
+// Converts a spigotmc file into a paplug download.
 // Path is the parsed filename for the plugin jarfile.
+// NOTE: Any plugin that has an "external" download source cannot be downloaded.
 func ConvertDownload(plugin PluginInfo, path string) paplug.Download {
 	download := paplug.Download{}
 	download.Type = "url"
@@ -74,6 +79,7 @@ func ConvertDownload(plugin PluginInfo, path string) paplug.Download {
 	return download
 }
 
+// Converts a spigotmc plugin into the paplug format.
 func ConvertToPlugin(spigotPlugin PluginInfo) paplug.PluginInfo {
 	plugin := paplug.PluginInfo{}
 
@@ -114,6 +120,7 @@ func ConvertToPlugin(spigotPlugin PluginInfo) paplug.PluginInfo {
 	return plugin
 }
 
+// Gets a raw spigotmc plugin.
 func Get(name string) PluginInfo {
 	var plugins []PluginInfo
 
@@ -124,13 +131,17 @@ func Get(name string) PluginInfo {
 		&plugins,
 	)
 
+	// Gets the first plugin because it's sorted by likes, so it should be fine.
+	// Also spigotmc doesn't really have slugs.
 	plugin := plugins[0]
 
-	net.Get(
-		fmt.Sprintf("https://api.spiget.org/v2/authors/%d?fields=name", plugin.Author.ID),
-		fmt.Sprintf("spigot author %d not found", plugin.Author.ID),
-		&plugin.Resolved.Author,
-	)
+	if plugin.Contributors == "" {
+		net.Get(
+			fmt.Sprintf("https://api.spiget.org/v2/authors/%d?fields=name", plugin.Author.ID),
+			fmt.Sprintf("spigot author %d not found", plugin.Author.ID),
+			&plugin.Resolved.Author,
+		)
+	}
 
 	version := plugin.Version.ID
 

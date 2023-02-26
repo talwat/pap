@@ -14,48 +14,53 @@ import (
 
 const (
 	Success  = 1
-	NotFound = 2
+	Fail     = 2
+	NotFound = 3
 )
 
+// Try using a specific command to unzip a file.
+//
+//nolint:unparam // 'dest' kept for extensibility in the future & consistency.
+func tryUnzipCommand(program string, src string, dest string, cmd string, params ...interface{}) {
+	log.Log("using %s to unzip %s...", program, src)
+
+	exitCode := exec.Run(".", fmt.Sprintf(cmd, params...))
+
+	log.RawLog("\n")
+
+	if exitCode != 0 {
+		log.RawError("%s failed with exit code: %d", program, exitCode)
+	}
+}
+
 // Unzip using commands provided by the OS.
-func CommandUnzip(src string, dest string) int {
+func commandUnzip(src string, dest string) int {
 	switch {
 	case exec.CommandExists("unzip"):
-		log.Log("using unzip to unzip %s...", src)
-		exec.Run(".", fmt.Sprintf("unzip -o %s -d %s", src, dest))
-		log.RawLog("\n")
+		tryUnzipCommand("unzip", src, dest, "unzip -o %s -d %s", src, dest)
 
 		return Success
 	case exec.CommandExists("7z"):
-		log.Log("using 7z to unzip %s...", src)
-		exec.Run(".", fmt.Sprintf("7z %s -vd %s", src, dest))
-		log.RawLog("\n")
+		tryUnzipCommand("7z", src, dest, "7z %s -vd %s", src, dest)
 
 		return Success
 	case exec.CommandExists("bsdtar"):
-		log.Log("using bstdar to unzip %s...", src)
-		exec.Run(".", fmt.Sprintf("bsdtar -xvf %s -C %s", src, dest))
-		log.RawLog("\n")
+		tryUnzipCommand("bstdar", src, dest, "bsdtar -xvf %s -C %s", src, dest)
 
 		return Success
 	default:
-		log.Log("using golang method to unzip %s", src)
+		log.Log("using golang method to unzip %s...", src)
 
 		return NotFound
 	}
 }
 
-//nolint:wrapcheck,goerr113,funlen
-func Unzip(src string, dest string) {
-	MakeDirectory(dest)
-
-	status := CommandUnzip(src, dest)
-
-	if status == Success {
-		return
-	}
-
-	// Full golang implementation, refactoring and editing is needed.
+// Full golang implementation, refactoring and editing is needed.
+// This function is avoided if possible, but kept just in case the user doesn't have basic utilities.
+// I mean seriously, who doesn't have tar/unzip?
+//
+//nolint:goerr113,funlen,wrapcheck // I have no idea how to shorten this mess.
+func unsafeUnzip(src string, dest string) {
 	zipReader, err := zip.OpenReader(src)
 	log.Error(err, "an error occurred while opening zip reader")
 
@@ -117,4 +122,16 @@ func Unzip(src string, dest string) {
 		err := extractAndWriteFile(f)
 		log.Error(err, "an error occurred while extracting zip file")
 	}
+}
+
+func Unzip(src string, dest string) {
+	MakeDirectory(dest)
+
+	status := commandUnzip(src, dest)
+
+	if status == Success {
+		return
+	}
+
+	unsafeUnzip(src, dest)
 }

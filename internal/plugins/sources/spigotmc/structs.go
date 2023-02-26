@@ -1,16 +1,18 @@
 package spigotmc
 
-// Structs that are defined by different api routes
-
 // https://api.spiget.org/v2/authors/
+// The author of a plugin, only the name is needed.
 type ResolvedAuthor struct {
 	Name string
 }
 
 // https://api.spiget.org/v2/resources/<resource>/versions/
+// The latest version of a plugin.
 type ResolvedLatestVersion struct {
 	Name string
 }
+
+// Resolved information, like the author and latest version.
 type Resolved struct {
 	Author        ResolvedAuthor
 	LatestVersion ResolvedLatestVersion
@@ -18,24 +20,29 @@ type Resolved struct {
 
 // Main struct
 
+// The author of a plugin, used if contributors is undefined.
 type Author struct {
 	ID int
 }
 
+// A file provided by the plugin.
 type File struct {
 	FileType string `json:"type"`
 	URL      string
 }
 
+// Websites that are used to get a plugins website.
 type Links struct {
 	SourceCodeLink string
 	DonationLink   string
 }
 
+// A version with an ID, pretty basic.
 type Version struct {
 	ID uint32
 }
 
+// Non-important metadata for a plugin.
 type Metadata struct {
 	Contributors string
 	Tag          string
@@ -51,6 +58,7 @@ type DownloadInfo struct {
 	File    File
 }
 
+// The plugin information itself.
 type PluginInfo struct {
 	Name    string
 	Version Version

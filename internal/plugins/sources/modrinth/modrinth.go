@@ -10,6 +10,7 @@ import (
 	"github.com/talwat/pap/internal/plugins/sources/paplug"
 )
 
+// Gets a website for a modrinth plugin.
 func getWebsite(plugin PluginInfo) string {
 	switch {
 	case plugin.SourceURL != "":
@@ -36,6 +37,7 @@ func getWebsite(plugin PluginInfo) string {
 	}
 }
 
+// Converts a modrinth plugin into the paplug format.
 func ConvertToPlugin(modrinthPlugin PluginInfo) paplug.PluginInfo {
 	plugin := paplug.PluginInfo{}
 
@@ -77,6 +79,7 @@ func ConvertToPlugin(modrinthPlugin PluginInfo) paplug.PluginInfo {
 	return plugin
 }
 
+// Gets a raw modrinth plugin.
 func Get(name string) PluginInfo {
 	var modrinthPlugin PluginInfo
 

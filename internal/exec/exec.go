@@ -17,7 +17,7 @@ func CommandExists(cmd string) bool {
 	return !errors.Is(err, exec.ErrNotFound)
 }
 
-func Run(workDir string, cmd string) {
+func Run(workDir string, cmd string) int {
 	log.NoNewline("running command %s", cmd)
 
 	var cmdObj *exec.Cmd
@@ -60,4 +60,6 @@ func Run(workDir string, cmd string) {
 	err = cmdObj.Wait()
 
 	log.NewlineBeforeError(err, "an error occurred while running command. output:\n%s", output)
+
+	return cmdObj.ProcessState.ExitCode()
 }

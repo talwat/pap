@@ -11,11 +11,11 @@ import (
 )
 
 // Gets the latest stable build.
-func getLatestBuild(project Project) File {
+func getLatestBuild(project PluginInfo) File {
 	latest := project.ResolvedFiles[len(project.ResolvedFiles)-1]
 
 	if global.PluginExperimentalInput {
-		log.Debug("using latest file (%d) regardless", latest.FileName)
+		log.Debug("using latest file (%s) regardless", latest.FileName)
 
 		return latest
 	}
@@ -32,7 +32,8 @@ func getLatestBuild(project Project) File {
 	return latest
 }
 
-func ConvertToPlugin(bukkitProject Project) paplug.PluginInfo {
+// Converts a bukkit project to a paplug plugin.
+func ConvertToPlugin(bukkitProject PluginInfo) paplug.PluginInfo {
 	plugin := paplug.PluginInfo{}
 	plugin.Name = sources.FormatName(bukkitProject.Slug)
 	plugin.Site = fmt.Sprintf("https://dev.bukkit.org/projects/%s", plugin.Name)
@@ -69,7 +70,9 @@ func ConvertToPlugin(bukkitProject Project) paplug.PluginInfo {
 	return plugin
 }
 
-func getProject(name string, projects []Project) Project {
+// Gets a project from a list and tries to match the slug.
+// This helps get more accurate results.
+func getProject(name string, projects []PluginInfo) PluginInfo {
 	for _, project := range projects {
 		if project.Slug == name {
 			return project
@@ -77,11 +80,13 @@ func getProject(name string, projects []Project) Project {
 	}
 
 	log.Warn("there are no plugins that match %s exactly, using first result", name)
+
 	return projects[0]
 }
 
-func Get(name string) Project {
-	var projects []Project
+// Gets the raw bukkit project.
+func Get(name string) PluginInfo {
+	var projects []PluginInfo
 
 	net.Get(
 		fmt.Sprintf("https://api.curseforge.com/servermods/projects?search=%s", name),

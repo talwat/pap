@@ -41,7 +41,9 @@ func getDependencyLevel(deps []string, dest *[]paplug.PluginInfo, installed []pa
 	}
 }
 
-func GetDependencies(deps []string, installed []paplug.PluginInfo) []paplug.PluginInfo {
+// Gets the dependencies for one plugin.
+// This avoids using dependencies that are already specified for installation.
+func getDependencies(deps []string, installed []paplug.PluginInfo) []paplug.PluginInfo {
 	finalDeps := []paplug.PluginInfo{}
 
 	getDependencyLevel(deps, &finalDeps, installed)
@@ -49,6 +51,7 @@ func GetDependencies(deps []string, installed []paplug.PluginInfo) []paplug.Plug
 	return finalDeps
 }
 
+// Resolves all of the dependencies for a list of plugins.
 func ResolveDependencies(plugins []paplug.PluginInfo) []paplug.PluginInfo {
 	deps := []paplug.PluginInfo{}
 
@@ -59,11 +62,11 @@ func ResolveDependencies(plugins []paplug.PluginInfo) []paplug.PluginInfo {
 	log.Log("resolving dependencies...")
 
 	for _, plugin := range plugins {
-		deps = append(deps, GetDependencies(plugin.Dependencies, plugins)...)
+		deps = append(deps, getDependencies(plugin.Dependencies, plugins)...)
 
 		// Append optional dependencies aswell
 		if global.InstallOptionalDepsInput {
-			deps = append(deps, GetDependencies(plugin.OptionalDependencies, deps)...)
+			deps = append(deps, getDependencies(plugin.OptionalDependencies, deps)...)
 		}
 	}
 
