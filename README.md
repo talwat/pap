@@ -52,6 +52,7 @@ Or, make a PR.
   - [Uninstalling pap](#uninstalling-pap)
   - [Contributing](#contributing)
   - [Dependencies](#dependencies)
+  - [Packaging](#packaging)
 
 ## Examples
 
@@ -285,3 +286,11 @@ If you like pap, feel free to [star it on github](https://github.com/talwat/pap)
 
 - [schollz/progressbar](https://github.com/schollz/progressbar)
 - [urfave/cli](https://github.com/urfave/cli)
+
+## Packaging
+
+pap is currently on one singular repository: The AUR.
+
+If you would like to package & submit pap to a repository, [open an issue](https://github.com/talwat/pap/issues).
+
+[![Packaging status](https://repology.org/badge/vertical-allrepos/pap.svg)](https://repology.org/project/pap/versions)
