@@ -46,10 +46,6 @@ jobs:
 
       - name: "Run help"
         run: "./pap -y -d help"
-      
-      - name: "Test self updater"
-        run: |
-          ./pap -y -d update
 
       - name: "Test plugin manager"
         run: |
@@ -314,3 +310,10 @@ jobs:
            ./pap -y -d download official --version 18w07c
            ./pap -y -d download official --version 1.2.5
            ./pap -y -d download official --version 1.13-pre6
+
+      - name: "Test self updater"
+        run: |
+          ./pap -y -d update
+          ./pap -y -d update -r
+          ./pap help
+          ./pap version

@@ -69,6 +69,17 @@ func ConvertToPlugin(bukkitProject Project) paplug.PluginInfo {
 	return plugin
 }
 
+func getProject(name string, projects []Project) Project {
+	for _, project := range projects {
+		if project.Slug == name {
+			return project
+		}
+	}
+
+	log.Warn("there are no plugins that match %s exactly, using first result", name)
+	return projects[0]
+}
+
 func Get(name string) Project {
 	var projects []Project
 
@@ -82,7 +93,7 @@ func Get(name string) Project {
 		log.RawError("bukkitdev plugin %s not found", name)
 	}
 
-	project := projects[0]
+	project := getProject(name, projects)
 
 	net.Get(
 		fmt.Sprintf("https://api.curseforge.com/servermods/files?projectIds=%d", project.ID),
