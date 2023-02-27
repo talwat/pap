@@ -69,7 +69,7 @@ func MoveFile(oldpath string, newpath string) {
 func CreateFile(filename string, perms fs.FileMode) *os.File {
 	log.Debug("opening %s...", filename)
 
-	file, err := os.OpenFile(filename, os.O_RDWR|os.O_CREATE|os.O_TRUNC, perms)
+	file, err := os.OpenFile(filename, os.O_CREATE|os.O_WRONLY, perms)
 	log.Error(err, "an error occurred while opening %s", filename)
 
 	return file

@@ -18,9 +18,11 @@ import (
 	"github.com/talwat/pap/internal/log"
 )
 
+// Modified version of progressbar.DefaultBytes() to change the appearance.
+//
 //nolint:gomnd // Nolint because most numbers are configuration options.
 func newLoadingBar(maxBytes int64, desc string) *progressbar.ProgressBar {
-	bar := progressbar.NewOptions64(
+	return progressbar.NewOptions64(
 		maxBytes,
 		progressbar.OptionSetDescription(desc),
 		progressbar.OptionSetWriter(os.Stderr),
@@ -44,8 +46,6 @@ func newLoadingBar(maxBytes int64, desc string) *progressbar.ProgressBar {
 			BarEnd:        "]",
 		}),
 	)
-
-	return bar
 }
 
 func DoRequest(url string, notFoundMsg string) *http.Response {
