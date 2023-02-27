@@ -6,16 +6,23 @@ var (
 	Version = "0.13.1"
 
 	// Global options.
+
 	AssumeDefaultInput = false
 	Debug              = false
 
 	// Downloading Server Jarfiles.
-	MinecraftVersionInput       = "latest"
-	JarBuildInput               = "latest"
-	PaperExperimentalBuildInput = false
-	OfficialUseSnapshotInput    = false
+
+	MinecraftVersionInput              = "latest"
+	JarBuildInput                      = "latest"
+	PaperExperimentalBuildInput        = false
+	UseSnapshotInput                   = false
+	FabricExperimentalMinecraftVersion = false
+	FabricExperimentalLoaderVersion    = false
+	FabricLoaderVersion                = "latest"
+	FabricInstallerVersion             = "latest"
 
 	// Script.
+
 	MemoryInput          = "2G"
 	AikarsInput          = false
 	ScriptUseStdoutInput = false
@@ -23,10 +30,12 @@ var (
 	GUIInput             = false
 
 	// Plugin.
+
 	NoDepsInput              = false
 	InstallOptionalDepsInput = false
 	PluginExperimentalInput  = false
 
 	// Update.
+
 	ReinstallInput = false
 )
