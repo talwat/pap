@@ -5,8 +5,6 @@
 [![License](https://img.shields.io/github/license/talwat/pap)](https://github.com/talwat/pap/blob/main/LICENSE)
 ![Go version](https://img.shields.io/github/go-mod/go-version/talwat/pap)
 
-[![Packaging status](https://repology.org/badge/vertical-allrepos/pap.svg)](https://repology.org/project/pap/versions)
-
 A swiss army knife for minecraft servers.
 
 ## pap is close to 1.0 🎉
@@ -296,8 +294,6 @@ If you like pap, feel free to [star it on github](https://github.com/talwat/pap)
 - [urfave/cli](https://github.com/urfave/cli)
 
 ## Packaging
-
-pap is currently on one singular repository: The AUR.
 
 If you would like to package & submit pap to a repository, [open an issue](https://github.com/talwat/pap/issues).
 
