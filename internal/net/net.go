@@ -21,7 +21,7 @@ import (
 // Modified version of progressbar.DefaultBytes() to change the appearance.
 //
 //nolint:gomnd // Nolint because most numbers are configuration options.
-func newLoadingBar(maxBytes int64, desc string) *progressbar.ProgressBar {
+func NewProgressbar(maxBytes int64, desc string) *progressbar.ProgressBar {
 	return progressbar.NewOptions64(
 		maxBytes,
 		progressbar.OptionSetDescription(desc),
@@ -115,7 +115,7 @@ func Download(
 	file := papfs.CreateFile(filename, perms)
 	defer file.Close()
 
-	bar := newLoadingBar(
+	bar := NewProgressbar(
 		resp.ContentLength,
 		fmt.Sprintf("pap: downloading %s", filedesc),
 	)
