@@ -108,7 +108,11 @@ yay -S pap
 
 ### Ubuntu
 
-Install [Pacstall](https://github.com/pacstall/pacstall#installing), then run:
+> **Info**
+> Pacstall might not have the latest version of pap, but it may be more stable.
+
+If you have [pacstall](https://github.com/pacstall/pacstall), you can run:
+
 ```bash
 pacstall -I pap
 ```
