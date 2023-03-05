@@ -106,6 +106,17 @@ If you wish, pap can be installed from the AUR:
 yay -S pap
 ```
 
+### Ubuntu
+
+> **Info**
+> Pacstall might not have the latest version of pap, but it may be more stable.
+
+If you have [pacstall](https://github.com/pacstall/pacstall), you can run:
+
+```bash
+pacstall -I pap
+```
+
 ### Unix
 
 #### Unix - From Releases
@@ -288,8 +299,6 @@ If you like pap, feel free to [star it on github](https://github.com/talwat/pap)
 - [urfave/cli](https://github.com/urfave/cli)
 
 ## Packaging
-
-pap is currently on one singular repository: The AUR.
 
 If you would like to package & submit pap to a repository, [open an issue](https://github.com/talwat/pap/issues).
 
