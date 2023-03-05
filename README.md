@@ -33,6 +33,7 @@ Or, make a PR.
   - [Install](#install)
     - [Build Dependencies](#build-dependencies)
     - [Arch linux](#arch-linux)
+    - [Ubuntu](#ubuntu)
     - [Unix](#unix)
       - [Unix - From Releases](#unix---from-releases)
         - [Unix - System wide from releases](#unix---system-wide-from-releases)
