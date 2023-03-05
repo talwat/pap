@@ -2,6 +2,7 @@
 
 [![codebeat badge](https://codebeat.co/badges/95ce3938-9084-418c-b8fe-8093f6292d28)](https://codebeat.co/projects/github-com-talwat-pap-main)
 [![Go Report Card](https://goreportcard.com/badge/github.com/talwat/pap)](https://goreportcard.com/report/github.com/talwat/pap)
+[![AUR version](https://img.shields.io/aur/version/pap)](https://aur.archlinux.org/packages/pap)
 [![License](https://img.shields.io/github/license/talwat/pap)](https://github.com/talwat/pap/blob/main/LICENSE)
 ![Go version](https://img.shields.io/github/go-mod/go-version/talwat/pap)
 
