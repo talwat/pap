@@ -12,14 +12,6 @@ import (
 	"github.com/urfave/cli/v2"
 )
 
-// Flags is the base flags.
-//
-//nolint:gochecknoglobals
-var Flags = []string{
-	"-Xms" + global.MemoryInput,
-	"-Xmx" + global.MemoryInput,
-}
-
 // Aikars defines aikars flags.
 // See https://docs.papermc.io/paper/aikars-flags for more info.
 //
@@ -118,7 +110,13 @@ func generateAikars() []string {
 }
 
 func generateCommand() string {
-	flagsToUse := Flags
+	// Base includes the base flags
+	base := []string{
+		"-Xms" + global.MemoryInput,
+		"-Xmx" + global.MemoryInput,
+	}
+
+	flagsToUse := base
 
 	if global.AikarsInput {
 		flagsToUse = append(flagsToUse, generateAikars()...)
