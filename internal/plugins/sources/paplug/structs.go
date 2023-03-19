@@ -69,7 +69,7 @@ type Steps struct {
 // All dependencies including optional dependencies.
 type AllDependencies struct {
 	Dependencies         []string `json:"dependencies,omitempty"`
-	OptionalDependencies []string `json:"optional_dependencies,omitempty"`
+	OptionalDependencies []string `json:"optionalDependencies,omitempty"`
 }
 
 type PluginInfo struct {

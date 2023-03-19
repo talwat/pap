@@ -27,11 +27,11 @@ func getDependencyLevel(deps []string, dest *[]paplug.PluginInfo, installed []pa
 	for _, dep := range depsInfo {
 		log.Debug("checking if %s already marked for installation...", dep.Name)
 
+		*dest = append(*dest, dep)
+
 		if pluginExists(dep, append(*dest, installed...)) {
 			return
 		}
-
-		*dest = append(*dest, dep)
 
 		log.Debug("checking if %s has subdependencies...", dep.Name)
 
@@ -66,6 +66,8 @@ func ResolveDependencies(plugins []paplug.PluginInfo) []paplug.PluginInfo {
 
 		// Append optional dependencies aswell
 		if global.InstallOptionalDepsInput {
+			log.Debug("appending optional dependencies: %s...", plugin.OptionalDependencies)
+
 			deps = append(deps, getDependencies(plugin.OptionalDependencies, deps)...)
 		}
 	}

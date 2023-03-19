@@ -33,6 +33,7 @@ Or, make a PR.
   - [Install](#install)
     - [Build Dependencies](#build-dependencies)
     - [Arch linux](#arch-linux)
+    - [Ubuntu](#ubuntu)
     - [Unix](#unix)
       - [Unix - From Releases](#unix---from-releases)
         - [Unix - System wide from releases](#unix---system-wide-from-releases)
@@ -104,6 +105,17 @@ If you wish, pap can be installed from the AUR:
 
 ```sh
 yay -S pap
+```
+
+### Ubuntu
+
+> **Info**
+> Pacstall might not have the latest version of pap, but it may be more stable.
+
+If you have [pacstall](https://github.com/pacstall/pacstall), you can run:
+
+```bash
+pacstall -I pap
 ```
 
 ### Unix
@@ -284,12 +296,9 @@ If you like pap, feel free to [star it on github](https://github.com/talwat/pap)
 
 ## Dependencies
 
-- [schollz/progressbar](https://github.com/schollz/progressbar)
 - [urfave/cli](https://github.com/urfave/cli)
 
 ## Packaging
-
-pap is currently on one singular repository: The AUR.
 
 If you would like to package & submit pap to a repository, [open an issue](https://github.com/talwat/pap/issues).
 

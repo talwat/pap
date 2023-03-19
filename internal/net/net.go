@@ -9,44 +9,12 @@ import (
 	"io"
 	"io/fs"
 	"net/http"
-	"os"
-	"time"
 
-	"github.com/schollz/progressbar/v3"
+	"github.com/talwat/gobar"
 	papfs "github.com/talwat/pap/internal/fs"
 	"github.com/talwat/pap/internal/global"
 	"github.com/talwat/pap/internal/log"
 )
-
-// Modified version of progressbar.DefaultBytes() to change the appearance.
-//
-//nolint:gomnd // Nolint because most numbers are configuration options.
-func NewProgressbar(maxBytes int64, desc string) *progressbar.ProgressBar {
-	return progressbar.NewOptions64(
-		maxBytes,
-		progressbar.OptionSetDescription(desc),
-		progressbar.OptionSetWriter(os.Stderr),
-		progressbar.OptionShowBytes(true),
-		progressbar.OptionThrottle(65*time.Millisecond),
-		progressbar.OptionOnCompletion(func() {
-			log.RawLog("\n")
-		}),
-		progressbar.OptionSpinnerType(14),
-		progressbar.OptionFullWidth(),
-		progressbar.OptionSetRenderBlankState(true),
-		progressbar.OptionSetPredictTime(false),
-
-		progressbar.OptionEnableColorCodes(false),
-		progressbar.OptionSetTheme(progressbar.Theme{
-			Saucer:        "=",
-			SaucerHead:    ">",
-			AltSaucerHead: ">",
-			SaucerPadding: " ",
-			BarStart:      "[",
-			BarEnd:        "]",
-		}),
-	)
-}
 
 func DoRequest(url string, notFoundMsg string) *http.Response {
 	log.Debug("making a new request to %s", url)
@@ -115,7 +83,8 @@ func Download(
 	file := papfs.CreateFile(filename, perms)
 	defer file.Close()
 
-	bar := NewProgressbar(
+	bar := gobar.NewBar(
+		0,
 		resp.ContentLength,
 		fmt.Sprintf("pap: downloading %s", filedesc),
 	)
