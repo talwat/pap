@@ -15,13 +15,13 @@ func InstallCommand(cCtx *cli.Context) error {
 
 	log.Log("fetching plugins...")
 
-	// This will later also contain the dependencies.
-	pluginsToInstall := plugins.GetManyPluginInfo(args)
+	pluginsToInstall := plugins.GetManyPluginInfo(args, false, false)
 	dependencies := plugins.ResolveDependencies(pluginsToInstall)
 
-	plugins.PluginList(pluginsToInstall, dependencies, "installing")
-
+	// Append dependencies
 	pluginsToInstall = append(pluginsToInstall, dependencies...)
+
+	plugins.PluginList(pluginsToInstall, "installing")
 
 	plugins.PluginDoMany(pluginsToInstall, plugins.PluginInstall)
 
