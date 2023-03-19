@@ -83,6 +83,7 @@ func Download(
 	file := papfs.CreateFile(filename, perms)
 	defer file.Close()
 
+	log.Debug("content length: %d", resp.ContentLength)
 	bar := gobar.NewBar(
 		0,
 		resp.ContentLength,
@@ -121,5 +122,4 @@ func SimpleDownload(url string, notFoundMsg string, filename string, fileDesc st
 	_, err := io.Copy(file, resp.Body)
 
 	log.Error(err, "An error occurred while writing %s", fileDesc)
-	log.Log("done downloading")
 }
