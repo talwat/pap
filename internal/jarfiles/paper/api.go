@@ -51,7 +51,7 @@ func GetLatestBuild(version string) Build {
 		}
 	}
 
-	log.Continue("warning: no stable build found, would you like to use the latest experimental build?")
+	log.ContinueWarn("no stable build found, would you like to use the latest experimental build?")
 
 	return latest
 }
@@ -79,8 +79,8 @@ func GetBuild(version string, buildID string) Build {
 	}
 
 	if build.Channel == "experimental" && !global.PaperExperimentalBuildInput {
-		log.Continue(
-			"warning: build %d has been flagged as experimental, are you sure you would like to download it?",
+		log.ContinueWarn(
+			"build %d has been flagged as experimental, are you sure you would like to download it?",
 			build.Build,
 		)
 	}
