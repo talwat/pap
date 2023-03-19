@@ -11,8 +11,6 @@ linters:
 
   enable-all: true
 
-linters-settings:
-  revive:
-    checks:
-      - all
-      - unused-parameter
+issues:
+  exclude:
+    - unused-parameter
