@@ -140,7 +140,6 @@ func output(name string, text string) {
 	}
 }
 
-//nolint:revive // cCtx kept for consistency with other commands.
 func ScriptCommand(cCtx *cli.Context) error {
 	command := generateCommand()
 

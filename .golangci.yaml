@@ -10,3 +10,9 @@ linters:
     - ifshort
 
   enable-all: true
+
+linters-settings:
+  revive:
+    checks:
+      - all
+      - unused-parameter

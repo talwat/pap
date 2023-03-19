@@ -25,7 +25,6 @@ func validatePaperOptions() {
 	}
 }
 
-//nolint:revive // cCtx kept for consistency with other commands.
 func DownloadPaperCommand(cCtx *cli.Context) error {
 	validatePaperOptions()
 

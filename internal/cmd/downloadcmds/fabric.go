@@ -9,7 +9,6 @@ import (
 	"github.com/urfave/cli/v2"
 )
 
-//nolint:revive // cCtx kept for consistency with other commands.
 func DownloadFabricCommand(cCtx *cli.Context) error {
 	url := fabric.GetURL(
 		global.MinecraftVersionInput,

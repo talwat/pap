@@ -13,7 +13,6 @@ import (
 	"github.com/urfave/cli/v2"
 )
 
-//nolint:revive // cCtx kept for consistency with other commands.
 func DownloadOfficialCommand(cCtx *cli.Context) error {
 	log.Warn("the official jarfile is much slower and less efficient than paper")
 	log.Continue("are you sure you would like to continue?")

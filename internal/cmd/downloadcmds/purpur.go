@@ -13,7 +13,6 @@ import (
 	"github.com/urfave/cli/v2"
 )
 
-//nolint:revive // cCtx kept for consistency with other commands.
 func DownloadPurpurCommand(cCtx *cli.Context) error {
 	url, build := purpur.GetURL(global.MinecraftVersionInput, global.JarBuildInput)
 

@@ -9,7 +9,6 @@ import (
 	"github.com/urfave/cli/v2"
 )
 
-//nolint:revive // cCtx kept for consistency with other commands.
 func EulaCommand(cCtx *cli.Context) error {
 	fs.WriteFile("eula.txt", fmt.Sprintf(
 		`#By changing the setting below to TRUE you are indicating your agreement to our EULA (https://aka.ms/MinecraftEULA).
