@@ -41,8 +41,12 @@ func GetURL(versionInput string, buildID string) (string, Build) {
 	// Log final info
 	log.Log("using paper build %d (%s), changes:", build.Build, formattedTime)
 
-	for _, change := range build.Changes {
-		log.RawLog("  (%s) %s\n", change.Commit, change.Summary)
+	if len(build.Changes) == 0 {
+		log.RawLog("  no changes")
+	} else {
+		for _, change := range build.Changes {
+			log.RawLog("  (%s) %s\n", change.Commit, change.Summary)
+		}
 	}
 
 	return formatURL(version, build), build
