@@ -75,7 +75,7 @@ func CreateFile(filename string, perms fs.FileMode) *os.File {
 	return file
 }
 
-func OpenFile(filename string, perms fs.FileMode) *os.File {
+func OpenFile(filename string) *os.File {
 	log.Debug("opening %s...", filename)
 
 	file, err := os.Open(filename)

@@ -81,7 +81,7 @@ COPYRIGHT:
 				Name:      "download",
 				Aliases:   []string{"d"},
 				Usage:     "download a jarfile",
-				ArgsUsage: "[paper|official]",
+				ArgsUsage: "[type]",
 				Flags: []cli.Flag{
 					&cli.StringFlag{
 						Name:        "minecraft-version",
@@ -111,6 +111,49 @@ COPYRIGHT:
 								Usage:       "takes the latest build regardless",
 								Aliases:     []string{"experimental", "e"},
 								Destination: &global.PaperExperimentalBuildInput,
+							},
+							&cli.StringFlag{
+								Name:        "minecraft-version",
+								Value:       "latest",
+								Usage:       "the minecraft version to download",
+								Aliases:     []string{"version", "v"},
+								Destination: &global.MinecraftVersionInput,
+							},
+						},
+					},
+					{
+						Name:    "fabric",
+						Aliases: []string{"f"},
+						Usage:   "download a fabric jarfile",
+						Action:  downloadcmds.DownloadFabricCommand,
+						Flags: []cli.Flag{
+							&cli.StringFlag{
+								Name:        "fabric-loader",
+								Value:       "latest",
+								Usage:       "the fabric loader version to use",
+								Aliases:     []string{"loader", "l"},
+								Destination: &global.FabricLoaderVersion,
+							},
+							&cli.StringFlag{
+								Name:        "fabric-installer",
+								Value:       "latest",
+								Usage:       "the fabric installer version to use",
+								Aliases:     []string{"installer", "i"},
+								Destination: &global.FabricInstallerVersion,
+							},
+							&cli.BoolFlag{
+								Name:        "fabric-loader-experimental",
+								Value:       false,
+								Usage:       "takes the latest loader version regardless",
+								Aliases:     []string{"experimental", "e"},
+								Destination: &global.FabricExperimentalLoaderVersion,
+							},
+							&cli.BoolFlag{
+								Name:        "minecraft-snapshot",
+								Value:       false,
+								Usage:       "takes the latest snapshot instead of the latest release",
+								Aliases:     []string{"snapshot", "s"},
+								Destination: &global.UseSnapshotInput,
 							},
 							&cli.StringFlag{
 								Name:        "minecraft-version",
@@ -154,7 +197,7 @@ COPYRIGHT:
 								Value:       false,
 								Usage:       "takes the latest snapshot instead of the latest release",
 								Aliases:     []string{"snapshot", "s"},
-								Destination: &global.OfficialUseSnapshotInput,
+								Destination: &global.UseSnapshotInput,
 							},
 							&cli.StringFlag{
 								Name:        "minecraft-version",

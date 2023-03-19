@@ -311,6 +311,18 @@ jobs:
            ./pap -y -d download official --version 1.2.5
            ./pap -y -d download official --version 1.13-pre6
 
+      - name: "Test fabric downloading"
+        run: |
+           ./pap -y -d download fabric --snapshot
+           ./pap -y -d download fabric
+           ./pap -y -d download fabric --loader 0.13.3
+           ./pap -y -d download fabric --installer 0.8.0
+           ./pap -y -d download fabric --version 1.19.2
+           ./pap -y -d download fabric --version latest --snapshot
+           ./pap -y -d download fabric --version 1.19.3 --snapshot
+           ./pap -y -d download fabric --version 20w22a
+           ./pap -y -d download fabric --version 1.16-pre8
+
       - name: "Test self updater"
         run: |
           ./pap -y -d update

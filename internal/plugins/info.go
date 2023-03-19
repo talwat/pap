@@ -3,6 +3,7 @@ package plugins
 import (
 	"fmt"
 
+	"github.com/talwat/pap/internal/global"
 	"github.com/talwat/pap/internal/log"
 	"github.com/talwat/pap/internal/log/color"
 	"github.com/talwat/pap/internal/plugins/sources/paplug"
@@ -21,7 +22,7 @@ func DisplayNote(plugin paplug.PluginInfo) {
 }
 
 func DisplayOptionalDependencies(plugin paplug.PluginInfo) {
-	if len(plugin.OptionalDependencies) == 0 {
+	if len(plugin.OptionalDependencies) == 0 || global.InstallOptionalDepsInput {
 		return
 	}
 
@@ -44,7 +45,7 @@ func DisplayAdditionalInfo(plugin paplug.PluginInfo) {
 	DisplayOptionalDependencies(plugin)
 }
 
-func displayPluginLine(plugin paplug.PluginInfo, isDependency bool) {
+func displayPluginLine(plugin paplug.PluginInfo) {
 	pluginLine := fmt.Sprintf("  %s %s", plugin.Name, plugin.Version)
 
 	switch {
@@ -56,23 +57,23 @@ func displayPluginLine(plugin paplug.PluginInfo, isDependency bool) {
 		pluginLine += fmt.Sprintf(" (%s)", plugin.Source)
 	}
 
-	if isDependency {
+	if plugin.IsDependency {
 		pluginLine += " [dependency]"
+	}
+
+	if plugin.IsOptionalDependency {
+		pluginLine += " [optional dependency]"
 	}
 
 	log.RawLog("%s\n", pluginLine)
 }
 
 // List out plugins.
-func PluginList(plugins []paplug.PluginInfo, deps []paplug.PluginInfo, operation string) {
+func PluginList(plugins []paplug.PluginInfo, operation string) {
 	log.Log("%s %d plugin(s):", operation, len(plugins))
 
 	for _, plugin := range plugins {
-		displayPluginLine(plugin, false)
-	}
-
-	for _, dep := range deps {
-		displayPluginLine(dep, true)
+		displayPluginLine(plugin)
 	}
 
 	log.Continue("would you like to continue?")

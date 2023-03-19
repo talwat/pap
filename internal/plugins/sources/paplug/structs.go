@@ -40,9 +40,11 @@ type Uninstall struct {
 
 // Defined in pap, not in the json files themselves.
 type DefinedLater struct {
-	Path   string `json:"path,omitempty"`
-	URL    string `json:"url,omitempty"`
-	Source string `json:"source,omitempty"`
+	Path                 string `json:"path,omitempty"`
+	URL                  string `json:"url,omitempty"`
+	Source               string `json:"source,omitempty"`
+	IsDependency         bool   `json:"isDependency,omitempty"`
+	IsOptionalDependency bool   `json:"isOptionalDependency,omitempty"`
 }
 
 // Metadata that isn't used for core operations in pap.

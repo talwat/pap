@@ -15,9 +15,9 @@ func UninstallCommand(cCtx *cli.Context) error {
 
 	log.Log("fetching plugins...")
 
-	info := plugins.GetManyPluginInfo(args)
+	info := plugins.GetManyPluginInfo(args, false, false)
 
-	plugins.PluginList(info, nil, "uninstalling")
+	plugins.PluginList(info, "uninstalling")
 	plugins.PluginDoMany(info, plugins.PluginUninstall)
 
 	log.Success("successfully uninstalled all plugins")

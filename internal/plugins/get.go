@@ -148,12 +148,22 @@ func GetPluginInfo(name string) paplug.PluginInfo {
 	return info
 }
 
-func GetManyPluginInfo(plugins []string) []paplug.PluginInfo {
-	pluginInfo := []paplug.PluginInfo{}
+func GetManyPluginInfo(plugins []string, isDependencies bool, isOptionalDependencies bool) []paplug.PluginInfo {
+	pluginsInfo := []paplug.PluginInfo{}
 
 	for _, plugin := range plugins {
-		pluginInfo = append(pluginInfo, GetPluginInfo(plugin))
+		info := GetPluginInfo(plugin)
+
+		if isDependencies {
+			info.IsDependency = true
+		}
+
+		if isOptionalDependencies {
+			info.IsOptionalDependency = true
+		}
+
+		pluginsInfo = append(pluginsInfo, info)
 	}
 
-	return pluginInfo
+	return pluginsInfo
 }

@@ -55,7 +55,7 @@ func GetLatestPackage() Package {
 
 	var version string
 
-	if global.OfficialUseSnapshotInput {
+	if global.UseSnapshotInput {
 		version = versions.Latest.Snapshot
 	} else {
 		version = versions.Latest.Release

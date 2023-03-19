@@ -21,8 +21,10 @@ func pluginExists(plugin paplug.PluginInfo, plugins []paplug.PluginInfo) bool {
 // Recursive function.
 // Gets a plugins dependencies and then calls itself to get that dependencies own dependencies.
 // This happens until it's done.
-func getDependencyLevel(deps []string, dest *[]paplug.PluginInfo, installed []paplug.PluginInfo) {
-	depsInfo := GetManyPluginInfo(deps)
+//
+// dest is where to write the plugins to.
+func getDependencyLevel(deps []string, dest *[]paplug.PluginInfo, installed []paplug.PluginInfo, isOptional bool) {
+	depsInfo := GetManyPluginInfo(deps, !isOptional, isOptional)
 
 	for _, dep := range depsInfo {
 		log.Debug("checking if %s already marked for installation...", dep.Name)
@@ -36,17 +38,17 @@ func getDependencyLevel(deps []string, dest *[]paplug.PluginInfo, installed []pa
 		log.Debug("checking if %s has subdependencies...", dep.Name)
 
 		if len(dep.Dependencies) != 0 {
-			getDependencyLevel(dep.Dependencies, dest, installed)
+			getDependencyLevel(dep.Dependencies, dest, installed, isOptional)
 		}
 	}
 }
 
 // Gets the dependencies for one plugin.
 // This avoids using dependencies that are already specified for installation.
-func getDependencies(deps []string, installed []paplug.PluginInfo) []paplug.PluginInfo {
+func getDependencies(deps []string, installed []paplug.PluginInfo, isOptional bool) []paplug.PluginInfo {
 	finalDeps := []paplug.PluginInfo{}
 
-	getDependencyLevel(deps, &finalDeps, installed)
+	getDependencyLevel(deps, &finalDeps, installed, isOptional)
 
 	return finalDeps
 }
@@ -56,20 +58,25 @@ func ResolveDependencies(plugins []paplug.PluginInfo) []paplug.PluginInfo {
 	deps := []paplug.PluginInfo{}
 
 	if global.NoDepsInput {
+		log.Debug("nodeps on, not resolving dependencies")
+
 		return deps
 	}
 
 	log.Log("resolving dependencies...")
 
 	for _, plugin := range plugins {
-		deps = append(deps, getDependencies(plugin.Dependencies, plugins)...)
+		log.Debug("resolving for %s...", plugin.Name)
 
-		// Append optional dependencies aswell
-		if global.InstallOptionalDepsInput {
-			log.Debug("appending optional dependencies: %s...", plugin.OptionalDependencies)
+		deps = append(deps, getDependencies(plugin.Dependencies, plugins, false)...)
 
-			deps = append(deps, getDependencies(plugin.OptionalDependencies, deps)...)
+		if !global.InstallOptionalDepsInput {
+			continue
 		}
+
+		log.Debug("appending optional dependencies: %s...", plugin.OptionalDependencies)
+
+		deps = append(deps, getDependencies(plugin.OptionalDependencies, deps, true)...)
 	}
 
 	return deps

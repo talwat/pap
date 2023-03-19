@@ -19,10 +19,8 @@ const (
 )
 
 // Try using a specific command to unzip a file.
-//
-//nolint:unparam // 'dest' kept for extensibility in the future & consistency.
 func tryUnzipCommand(program string, src string, dest string, cmd string, params ...interface{}) {
-	log.Log("using %s to unzip %s...", program, src)
+	log.Log("using %s to unzip %s to %s...", program, src, dest)
 
 	exitCode := exec.Run(".", fmt.Sprintf(cmd, params...))
 

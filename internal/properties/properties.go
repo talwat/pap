@@ -70,7 +70,7 @@ func ReadPropertiesFile(filename string) map[string]interface{} {
 	log.Debug("reading properties file...")
 
 	props := map[string]interface{}{}
-	file := fs.OpenFile(filename, fs.ReadWritePerm)
+	file := fs.OpenFile(filename)
 
 	defer file.Close()
 
