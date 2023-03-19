@@ -117,12 +117,12 @@ func YesOrNo(defaultVal string, prompt string, params ...interface{}) bool {
 	return input == "y"
 }
 
-func RawContinue(log func(string, ...interface{}), prompt string, params ...interface{}) {
+func Continue(prompt string, params ...interface{}) {
 	NoNewline("%s [y/n]: ", fmt.Sprintf(prompt, params...))
 
 	if global.AssumeDefaultInput {
 		RawLog("\n")
-		log("continuing because assume-default is turned on")
+		Log("continuing because assume-default is turned on")
 
 		return
 	}
@@ -133,12 +133,4 @@ func RawContinue(log func(string, ...interface{}), prompt string, params ...inte
 		Log("aborting...")
 		os.Exit(1)
 	}
-}
-
-func ContinueWarn(prompt string, params ...interface{}) {
-	RawContinue(Warn, prompt, params...)
-}
-
-func Continue(prompt string, params ...interface{}) {
-	RawContinue(Log, prompt, params...)
 }
