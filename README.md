@@ -296,7 +296,6 @@ If you like pap, feel free to [star it on github](https://github.com/talwat/pap)
 
 ## Dependencies
 
-- [schollz/progressbar](https://github.com/schollz/progressbar)
 - [urfave/cli](https://github.com/urfave/cli)
 
 ## Packaging
