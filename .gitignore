@@ -20,6 +20,7 @@ go.work
 # Custom
 test/
 dist/
+build/
 *.jar
 
 .DS_Store
