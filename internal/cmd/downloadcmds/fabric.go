@@ -1,6 +1,7 @@
 package downloadcmds
 
 import (
+	"github.com/talwat/pap/internal/fs"
 	"github.com/talwat/pap/internal/global"
 	"github.com/talwat/pap/internal/jarfiles"
 	"github.com/talwat/pap/internal/jarfiles/fabric"
@@ -16,11 +17,13 @@ func DownloadFabricCommand(cCtx *cli.Context) error {
 		global.FabricInstallerVersion,
 	)
 
-	net.SimpleDownload(
+	net.Download(
 		url,
 		"resolved fabric jarfile not found",
 		"fabric.jar",
 		"fabric server jarfile",
+		nil,
+		fs.ReadWritePerm,
 	)
 
 	log.Success("done downloading")

@@ -105,11 +105,13 @@ func ResetProperties() {
 	log.Log("this command is expected to be used with the latest minecraft version")
 	log.Log("if you are using an older version, please manually delete the properties file and run the server")
 	log.Continue("are you sure you would like to reset your server.properties file?")
-	net.SimpleDownload(
+	net.Download(
 		"https://raw.githubusercontent.com/talwat/pap/main/assets/default.server.properties",
 		"server properties file not found, please report this to https://github.com/talwat/pap/issues",
 		"server.properties",
 		"server properties file",
+		nil,
+		fs.ReadWritePerm,
 	)
 	log.Success("successfully reset server properties file")
 }

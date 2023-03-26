@@ -84,20 +84,26 @@ func Download(
 	defer file.Close()
 
 	log.Debug("content length: %d", resp.ContentLength)
-	bar := gobar.NewBar(
-		0,
-		resp.ContentLength,
-		fmt.Sprintf("pap: downloading %s", filedesc),
-	)
 
-	var err error
+	writers := []io.Writer{file}
 
-	if hash == nil {
-		_, err = io.Copy(io.MultiWriter(file, bar), resp.Body)
-	} else {
-		_, err = io.Copy(io.MultiWriter(file, bar, hash), resp.Body)
+	if hash != nil {
+		writers = append(writers, hash)
 	}
 
+	if resp.ContentLength != -1 {
+		bar := gobar.NewBar(
+			0,
+			resp.ContentLength,
+			fmt.Sprintf("pap: downloading %s", filedesc),
+		)
+
+		writers = append(writers, bar)
+	} else {
+		log.Log("pap: downloading %s", filedesc)
+	}
+
+	_, err := io.Copy(io.MultiWriter(writers...), resp.Body)
 	log.Error(err, "An error occurred while writing %s", filedesc)
 
 	if hash == nil {
@@ -105,21 +111,4 @@ func Download(
 	}
 
 	return hash.Sum(nil)
-}
-
-// Download a file without keeping the hash or making a loading bar.
-func SimpleDownload(url string, notFoundMsg string, filename string, fileDesc string) {
-	log.Log("downloading %s...", fileDesc)
-
-	resp := DoRequest(url, notFoundMsg)
-	defer resp.Body.Close()
-
-	file := papfs.CreateFile(filename, papfs.ReadWritePerm)
-	defer file.Close()
-
-	log.Debug("reading response body...")
-
-	_, err := io.Copy(file, resp.Body)
-
-	log.Error(err, "An error occurred while writing %s", fileDesc)
 }

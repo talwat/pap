@@ -152,6 +152,12 @@ func GetManyPluginInfo(plugins []string, isDependencies bool, isOptionalDependen
 	pluginsInfo := []paplug.PluginInfo{}
 
 	for _, plugin := range plugins {
+		if strings.HasPrefix(plugin, "-") {
+			log.Warn("you need to put the flag (%s) before", plugin)
+
+			continue
+		}
+
 		info := GetPluginInfo(plugin)
 
 		if isDependencies {
