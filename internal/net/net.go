@@ -100,7 +100,7 @@ func Download(
 
 		writers = append(writers, bar)
 	} else {
-		log.Log("pap: downloading %s", filedesc)
+		log.Log("downloading %s", filedesc)
 	}
 
 	_, err := io.Copy(io.MultiWriter(writers...), resp.Body)
