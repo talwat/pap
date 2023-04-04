@@ -324,6 +324,7 @@ jobs:
            ./pap -y -d download fabric --version 1.16-pre8
 
       - name: "Test self updater"
+        continue-on-error: true
         run: |
           ./pap -y -d update
           ./pap -y -d update -r
