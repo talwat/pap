@@ -132,12 +132,13 @@ func generateCommand() string {
 }
 
 func output(name string, text string) {
-	if global.ScriptUseStdoutInput {
+	if global.UseStdoutInput {
 		log.OutputLog(text)
 	} else {
 		fs.WriteFile(name, text, fs.ExecutePerm)
-		log.Success("generated shell script as %s", name)
 	}
+
+	log.Success("generated shell script!")
 }
 
 func ScriptCommand(cCtx *cli.Context) error {

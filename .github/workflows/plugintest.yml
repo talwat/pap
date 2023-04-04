@@ -32,10 +32,12 @@ jobs:
 
       - name: "Build pap"
         if: ${{ env.CHANGES != 'nochanges' }}
-        run: "go build ."
+        run: |
+          make
+          make install PREFIX=./
 
       - name: "Test changed packages: ${{ env.CHANGES }}"
         if: ${{ env.CHANGES != 'nochanges' }}
         run: |
           echo $CHANGES
-          ./pap -y -d plugin install $CHANGES
+          ./bin/pap -y -d plugin install $CHANGES

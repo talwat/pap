@@ -267,6 +267,14 @@ COPYRIGHT:
 						Name:    "generate",
 						Aliases: []string{"gen"},
 						Usage:   "generate a plugin json file using a 3rd party plugin library",
+						Flags: []cli.Flag{
+							&cli.BoolFlag{
+								Name:        "use-stdout",
+								Aliases:     []string{"stdout", "s"},
+								Usage:       "output to stdout instead of writing it to the disk",
+								Destination: &global.UseStdoutInput,
+							},
+						},
 						Subcommands: []*cli.Command{
 							{
 								Name:    "modrinth",
@@ -325,8 +333,8 @@ COPYRIGHT:
 					&cli.BoolFlag{
 						Name:        "use-stdout",
 						Aliases:     []string{"stdout", "s"},
-						Usage:       "to output the script to stdout instead of creating a run script",
-						Destination: &global.ScriptUseStdoutInput,
+						Usage:       "output to stdout instead of writing it to the disk",
+						Destination: &global.UseStdoutInput,
 					},
 				},
 			},

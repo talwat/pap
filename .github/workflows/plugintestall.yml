@@ -24,7 +24,9 @@ jobs:
           fetch-depth: 0
 
       - name: "Build pap"
-        run: "go build ."
+        run: |
+          make
+          make install PREFIX=./
 
       - name: "Test changed packages"
-        run: "./pap -y -d plugin install $(find plugins/*.json)"
+        run: "./bin/pap -y -d plugin install $(find plugins/*.json)"

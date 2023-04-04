@@ -23,11 +23,11 @@ var (
 
 	// Script.
 
-	MemoryInput          = "2G"
-	AikarsInput          = false
-	ScriptUseStdoutInput = false
-	JarInput             = ""
-	GUIInput             = false
+	MemoryInput    = "2G"
+	AikarsInput    = false
+	UseStdoutInput = false
+	JarInput       = ""
+	GUIInput       = false
 
 	// Plugin.
 

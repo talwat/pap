@@ -4,8 +4,10 @@ build:
 	mkdir -vp build
 	go build -o build
 
-install: build/pap
-	install -dm755 build/pap $(PREFIX)/bin/pap
+install: build/pap*
+	mkdir -p $(PREFIX)/bin
+	mv build/pap* $(PREFIX)/bin
+	chmod +x $(PREFIX)/bin/pap*
 
 clean:
 	rm -rvf build
