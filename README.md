@@ -24,6 +24,7 @@ Or, make a PR.
   - [pap is close to 1.0 🎉](#pap-is-close-to-10-)
   - [Table of contents](#table-of-contents)
   - [Examples](#examples)
+    - [Demo](#demo)
     - [Download the latest papermc jarfile](#download-the-latest-papermc-jarfile)
     - [Sign the EULA](#sign-the-eula)
     - [Generate a script to run the jarfile](#generate-a-script-to-run-the-jarfile)
@@ -56,6 +57,12 @@ Or, make a PR.
   - [Packaging](#packaging)
 
 ## Examples
+
+### Demo
+
+_Click on the gif for a higher resolution version._
+
+[![Demo of pap](/media/pap.gif)](https://asciinema.org/a/574226)
 
 ### Download the latest papermc jarfile
 
