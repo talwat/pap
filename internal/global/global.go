@@ -26,7 +26,7 @@ var (
 	MemoryInput          = "2G"
 	AikarsInput          = false
 	ScriptUseStdoutInput = false
-	JarInput             = "paper.jar"
+	JarInput             = ""
 	GUIInput             = false
 
 	// Plugin.

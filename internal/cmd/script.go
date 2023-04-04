@@ -141,6 +141,10 @@ func output(name string, text string) {
 }
 
 func ScriptCommand(cCtx *cli.Context) error {
+	if global.JarInput == "" {
+		log.RawError("the --jar option is required for the script command")
+	}
+
 	command := generateCommand()
 
 	if runtime.GOOS == "windows" {

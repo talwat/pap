@@ -312,7 +312,6 @@ COPYRIGHT:
 					},
 					&cli.StringFlag{
 						Name:        "jar",
-						Value:       "paper.jar",
 						Usage:       "the name for the server jarfile",
 						Aliases:     []string{"j"},
 						Destination: &global.JarInput,
