@@ -34,4 +34,4 @@ jobs:
       
       - name: "Test all plugins (windows)"
         if: matrix.os == 'windows-latest'
-        run: "./bin/pap -y -d plugin install $((Get-ChildItem).FullName)"
+        run: "./bin/pap -y -d plugin install $((Get-ChildItem plugins/*.json).FullName)"
