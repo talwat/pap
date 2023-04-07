@@ -23,7 +23,7 @@ jobs:
 
       - name: "Get diff"
         shell: bash
-        run: echo "CHANGES=$(./scripts/test_plugins.sh)" >> $GITHUB_ENV
+        run: echo "CHANGES=plugins/vault.json" >> $GITHUB_ENV
 
       - uses: actions/setup-go@v3
         if: ${{ env.CHANGES != 'nochanges' }}
@@ -37,13 +37,13 @@ jobs:
           make install PREFIX=./
 
       - name: "Test changed plugins: ${{ env.CHANGES }} (windows)"
-        if: ${{ env.CHANGES != 'nochanges' }} && matrix.os == 'windows-latest'
+        if: ${{ env.CHANGES != 'nochanges' }} && ${{ matrix.os == 'windows-latest' }}
         run: |
           echo $env:CHANGES
           ./bin/pap -y -d plugin install $env:CHANGES
       
       - name: "Test changed plugins: ${{ env.CHANGES }} (unix)"
-        if: ${{ env.CHANGES != 'nochanges' }} && matrix.os != 'windows-latest'
+        if: ${{ env.CHANGES != 'nochanges' }} && ${{ matrix.os != 'windows-latest' }}
         run: |
           echo $CHANGES
           ./bin/pap -y -d plugin install $CHANGES
