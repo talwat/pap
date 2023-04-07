@@ -1,6 +1,6 @@
 {
     "name": "townyadvanced",
-    "version": "0.98.6.0",
+    "version": "0.99.0.0",
     "license": "CC-BY-NC-ND-3.0",
     "description": "Resident-Town-Nation hierarchy combined with a grid based protection system, many features and an expansive API.",
     "authors": ["LlmDl", "Warrior", "Shade", "ElgarL"],

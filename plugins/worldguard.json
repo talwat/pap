@@ -1,6 +1,6 @@
 {
     "name": "worldguard",
-    "version": "7.0.7",
+    "version": "7.0.8-beta-1",
     "license": "GPL-3.0",
     "description": "Protect your Minecraft server and lets players claim areas.",
     "authors": ["sk89q", "me4502", "wizjany_", "zmlaoeu"],
@@ -9,7 +9,7 @@
     "downloads": [
         {
             "type": "url",
-            "url": "https://mediafilez.forgecdn.net/files/3677/516/worldguard-bukkit-{version}-dist.jar",
+            "url": "https://dev.bukkit.org/projects/worldguard/files/3903109/download",
             "filename": "WorldGuard.jar"
         }
     ],
