@@ -37,13 +37,13 @@ jobs:
           make install PREFIX=./
 
       - name: "Test changed plugins: ${{ env.CHANGES }} (windows)"
-        if: ${{ env.CHANGES != 'nochanges' }} && ${{ matrix.os == 'windows-latest' }}
+        if: ${{ env.CHANGES != 'nochanges' }} && ${{ matrix.os != 'windows-latest' }}
         run: |
           echo $env:CHANGES
           ./bin/pap -y -d plugin install $env:CHANGES
       
       - name: "Test changed plugins: ${{ env.CHANGES }} (unix)"
-        if: ${{ env.CHANGES != 'nochanges' }} && ${{ matrix.os != 'windows-latest' }}
+        if: ${{ env.CHANGES != 'nochanges' }} && ${{ matrix.os == 'windows-latest' }}
         run: |
           echo $CHANGES
           ./bin/pap -y -d plugin install $CHANGES
