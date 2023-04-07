@@ -23,7 +23,7 @@ jobs:
 
       - name: "Get diff"
         shell: bash
-        run: echo "CHANGES=plugins/vault.json" >> $GITHUB_ENV
+        run: echo "CHANGES=$(./scripts/test_plugins.sh)" >> $GITHUB_ENV
 
       - uses: actions/setup-go@v3
         if: ${{ env.CHANGES != 'nochanges' }}
