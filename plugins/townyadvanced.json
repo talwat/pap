@@ -17,13 +17,13 @@
         "type": "custom",
         "commands": {
             "windows": [
-                "Move-Item -Force -Path 'Towny Advanced {version}/Towny-{version}.jar' -Destination ./",
-                "Remove-Item -Recurse -Force 'Towny Advanced {version}'",
+                "Move-Item -Force -Path 'TownyAdvanced {version}/Towny-{version}.jar' -Destination ./",
+                "Remove-Item -Recurse -Force 'TownyAdvanced {version}'",
                 "Rename-Item -Force -Path Towny-{version}.jar -NewName Towny.jar"
             ],
             "unix": [
-                "mv -v 'Towny Advanced {version}'/Towny-{version}.jar Towny.jar",
-                "rm -rvf 'Towny Advanced {version}'"
+                "mv -v 'TownyAdvanced {version}'/Towny-{version}.jar Towny.jar",
+                "rm -rvf 'TownyAdvanced {version}'"
             ]
         }
     },
