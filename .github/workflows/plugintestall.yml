@@ -28,5 +28,10 @@ jobs:
           make
           make install PREFIX=./
 
-      - name: "Test changed packages"
+      - name: "Test all plugins (unix)"
+        if: matrix.os != 'windows-latest'
         run: "./bin/pap -y -d plugin install $(find plugins/*.json)"
+      
+      - name: "Test all plugins (windows)"
+        if: matrix.os == 'windows-latest'
+        run: "./bin/pap -y -d plugin install $((Get-ChildItem).FullName)"

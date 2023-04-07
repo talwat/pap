@@ -36,7 +36,7 @@ jobs:
           make
           make install PREFIX=./
 
-      - name: "Test changed packages: ${{ env.CHANGES }}"
+      - name: "Test changed plugins: ${{ env.CHANGES }}"
         if: ${{ env.CHANGES != 'nochanges' }}
         run: |
           echo $CHANGES
