@@ -30,6 +30,7 @@ Or, make a PR.
     - [Generate a script to run the jarfile](#generate-a-script-to-run-the-jarfile)
     - [Turn off pvp](#turn-off-pvp)
     - [Install worldedit](#install-worldedit)
+    - [Install a plugin from bukkit, spigot, or modrinth](#install-a-plugin-from-bukkit-spigot-or-modrinth)
   - [Why though?](#why-though)
   - [Install](#install)
     - [Build Dependencies](#build-dependencies)
@@ -66,23 +67,41 @@ _Click on the gif for a higher resolution version._
 
 ### Download the latest papermc jarfile
 
-`pap download paper`
+```sh
+pap download paper
+```
 
 ### Sign the EULA
 
-`pap sign`
+```sh
+pap sign
+```
 
 ### Generate a script to run the jarfile
 
-`pap script --jar server.jar`
+```sh
+pap script --jar server.jar
+```
 
 ### Turn off pvp
 
-`pap properties set pvp false`
+```sh
+pap properties set pvp false
+```
 
 ### Install worldedit
 
-`pap plugin install worldedit`
+```sh
+pap plugin install worldedit
+```
+
+### Install a plugin from bukkit, spigot, or modrinth
+
+```sh
+pap plugin install bukkit:holographic-displays
+pap plugin install spigot:death_signs
+pap plugin install modrinth:chunky
+```
 
 ## Why though?
 
