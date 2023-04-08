@@ -1,6 +1,6 @@
 {
     "name": "worldedit",
-    "version": "7.2.14",
+    "version": "latest",
     "license": "GPL-3.0",
     "description": "Minecraft map editor and mod.",
     "authors": [
@@ -15,7 +15,7 @@
     "downloads": [
         {
             "type": "url",
-            "url": "https://dev.bukkit.org/projects/worldedit/files/4445117/download",
+            "url": "https://dev.bukkit.org/projects/worldedit/files/latest",
             "filename": "WorldEdit.jar"
         }
     ],

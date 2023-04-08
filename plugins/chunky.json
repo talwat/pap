@@ -1,0 +1,30 @@
+{
+    "name": "chunky",
+    "version": "latest",
+    "description": "Pre-generates chunks, quickly and efficiently.",
+    "authors": ["pop4959"],
+    "license": "GPL-3.0-only",
+    "site": "https://github.com/pop4959/Chunky",
+    "downloads": [
+        {
+            "type": "url",
+            "filename": "Chunky.jar",
+            "url": "https://dev.bukkit.org/projects/chunky-pregenerator/files/latest"
+        }
+    ],
+    "install": {
+        "type": "simple"
+    },
+    "uninstall": {
+        "files": [
+            {
+                "type": "main",
+                "path": "Chunky.jar"
+            },
+            {
+                "type": "config",
+                "path": "Chunky"
+            }
+        ]
+    }
+}

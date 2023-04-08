@@ -1,17 +1,17 @@
 {
     "name": "clearlagg",
-    "version": "3.2.2",
+    "version": "latest",
     "description": "Diagnose, or use one of clearlag's many utilities to reduce lag.",
     "license": "proprietary",
     "authors": [
         "bob7l"
     ],
-    "site": "https://www.spigotmc.org/resources/clearlagg.68271/",
+    "site": "https://dev.bukkit.org/projects/clearlagg/",
     "downloads": [
         {
             "type": "url",
             "filename": "Clearlag.jar",
-            "url": "https://mediafilez.forgecdn.net/files/3198/633/Clearlag.jar"
+            "url": "https://dev.bukkit.org/projects/clearlagg/files/latest"
         }
     ],
     "install": {
