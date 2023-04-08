@@ -259,13 +259,13 @@ COPYRIGHT:
 					},
 					{
 						Name:    "info",
-						Aliases: []string{"inf"},
+						Aliases: []string{"in"},
 						Usage:   "get information about a plugin",
 						Action:  plugincmds.InfoCommand,
 					},
 					{
 						Name:    "generate",
-						Aliases: []string{"gen"},
+						Aliases: []string{"gen", "g"},
 						Usage:   "generate a plugin json file using a 3rd party plugin library",
 						Flags: []cli.Flag{
 							&cli.BoolFlag{
@@ -354,7 +354,7 @@ COPYRIGHT:
 			},
 			{
 				Name:    "sign",
-				Aliases: []string{"si"},
+				Aliases: []string{"si", "eula", "e"},
 				Usage:   "sign the EULA",
 				Action:  cmd.EulaCommand,
 			},
