@@ -55,7 +55,7 @@ func ConvertToPlugin(bukkitProject PluginInfo) paplug.PluginInfo {
 	// File
 	file := paplug.File{}
 	file.Path = latestFile.FileName
-	file.Type = "other"
+	file.Type = "main"
 
 	plugin.Uninstall.Files = append(plugin.Uninstall.Files, file)
 

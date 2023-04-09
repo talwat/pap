@@ -24,7 +24,7 @@ func pluginExists(plugin paplug.PluginInfo, plugins []paplug.PluginInfo) bool {
 //
 // dest is where to write the plugins to.
 func getDependencyLevel(deps []string, dest *[]paplug.PluginInfo, installed []paplug.PluginInfo, isOptional bool) {
-	depsInfo := GetManyPluginInfo(deps, !isOptional, isOptional)
+	depsInfo := GetManyPluginInfo(deps, !isOptional, isOptional, true)
 
 	for _, dep := range depsInfo {
 		log.Debug("checking if %s already marked for installation...", dep.Name)

@@ -148,7 +148,12 @@ func GetPluginInfo(name string) paplug.PluginInfo {
 	return info
 }
 
-func GetManyPluginInfo(plugins []string, isDependencies bool, isOptionalDependencies bool) []paplug.PluginInfo {
+func GetManyPluginInfo(
+	plugins []string,
+	isDependencies bool,
+	isOptionalDependencies bool,
+	checkInstalled bool,
+) []paplug.PluginInfo {
 	pluginsInfo := []paplug.PluginInfo{}
 
 	for _, plugin := range plugins {
@@ -159,6 +164,12 @@ func GetManyPluginInfo(plugins []string, isDependencies bool, isOptionalDependen
 		}
 
 		info := GetPluginInfo(plugin)
+
+		if checkInstalled {
+			if CheckIfInstalled(info) {
+				continue
+			}
+		}
 
 		if isDependencies {
 			info.IsDependency = true

@@ -71,7 +71,7 @@ func ConvertToPlugin(modrinthPlugin PluginInfo) paplug.PluginInfo {
 		uninstallFile := paplug.File{}
 
 		uninstallFile.Path = file.Filename
-		uninstallFile.Type = "other"
+		uninstallFile.Type = "main"
 
 		plugin.Uninstall.Files = append(plugin.Uninstall.Files, uninstallFile)
 	}

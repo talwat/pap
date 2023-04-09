@@ -108,7 +108,7 @@ func ConvertToPlugin(spigotPlugin PluginInfo) paplug.PluginInfo {
 
 	file := paplug.File{}
 	file.Path = path
-	file.Type = "other"
+	file.Type = "main"
 
 	plugin.Uninstall.Files = append(plugin.Uninstall.Files, file)
 

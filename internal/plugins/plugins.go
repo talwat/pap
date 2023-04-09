@@ -29,28 +29,24 @@ func SubstituteProps(plugin paplug.PluginInfo, str string) string {
 	return final
 }
 
-func PluginInstall(plugin paplug.PluginInfo) {
-	name := plugin.Name
-
-	log.Log("installing %s...", name)
-
-	log.Log("making plugins directory...")
-	fs.MakeDirectory("plugins")
-
-	log.Log("checking if plugin is already installed...")
-
+func CheckIfInstalled(plugin paplug.PluginInfo) bool {
 	for _, file := range plugin.Uninstall.Files {
 		if file.Type != "main" || !fs.FileExists(filepath.Join("plugins", file.Path)) {
 			continue
 		}
 
-		log.Warn("%s may already be installed. if it is not installed, try uninstalling it first and then reinstalling", name)
-		log.Warn("skipping %s...", name)
+		log.Warn("skiping %s: it may already be installed. if not, try reinstalling the plugin", plugin.Name)
 
-		return
+		return true
 	}
 
-	PluginDownload(plugin)
+	return false
+}
+
+func PluginInstall(plugin paplug.PluginInfo) {
+	name := plugin.Name
+
+	log.Log("installing %s...", name)
 
 	if plugin.Install.Type == "simple" {
 		log.Success("successfully installed %s (simple)", name)
@@ -76,8 +72,6 @@ func PluginInstall(plugin paplug.PluginInfo) {
 		exec.Run("plugins", SubstituteProps(plugin, cmd))
 		log.RawLog("\n")
 	}
-
-	log.Success("successfully installed %s", name)
 }
 
 func PluginUninstall(plugin paplug.PluginInfo) {
@@ -95,8 +89,6 @@ func PluginUninstall(plugin paplug.PluginInfo) {
 		log.Log("deleting %s at %s", file.Type, path)
 		fs.DeletePath(path)
 	}
-
-	log.Success("successfully uninstalled %s", name)
 }
 
 func PluginDoMany(plugins []paplug.PluginInfo, operation func(plugin paplug.PluginInfo)) {

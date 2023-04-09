@@ -16,8 +16,6 @@ func PluginDownload(plugin paplug.PluginInfo) {
 	for _, download := range plugin.Downloads {
 		var url string
 
-		log.Log("getting download url...")
-
 		if download.Type == "url" {
 			url = download.URL
 		} else if download.Type == "jenkins" {
@@ -37,10 +35,10 @@ func PluginDownload(plugin paplug.PluginInfo) {
 		)
 
 		if strings.HasSuffix(path, ".zip") {
-			log.Log("unzipping %s...", path)
+			log.Debug("unzipping %s...", path)
 			fs.Unzip(path, "plugins/")
 
-			log.Log("cleaning up...")
+			log.Debug("cleaning up...")
 			fs.DeletePath(path)
 		}
 	}

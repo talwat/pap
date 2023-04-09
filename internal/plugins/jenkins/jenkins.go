@@ -12,7 +12,7 @@ import (
 func GetJenkinsURL(download paplug.Download) string {
 	var jenkinsBuild Build
 
-	log.Log("getting jenkins build information...")
+	log.Debug("getting jenkins build information...")
 
 	url := fmt.Sprintf("%s/lastSuccessfulBuild/api/json", download.Job)
 
@@ -22,7 +22,7 @@ func GetJenkinsURL(download paplug.Download) string {
 		&jenkinsBuild,
 	)
 
-	log.Log("finding correct artifact...")
+	log.Debug("finding correct artifact...")
 
 	for _, artifact := range jenkinsBuild.Artifacts {
 		log.Debug("checking if %s matches %s...", artifact.FileName, download.Artifact)
@@ -31,7 +31,7 @@ func GetJenkinsURL(download paplug.Download) string {
 		log.Error(err, "an error occurred while checking if %s is the correct artifact", artifact.FileName)
 
 		if matched {
-			log.Log("using %s", artifact.FileName)
+			log.Debug("using %s", artifact.FileName)
 
 			return fmt.Sprintf("%s/lastSuccessfulBuild/artifact/%s", download.Job, artifact.RelativePath)
 		}

@@ -2,6 +2,7 @@ package plugins
 
 import (
 	"fmt"
+	"os"
 
 	"github.com/talwat/pap/internal/global"
 	"github.com/talwat/pap/internal/log"
@@ -70,6 +71,12 @@ func displayPluginLine(plugin paplug.PluginInfo) {
 
 // List out plugins.
 func PluginList(plugins []paplug.PluginInfo, operation string) {
+	if len(plugins) == 0 {
+		log.Log("there are no plugins to install, exiting...")
+
+		os.Exit(0)
+	}
+
 	log.Log("%s %d plugin(s):", operation, len(plugins))
 
 	for _, plugin := range plugins {
