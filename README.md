@@ -138,6 +138,8 @@ yay -S pap
 > **Info**
 > Pacstall might not have the latest version of pap, but it may be more stable.
 
+Thank you so much to [Henryws](https://github.com/Henryws) for keeping pap up to date on pacstall.
+
 If you have [pacstall](https://github.com/pacstall/pacstall), you can run:
 
 ```bash
