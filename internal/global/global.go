@@ -3,7 +3,7 @@ package global
 
 //nolint:gochecknoglobals
 var (
-	Version = "0.14.3"
+	Version = "0.14.4"
 
 	// Global options.
 
