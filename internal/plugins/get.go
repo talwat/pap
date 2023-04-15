@@ -165,6 +165,10 @@ func GetManyPluginInfo(
 
 		info := GetPluginInfo(plugin)
 
+		if paplug.PluginExists(info, pluginsInfo) {
+			continue
+		}
+
 		if checkInstalled {
 			if CheckIfInstalled(info) {
 				continue
