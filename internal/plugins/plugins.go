@@ -35,7 +35,7 @@ func CheckIfInstalled(plugin paplug.PluginInfo) bool {
 			continue
 		}
 
-		log.Warn("skiping %s: it may already be installed. if not, try reinstalling the plugin", plugin.Name)
+		log.Warn("skipping %s: it may already be installed. if not, try reinstalling the plugin", plugin.Name)
 
 		return true
 	}
