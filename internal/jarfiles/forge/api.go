@@ -5,7 +5,7 @@ import (
 	"github.com/talwat/pap/internal/net"
 )
 
-func loadPromotions() PromotionsSlim {
+func getPromotions() PromotionsSlim {
 	var promotions PromotionsSlim
 	net.Get(
 		"https://files.minecraftforge.net/maven/net/minecraftforge/forge/promotions_slim.json",
@@ -24,9 +24,9 @@ func getLatestPromotion(promos *PromotionsSlim, ver string) InstallerVersion {
 
 	iv := InstallerVersion{
 		Version: p,
-		Type: "latest",
+		Type:    "latest",
 	}
-	
+
 	return iv
 }
 
@@ -36,24 +36,46 @@ func getRecommendedPromotion(promos *PromotionsSlim, ver string) InstallerVersio
 		log.RawError("version %s does not have a recommended installer", ver)
 	}
 
-	iv := InstallerVersion {
+	iv := InstallerVersion{
 		Version: p,
-		Type: "recommended",
+		Type:    "recommended",
 	}
 
 	return iv
-} 
+}
 
 func GetLatestInstaller(ver string) InstallerVersion {
-	promotions := loadPromotions()
+	promotions := getPromotions()
 	iv := getLatestPromotion(&promotions, ver)
 
 	return iv
 }
 
 func GetRecommendedInstaller(ver string) InstallerVersion {
-	promotions := loadPromotions()
+	promotions := getPromotions()
 	iv := getRecommendedPromotion(&promotions, ver)
 
 	return iv
+}
+
+func GetInstaller(ver string) InstallerVersion {
+	promotions := getPromotions()
+	promo, found := promotions.Promos[ver+"-recommended"]
+	if found {
+		return InstallerVersion{
+			Version: promo,
+			Type:    "recommended",
+		}
+	}
+
+	promo, found = promotions.Promos[ver+"-latest"]
+	if found {
+		return InstallerVersion{
+			Version: promo,
+			Type:    "latest",
+		}
+	}
+
+	log.RawError("no installer found for verson %s", ver)
+	return InstallerVersion{}
 }
