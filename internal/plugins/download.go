@@ -12,6 +12,7 @@ import (
 	"github.com/talwat/pap/internal/plugins/sources/paplug"
 )
 
+// Downloads a plugin.
 func PluginDownload(plugin paplug.PluginInfo) {
 	for _, download := range plugin.Downloads {
 		var url string

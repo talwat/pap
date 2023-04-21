@@ -1,5 +1,8 @@
 package downloadcmds
 
+// Fabric unfortunately does not have checksums available.
+// If I am wrong about this, feel free to open an issue.
+
 import (
 	"github.com/talwat/pap/internal/fs"
 	"github.com/talwat/pap/internal/global"

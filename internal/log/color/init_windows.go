@@ -1,5 +1,7 @@
 package color
 
+// Windows is weird, but this is supposed to enable color on the old fashioned CMD.
+
 import (
 	"os"
 

@@ -1,5 +1,9 @@
 package cmd
 
+// The entire `script` command is defined here.
+// It could if deemed useful be split up into several files,
+// And put in it's own directory which is inside `internal`.
+
 import (
 	"fmt"
 	"runtime"

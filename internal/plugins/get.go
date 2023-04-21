@@ -148,6 +148,9 @@ func GetPluginInfo(name string) paplug.PluginInfo {
 	return info
 }
 
+// Gets the information for a list of plugins.
+// The plugins it gets the information for can also be dependencies or optional dependencies.
+// checkInstalled will also verify if they are installed before returning information for them.
 func GetManyPluginInfo(
 	plugins []string,
 	isDependencies bool,

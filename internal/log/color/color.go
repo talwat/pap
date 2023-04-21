@@ -1,3 +1,4 @@
+// Just a bunch of constants for colors.
 package color
 
 const (

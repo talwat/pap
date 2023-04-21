@@ -9,6 +9,7 @@ import (
 	"github.com/talwat/pap/internal/plugins/sources/paplug"
 )
 
+// Returns a download URL from a jenkins job.
 func GetJenkinsURL(download paplug.Download) string {
 	var jenkinsBuild Build
 

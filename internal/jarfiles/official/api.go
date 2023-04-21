@@ -4,10 +4,12 @@ import (
 	"fmt"
 
 	"github.com/talwat/pap/internal/global"
+	"github.com/talwat/pap/internal/jarfiles"
 	"github.com/talwat/pap/internal/log"
 	"github.com/talwat/pap/internal/net"
 )
 
+// Finds the version in a list of versions.
 func FindVersion(versions Versions, version string) Version {
 	for i := range versions.Versions {
 		if versions.Versions[i].ID == version {
@@ -74,7 +76,7 @@ func GetLatestPackage() Package {
 }
 
 func GetPackage(versionInput string) Package {
-	if versionInput == "latest" {
+	if versionInput == jarfiles.Latest {
 		return GetLatestPackage()
 	}
 

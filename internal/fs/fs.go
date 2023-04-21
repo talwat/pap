@@ -1,4 +1,5 @@
-// Filesystem Management
+// Filesystem Management.
+// Basically just the fs parts of the os package but with debug logging and error handling.
 package fs
 
 import (

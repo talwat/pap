@@ -11,12 +11,16 @@ import (
 	"github.com/talwat/pap/internal/log"
 )
 
+// Check if a binary exists on the system, for example, `ls`.
 func CommandExists(cmd string) bool {
 	_, err := exec.LookPath(cmd)
 
 	return !errors.Is(err, exec.ErrNotFound)
 }
 
+// Runs a command and uses a bunch of dots after the log to display progress.
+// Whenever the command outputs something to stdout or stderr, it will output a '.'.
+// So it would look something like: 'pap: running command go build...........'.
 func Run(workDir string, cmd string) int {
 	log.NoNewline("running command %s", cmd)
 
