@@ -13,6 +13,7 @@ type ResolvedLatestVersion struct {
 }
 
 // Resolved information, like the author and latest version.
+// Resolved meaning it is in a separate endpoint.
 type Resolved struct {
 	Author        ResolvedAuthor
 	LatestVersion ResolvedLatestVersion

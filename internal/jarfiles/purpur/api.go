@@ -8,6 +8,7 @@ import (
 	"github.com/talwat/pap/internal/net"
 )
 
+// Gets the latest version's info.
 func GetLatestVersion() Version {
 	log.Log("getting versions...")
 
@@ -41,6 +42,7 @@ func GetLatestVersion() Version {
 	return version
 }
 
+// Gets a specific version's info.
 func GetSpecificVersion(versionID string) Version {
 	log.Log("getting info for %s...", versionID)
 
@@ -60,6 +62,7 @@ func GetSpecificVersion(versionID string) Version {
 	return version
 }
 
+// Gets the latest build using the provided version information.
 func GetLatestBuild(version Version) Build {
 	log.Log("getting latest build info...")
 
@@ -81,6 +84,7 @@ func GetLatestBuild(version Version) Build {
 	return build
 }
 
+// Gets a specific build using the provided version.
 func GetSpecificBuild(version Version, buildID string) Build {
 	log.Log("getting build info for %s...", buildID)
 
@@ -100,6 +104,7 @@ func GetSpecificBuild(version Version, buildID string) Build {
 	return build
 }
 
+// Gets a build. It will be the latest one depending on what the input is.
 func GetBuild(version Version, buildInput string) Build {
 	if buildInput == jarfiles.Latest {
 		return GetLatestBuild(version)
@@ -108,6 +113,7 @@ func GetBuild(version Version, buildInput string) Build {
 	return GetSpecificBuild(version, buildInput)
 }
 
+// Gets a version. It will be the latest one depending on what the input is.
 func GetVersion(versionInput string) Version {
 	if versionInput == jarfiles.Latest {
 		return GetLatestVersion()

@@ -15,6 +15,8 @@ func UnsupportedMessage() {
 	log.Warn("additionally, plugins from the plugin manager will not work properly")
 }
 
+// Verifies a jarfile by using it's calculated checksum from the net.Download function.
+// If compares the hex encoded checksum with `proper`.
 func VerifyJarfile(calculated []byte, proper string) {
 	log.Log("verifying downloaded jarfile...")
 
@@ -30,6 +32,7 @@ func VerifyJarfile(calculated []byte, proper string) {
 	}
 }
 
+// An API error. If the `err` string isn't empty (undefined), then it will spit out an error.
 func APIError(err string, statusCode int) {
 	if err != "" {
 		log.RawError("api returned an error with status code %d: %s", statusCode, FormatErrorMessage(err))

@@ -55,7 +55,7 @@ func commandUnzip(src string, dest string) int {
 
 // Full golang implementation, refactoring and editing is needed.
 // This function is avoided if possible, but kept just in case the user doesn't have basic utilities.
-// I mean seriously, who doesn't have tar/unzip?
+// I mean seriously, who doesn't have unzip?
 //
 //nolint:goerr113,funlen,wrapcheck // I have no idea how to shorten this mess.
 func unsafeUnzip(src string, dest string) {

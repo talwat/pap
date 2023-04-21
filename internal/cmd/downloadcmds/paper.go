@@ -13,6 +13,8 @@ import (
 	"github.com/urfave/cli/v2"
 )
 
+// This will probably have some kind of issue eventually with a valid version being mistaken as invalid.
+// But it does help of quickly giving the user feedback that they made a typo in the version number.
 func validatePaperOptions() {
 	const latest = "latest"
 

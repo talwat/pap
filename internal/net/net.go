@@ -16,6 +16,7 @@ import (
 	"github.com/talwat/pap/internal/log"
 )
 
+// Makes and executes an HTTP request with proper headers identifying pap.
 func DoRequest(url string, notFoundMsg string) *http.Response {
 	log.Debug("making a new request to %s", url)
 
@@ -68,7 +69,8 @@ func Get(url string, notFoundMsg string, content interface{}) int {
 	return resp.StatusCode
 }
 
-// Set hash to nil in order to disable checksumming.
+// Downloads a file. If the file is too small, a progress bar won't be displayed.
+// Set hash to nil in order to prevent calculating the hash.
 func Download(
 	url string,
 	notFoundMsg string,

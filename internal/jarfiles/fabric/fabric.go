@@ -61,6 +61,7 @@ func GetURL(versionInput string, loaderInput string, installerInput string) stri
 	loader := loaderInput
 	installer := installerInput
 
+	// A bit of repetitive code, but I am not willing to use generics to do this.
 	if version == jarfiles.Latest {
 		versions := GetMinecraftVersions()
 		version = getLatestVersion(versions).Version

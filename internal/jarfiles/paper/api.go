@@ -9,6 +9,7 @@ import (
 	"github.com/talwat/pap/internal/net"
 )
 
+// Gets the latest minecraft version in the list of versions.
 func GetLatestVersion() string {
 	var versions Versions
 
@@ -25,6 +26,7 @@ func GetLatestVersion() string {
 	return version
 }
 
+// Gets the latest build in a version.
 func GetLatestBuild(version string) Build {
 	var builds Builds
 
@@ -56,6 +58,7 @@ func GetLatestBuild(version string) Build {
 	return latest
 }
 
+// Gets a specific build in a version.
 func GetSpecificBuild(version string, buildID string) Build {
 	log.Log("getting build information for %s", buildID)
 
@@ -69,10 +72,11 @@ func GetSpecificBuild(version string, buildID string) Build {
 	return build
 }
 
+// Gets either the latest build or a specific one depending on buildID.
 func GetBuild(version string, buildID string) Build {
 	var build Build
 
-	if buildID == "latest" {
+	if buildID == jarfiles.Latest {
 		build = GetLatestBuild(version)
 	} else {
 		build = GetSpecificBuild(version, buildID)
@@ -88,10 +92,13 @@ func GetBuild(version string, buildID string) Build {
 	return build
 }
 
-func GetVersion(versionInput string) string {
-	if versionInput == jarfiles.Latest {
+// Gets a specific version or the latest one depending on the input.
+// Additionally, if using a specific one, it will not get the latest release of a specific minor release.
+// For example if you put in 1.12, you will get 1.12 and not 1.12.2.
+func GetVersion(version string) string {
+	if version == jarfiles.Latest {
 		return GetLatestVersion()
 	}
 
-	return versionInput
+	return version
 }

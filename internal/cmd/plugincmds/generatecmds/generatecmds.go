@@ -1,3 +1,5 @@
+// pap plugin generate definitions.
+// Pretty simple, most of them just call the Generate() function and that's it.
 package generatecmds
 
 import (
@@ -11,6 +13,7 @@ import (
 	"github.com/talwat/pap/internal/plugins/sources/paplug"
 )
 
+// Generates and writes the converted plugin.
 func Generate(getPluginInfo func(plugin string) paplug.PluginInfo, plugins []string) {
 	if len(plugins) == 0 {
 		log.RawError("you must specify plugins to generate")

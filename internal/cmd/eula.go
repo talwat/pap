@@ -1,5 +1,8 @@
 package cmd
 
+// The eula/sign command.
+// The internal naming of this is a bit confusing, but eula and sign both refer to the same command.
+
 import (
 	"fmt"
 
