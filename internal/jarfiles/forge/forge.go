@@ -23,11 +23,7 @@ func GetURL(versionInput string, useLatest bool) string {
 	}
 
 	if installer.Version == "" {
-		if useLatest {
-			log.RawError("no latest installer found for version %s", versionInput)
-		} else {
-			log.RawError("no recommended installer found for version %s", versionInput)
-		}
+		log.RawError("no installer found for version %s", versionInput)
 	}
 
 	log.Log("using minecraft version %s", minecraft)
