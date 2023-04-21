@@ -3,6 +3,7 @@ module github.com/talwat/pap
 go 1.18
 
 require (
+	github.com/hashicorp/go-version v1.6.0
 	github.com/talwat/gobar v1.0.2
 	github.com/urfave/cli/v2 v2.25.1
 	golang.org/x/sys v0.7.0

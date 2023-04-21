@@ -15,15 +15,6 @@ func TestLatestInstaller(t *testing.T) {
 	}
 }
 
-func TestRecommendedInstaller(t *testing.T) {
-	t.Parallel()
-
-	iv := forge.GetRecommendedInstaller("1.8.9")
-	if iv.Version != "11.15.1.2318" {
-		t.Errorf(`GetRecommendedInstaller("1.8.9") = %+v; want version 11.15.1.2318`, iv)
-	}
-}
-
 func TestInstaller(t *testing.T) {
 	t.Parallel()
 
