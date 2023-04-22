@@ -18,7 +18,7 @@ func getPromotions() PromotionsSlim {
 	return promotions
 }
 
-func getInstaller(mver string, useLatest bool) (MinecraftVersion, InstallerVersion) {
+func getInstaller(mver string, useLatestInstaller bool) (MinecraftVersion, InstallerVersion) {
 	promos := getPromotions()
 
 	var mv MinecraftVersion
@@ -30,7 +30,7 @@ func getInstaller(mver string, useLatest bool) (MinecraftVersion, InstallerVersi
 		mv = parseMinecraftVersion(mver)
 	}
 
-	if useLatest {
+	if useLatestInstaller {
 		iv = getVersion(&promos, &mv, "latest")
 		goto ret
 	}
@@ -44,9 +44,6 @@ func getInstaller(mver string, useLatest bool) (MinecraftVersion, InstallerVersi
 
 ret:
 	if (iv == InstallerVersion{}) {
-		log.Log("%+v", mv)
-		log.Log("%+v", iv)
-
 		log.RawError("could not get a valid installer version")
 	}
 
