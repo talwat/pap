@@ -1,10 +1,8 @@
 package forge
 
 import (
-	"sort"
-	"strings"
+	"fmt"
 
-	"github.com/hashicorp/go-version"
 	"github.com/talwat/pap/internal/log"
 	"github.com/talwat/pap/internal/net"
 )
@@ -20,73 +18,55 @@ func getPromotions() PromotionsSlim {
 	return promotions
 }
 
-func GetLatestInstaller(ver string) InstallerVersion {
-	promotions := getPromotions()
-	p, found := promotions.Promos[ver+"-latest"]
-	if !found {
-		log.RawError("version %s does not have a latest installer", ver)
+func getInstaller(mver string, useLatest bool) (MinecraftVersion, InstallerVersion) {
+	promos := getPromotions()
+
+	var mv MinecraftVersion
+	var iv InstallerVersion
+
+	if mver == "latest" {
+		mv = getLatestMinecraftVersion(&promos)
+	} else {
+		mv = parseMinecraftVersion(mver)
 	}
 
-	iv := InstallerVersion{
-		Version: p,
-		Type:    "latest",
+	if useLatest {
+		iv = getVersion(&promos, &mv, "latest")
+		goto ret
 	}
 
-	return iv
+	iv = getVersion(&promos, &mv, "recommended")
+	if (iv == InstallerVersion{}) {
+		log.Continue("no recommended installer found for version %s. use the latest version?", mver)
+	}
+
+	iv = getVersion(&promos, &mv, "latest")
+
+ret:
+	if (iv == InstallerVersion{}) {
+		log.Log("%+v", mv)
+		log.Log("%+v", iv)
+
+		log.RawError("could not get a valid installer version")
+	}
+
+	return mv, iv
 }
 
-func GetInstaller(ver string) InstallerVersion {
-	promotions := getPromotions()
+func getSpecificInstaller(iver string) InstallerVersion {
+	return InstallerVersion{
+		Version: iver,
+	}
+}
 
-	promo, found := promotions.Promos[ver+"-recommended"]
+func getVersion(promos *PromotionsSlim, mv *MinecraftVersion, t string) InstallerVersion {
+	promo, found := promos.Promos[fmt.Sprintf("%s-%s", mv.String(), t)]
 	if found {
 		return InstallerVersion{
 			Version: promo,
-			Type:    "recommended",
+			Type:    t,
 		}
 	}
 
-	promo, found = promotions.Promos[ver+"-latest"]
-	if found {
-		return InstallerVersion{
-			Version: promo,
-			Type:    "latest",
-		}
-	}
-
-	log.RawError("no installer found for version %s", ver)
 	return InstallerVersion{}
-}
-
-func GetLatest() (string, string) {
-	promotions := getPromotions()
-
-	var mvs []string
-	for k := range promotions.Promos {
-		splitVersion := strings.Split(k, "-")
-		mvs = append(mvs, splitVersion[0])
-	}
-
-	sort.Slice(mvs, func(i, j int) bool {
-		is := strings.Replace(mvs[i], "_pre", "0", -1)
-		js := strings.Replace(mvs[j], "_pre", "0", -1)
-
-		iv, err := version.NewVersion(is)
-		log.Error(err, "could not parse version "+mvs[i])
-
-		jv, err := version.NewVersion(js)
-		log.Error(err, "could not parse version "+mvs[j])
-
-		return jv.GreaterThan(iv)
-	})
-
-	lm := mvs[len(mvs)-1]
-	iv := promotions.Promos[lm+"-latest"]
-
-	if lm == "" || iv == "" {
-		log.Log(lm + " " + iv)
-		log.RawError("failed to get latest forge installer")
-	}
-
-	return lm, iv
 }

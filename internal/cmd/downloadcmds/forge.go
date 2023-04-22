@@ -15,6 +15,7 @@ import (
 func DownloadForgeCommand(cCtx *cli.Context) error {
 	url := forge.GetURL(
 		global.MinecraftVersionInput,
+		global.ForgeInstallerVersion,
 		global.ForgeUseLatestInstaller,
 	)
 	surl := strings.Split(url, "/")
