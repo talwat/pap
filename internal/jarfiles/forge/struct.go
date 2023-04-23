@@ -1,6 +1,8 @@
 package forge
 
-import "fmt"
+import (
+	"fmt"
+)
 
 type MinecraftVersion struct {
 	Major int
@@ -11,21 +13,23 @@ type MinecraftVersion struct {
 	PrereleaseVersion int
 }
 
-func (jver *MinecraftVersion) GreaterThan(iver *MinecraftVersion) bool {
-	if jver.Major > iver.Major {
+type ByVersion []MinecraftVersion
+
+func (a ByVersion) Len() int { return len(a) }
+func (a ByVersion) Less(i, j int) bool {
+	switch {
+	case a[i].Major < a[j].Major:
 		return true
-	}
-
-	if jver.Minor > iver.Minor {
+	case a[i].Minor < a[j].Minor:
 		return true
+	case a[i].Patch == a[j].Patch:
+		return !a[i].IsPrerelease
+	default:
+		return a[i].Minor < a[j].Minor
 	}
-
-	if jver.Patch >= iver.Patch {
-		return !jver.IsPrerelease
-	}
-
-	return false
 }
+
+func (a ByVersion) Swap(i, j int) { a[i], a[j] = a[j], a[i] }
 
 func (mver *MinecraftVersion) String() string {
 	mvs := fmt.Sprintf("%d.%d", mver.Major, mver.Minor)

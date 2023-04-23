@@ -28,7 +28,6 @@ func cleanMinecraftVersionString(ver string, mv *MinecraftVersion) string {
 	}
 
 	ver = typeRegex.ReplaceAllString(ver, "")
-
 	return ver
 }
 
@@ -54,20 +53,19 @@ func parseMinecraftVersion(ver string) MinecraftVersion {
 	return mv
 }
 
-func sortMinecraftVersionStrings(mvers []string) {
-	sort.Slice(mvers, func(i int, j int) bool {
-		iv := parseMinecraftVersion(mvers[i])
-		jv := parseMinecraftVersion(mvers[j])
-
-		return jv.GreaterThan(&iv)
-	})
-}
-
 func getLatestMinecraftVersion(promotions *PromotionsSlim) MinecraftVersion {
-	mvers := maps.Keys(promotions.Promos)
-	sortMinecraftVersionStrings(mvers)
+	svers := maps.Keys(promotions.Promos)
+	var mvers []MinecraftVersion
+	check := make(map[string]bool, 0)
 
-	parsed := parseMinecraftVersion(mvers[len(mvers)-1])
+	for _, val := range svers {
+		check[val] = true
+	}
 
-	return parsed
+	for ver := range check {
+		mvers = append(mvers, parseMinecraftVersion(ver))
+	}
+
+	sort.Sort(ByVersion(mvers))
+	return mvers[len(mvers)-1]
 }

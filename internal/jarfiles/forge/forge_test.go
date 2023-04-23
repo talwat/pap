@@ -1,6 +1,7 @@
 package forge_test
 
 import (
+	"sort"
 	"testing"
 
 	"github.com/talwat/pap/internal/jarfiles/forge"
@@ -25,5 +26,32 @@ func TestURL(t *testing.T) {
 	want = "https://maven.minecraftforge.net/net/minecraftforge/forge/1.7.10_pre4-10.12.2.1149/forge-1.7.10_pre4-10.12.2.1149-installer.jar"
 	if iv != want {
 		t.Errorf(`GetURL("1.7.10_pre4", "", true) = %s; want %s`, iv, want)
+	}
+}
+
+func TestSort(t *testing.T) {
+	t.Parallel()
+
+	v1 := forge.MinecraftVersion{
+		Major: 1,
+		Minor: 16,
+		Patch: 5,
+	}
+	v2 := forge.MinecraftVersion{
+		Major: 1,
+		Minor: 6,
+		Patch: 4,
+	}
+	v3 := forge.MinecraftVersion{
+		Major: 1,
+		Minor: 19,
+		Patch: 3,
+	}
+	vs := []forge.MinecraftVersion{v1, v2, v3}
+
+	sort.Sort(forge.ByVersion(vs))
+
+	if vs[2].Minor != v3.Minor {
+		t.Errorf(`sort.Sort(forge.ByVersion(vs))[2].Minor = %d; want %d`, vs[2].Minor, v3.Minor)
 	}
 }
