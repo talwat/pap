@@ -24,11 +24,16 @@ func (a ByVersion) Less(i, j int) bool {
 		return true
 	case a[i].Patch == a[j].Patch:
 		return !a[i].IsPrerelease
+	case a[i].Patch < a[j].Patch:
+		if a[i].Minor > a[j].Minor {
+			return false
+		}
+
+		return true
 	default:
-		return a[i].Minor < a[j].Minor
+		return false
 	}
 }
-
 func (a ByVersion) Swap(i, j int) { a[i], a[j] = a[j], a[i] }
 
 func (mver *MinecraftVersion) String() string {

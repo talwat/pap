@@ -47,11 +47,18 @@ func TestSort(t *testing.T) {
 		Minor: 19,
 		Patch: 3,
 	}
-	vs := []forge.MinecraftVersion{v1, v2, v3}
+	v4 := forge.MinecraftVersion{
+		Major:             1,
+		Minor:             7,
+		Patch:             10,
+		IsPrerelease:      true,
+		PrereleaseVersion: 4,
+	}
+	vs := []forge.MinecraftVersion{v1, v2, v3, v4}
 
 	sort.Sort(forge.ByVersion(vs))
 
-	if vs[2].Minor != v3.Minor {
-		t.Errorf(`sort.Sort(forge.ByVersion(vs))[2].Minor = %d; want %d`, vs[2].Minor, v3.Minor)
+	if vs[3].Minor != v3.Minor {
+		t.Errorf(`sort.Sort(forge.ByVersion(vs))[3].Minor = %d; want %d`, vs[3].Minor, 19)
 	}
 }

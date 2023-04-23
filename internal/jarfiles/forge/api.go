@@ -50,7 +50,13 @@ ret:
 	return mv, iv
 }
 
-func getSpecificInstaller(iver string) InstallerVersion {
+func getSpecificInstaller(mver *MinecraftVersion, iver string) InstallerVersion {
+	promos := getPromotions()
+
+	if iver == "latest" {
+		return getVersion(&promos, mver, "latest")
+	}
+
 	return InstallerVersion{
 		Version: iver,
 	}

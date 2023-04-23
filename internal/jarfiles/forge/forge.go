@@ -11,8 +11,8 @@ func GetURL(mverInput, iverInput string, useLatest bool) string {
 	var installer InstallerVersion
 
 	if iverInput != "" {
-		installer = getSpecificInstaller(iverInput)
 		minecraft, _ = getInstaller(mverInput, useLatest)
+		installer = getSpecificInstaller(&minecraft, iverInput)
 	} else {
 		minecraft, installer = getInstaller(mverInput, useLatest)
 	}

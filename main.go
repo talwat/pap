@@ -228,6 +228,13 @@ COPYRIGHT:
 								Aliases:     []string{"version", "v"},
 								Destination: &global.MinecraftVersionInput,
 							},
+							&cli.StringFlag{
+								Name:        "installer-version",
+								Value:       "latest",
+								Usage:       "the forge installer version to download",
+								Aliases:     []string{"installer", "i"},
+								Destination: &global.ForgeInstallerVersion,
+							},
 						},
 					},
 				},
