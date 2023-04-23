@@ -37,7 +37,7 @@ func getInstaller(mver string, useLatestInstaller bool) (MinecraftVersion, Insta
 
 	iv = getVersion(&promos, &mv, "recommended")
 	if (iv == InstallerVersion{}) {
-		log.Continue("no recommended installer found for version %s. use the latest version?", mver)
+		log.Continue("no recommended installer found for version %s. use the latest version?", mv.String())
 	}
 
 	iv = getVersion(&promos, &mv, "latest")

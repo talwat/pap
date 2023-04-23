@@ -57,13 +57,15 @@ func getLatestMinecraftVersion(promotions *PromotionsSlim) MinecraftVersion {
 	var mvers []MinecraftVersion
 	check := make(map[string]bool, 0)
 	for _, val := range svers {
-		check[val] = true
+		s := strings.Split(val, "-")[0]
+		check[s] = true
 	}
 
 	for ver := range check {
 		mvers = append(mvers, parseMinecraftVersion(ver))
 	}
 
-	sort.Sort(ByVersion(mvers))
+	sort.Stable(ByVersion(mvers))
+
 	return mvers[len(mvers)-1]
 }
