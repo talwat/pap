@@ -27,6 +27,12 @@ func TestURL(t *testing.T) {
 	if iv != want {
 		t.Errorf(`GetURL("1.7.10_pre4", "", true) = %s; want %s`, iv, want)
 	}
+
+	iv = forge.GetURL("1.19.3", "44.1.0", false)
+	want = "https://maven.minecraftforge.net/net/minecraftforge/forge/1.19.3-44.1.0/forge-1.19.3-44.1.0-installer.jar"
+	if iv != want {
+		t.Errorf(`forge.GetURL("1.19.3", "44.1.0", false) = %s; want %s`, iv, want)
+	}
 }
 
 func TestSort(t *testing.T) {

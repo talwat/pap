@@ -12,10 +12,9 @@ func GetURL(mverInput, iverInput string, useLatest bool) string {
 	var installer InstallerVersion
 
 	if iverInput != "" {
-		minecraft, _ = getInstaller(mverInput, useLatest, true)
-		installer = getSpecificInstaller(&minecraft, iverInput)
+		minecraft, installer = getSpecificInstaller(mverInput, iverInput)
 	} else {
-		minecraft, installer = getInstaller(mverInput, useLatest, false)
+		minecraft, installer = getInstaller(mverInput, useLatest)
 	}
 
 	log.Log("using minecraft version %s", minecraft.String())

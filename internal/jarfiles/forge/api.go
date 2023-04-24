@@ -19,17 +19,12 @@ func getPromotions() PromotionsSlim {
 	return promotions
 }
 
-func getInstaller(mver string, useLatestInstaller, useCustom bool) (MinecraftVersion, InstallerVersion) {
+func getInstaller(mver string, useLatestInstaller bool) (MinecraftVersion, InstallerVersion) {
 	var mv MinecraftVersion
 
 	var iv InstallerVersion
 
 	promos := getPromotions()
-
-	if useCustom {
-		mv = parseMinecraftVersion(mver)
-		goto ret
-	}
 
 	if mver == "latest" {
 		mv = getLatestMinecraftVersion(&promos)
@@ -57,14 +52,16 @@ ret:
 	return mv, iv
 }
 
-func getSpecificInstaller(mver *MinecraftVersion, iver string) InstallerVersion {
+func getSpecificInstaller(mver string, iver string) (MinecraftVersion, InstallerVersion) {
 	promos := getPromotions()
 
+	mv := parseMinecraftVersion(mver)
+
 	if iver == "latest" {
-		return getVersion(&promos, mver, "latest")
+		return mv, getVersion(&promos, &mv, "latest")
 	}
 
-	return InstallerVersion{
+	return mv, InstallerVersion{
 		Version: iver,
 	}
 }
