@@ -8,6 +8,7 @@ import (
 
 func GetURL(mverInput, iverInput string, useLatest bool) string {
 	var minecraft MinecraftVersion
+
 	var installer InstallerVersion
 
 	if iverInput != "" {
@@ -21,5 +22,15 @@ func GetURL(mverInput, iverInput string, useLatest bool) string {
 	log.Log("using %s forge installer version %s", installer.Type, installer.Version)
 
 	prefix := "https://maven.minecraftforge.net/net/minecraftforge/forge"
-	return fmt.Sprintf("%s/%s-%s/forge-%s-%s-installer.jar", prefix, minecraft.String(), installer.Version, minecraft.String(), installer.Version)
+
+	formatted := fmt.Sprintf(
+		"%s/%s-%s/forge-%s-%s-installer.jar",
+		prefix,
+		minecraft.String(),
+		installer.Version,
+		minecraft.String(),
+		installer.Version,
+	)
+
+	return formatted
 }

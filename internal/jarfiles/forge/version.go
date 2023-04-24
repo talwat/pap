@@ -10,8 +10,10 @@ import (
 	"golang.org/x/exp/maps"
 )
 
-var preRegex = regexp.MustCompile(`_pre[0-9]`)
-var typeRegex = regexp.MustCompile(`-[^"]*`)
+var (
+	preRegex  = regexp.MustCompile(`_pre[0-9]`)
+	typeRegex = regexp.MustCompile(`-[^"]*`)
+)
 
 func cleanMinecraftVersionString(ver string, mv *MinecraftVersion) string {
 	pver := preRegex.FindString(ver)
@@ -54,7 +56,8 @@ func parseMinecraftVersion(ver string) MinecraftVersion {
 func getLatestMinecraftVersion(promotions *PromotionsSlim) MinecraftVersion {
 	svers := maps.Keys(promotions.Promos)
 
-	var mvers []MinecraftVersion
+	mvers := make([]MinecraftVersion, len(svers))
+
 	check := make(map[string]bool, 0)
 	for _, val := range svers {
 		s := strings.Split(val, "-")[0]

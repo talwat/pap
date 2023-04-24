@@ -9,6 +9,7 @@ import (
 
 func getPromotions() PromotionsSlim {
 	var promotions PromotionsSlim
+
 	net.Get(
 		"https://files.minecraftforge.net/maven/net/minecraftforge/forge/promotions_slim.json",
 		"could not retrieve promotions",
@@ -19,10 +20,11 @@ func getPromotions() PromotionsSlim {
 }
 
 func getInstaller(mver string, useLatestInstaller, useCustom bool) (MinecraftVersion, InstallerVersion) {
-	promos := getPromotions()
-
 	var mv MinecraftVersion
+
 	var iv InstallerVersion
+
+	promos := getPromotions()
 
 	if useCustom {
 		mv = parseMinecraftVersion(mver)
