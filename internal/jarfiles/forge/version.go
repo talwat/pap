@@ -15,65 +15,73 @@ var (
 	typeRegex = regexp.MustCompile(`-[^"]*`)
 )
 
-func cleanMinecraftVersionString(ver string, mv *MinecraftVersion) string {
-	pver := preRegex.FindString(ver)
-	if pver != "" {
-		mv.IsPrerelease = true
-		pver = strings.Replace(pver, "_pre", "", 1)
+func cleanMinecraftVersionString(version string, minecraft *MinecraftVersion) string {
+	preVersion := preRegex.FindString(version)
+	if preVersion != "" {
+		minecraft.IsPrerelease = true
+		preVersion = strings.Replace(preVersion, "_pre", "", 1)
 
 		var err error
-		mv.PrereleaseVersion, err = strconv.Atoi(pver)
+		minecraft.PrereleaseVersion, err = strconv.Atoi(preVersion)
 		log.Error(err, "failed to parse prerelease version number")
 
-		ver = preRegex.ReplaceAllString(ver, "")
+		version = preRegex.ReplaceAllString(version, "")
 	}
 
-	ver = typeRegex.ReplaceAllString(ver, "")
+	version = typeRegex.ReplaceAllString(version, "")
 
-	return ver
+	return version
 }
 
 func parseMinecraftVersion(ver string) MinecraftVersion {
-	var mv MinecraftVersion
+	var minecraft MinecraftVersion
 
-	cmv := cleanMinecraftVersionString(ver, &mv)
-	smv := strings.Split(cmv, ".")
+	cleanVersion := cleanMinecraftVersionString(ver, &minecraft)
+	splitVersion := strings.Split(cleanVersion, ".")
 
 	var err error
-	mv.Major, err = strconv.Atoi(smv[0])
+	minecraft.Major, err = strconv.Atoi(splitVersion[0])
 	log.Error(err, "failed to parse major version")
 
-	mv.Minor, err = strconv.Atoi(smv[1])
+	minecraft.Minor, err = strconv.Atoi(splitVersion[1])
 	log.Error(err, "failed to parse minor version")
 
-	if len(smv) > 2 {
-		mv.Patch, err = strconv.Atoi(smv[2])
+	// to avoid magic numbers
+	lenMajorAndMinor := 2
+
+	if len(splitVersion) > lenMajorAndMinor {
+		minecraft.Patch, err = strconv.Atoi(splitVersion[2])
 		log.Error(err, "failed to parse minor version")
 	}
 
-	return mv
+	return minecraft
 }
 
 func getLatestMinecraftVersion(promotions *PromotionsSlim) MinecraftVersion {
-	svers := maps.Keys(promotions.Promos)
+	promoKeys := maps.Keys(promotions.Promos)
 
-	check := make(map[string]bool, 0)
+	keymap := make(map[string]bool, len(promoKeys))
 
-	for _, val := range svers {
+	for _, val := range promoKeys {
 		s := strings.Split(val, "-")[0]
-		check[s] = true
+		_, exists := keymap[s]
+
+		if !exists {
+			keymap[s] = true
+		}
 	}
 
-	mvers := make([]MinecraftVersion, len(svers))
+	minecraftVersions := make([]MinecraftVersion, len(keymap))
 
-	i := 0
+	for key := range keymap {
+		parsed := parseMinecraftVersion(key)
 
-	for ver := range check {
-		i++
-		mvers[i] = parseMinecraftVersion(ver)
+		minecraftVersions = append(minecraftVersions, parsed)
 	}
 
-	sort.Stable(ByVersion(mvers))
+	sort.Sort(ByVersion(minecraftVersions))
 
-	return mvers[len(mvers)-1]
+	last := minecraftVersions[len(minecraftVersions)-1]
+
+	return last
 }

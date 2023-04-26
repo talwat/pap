@@ -19,59 +19,66 @@ func getPromotions() PromotionsSlim {
 	return promotions
 }
 
-func getInstaller(mver string, useLatestInstaller bool) (MinecraftVersion, InstallerVersion) {
-	var mv MinecraftVersion
+func getInstaller(version string, useLatestInstaller bool) (MinecraftVersion, InstallerVersion) {
+	var minecraft MinecraftVersion
 
-	var iv InstallerVersion
+	var installer InstallerVersion
 
 	promos := getPromotions()
 
-	if mver == "latest" {
-		mv = getLatestMinecraftVersion(&promos)
+	if version == "latest" {
+		minecraft = getLatestMinecraftVersion(&promos)
 	} else {
-		mv = parseMinecraftVersion(mver)
+		minecraft = parseMinecraftVersion(version)
 	}
 
 	if useLatestInstaller {
-		iv = getVersion(&promos, &mv, "latest")
-		goto ret
+		installer = getVersion(&promos, &minecraft, "latest")
+	} else {
+		installer = getVersion(&promos, &minecraft, "recommended")
+
+		if (installer == InstallerVersion{}) {
+			log.Continue("no recommended installer found for version %s. use the latest version?", minecraft.String())
+		}
+
+		installer = getVersion(&promos, &minecraft, "latest")
 	}
 
-	iv = getVersion(&promos, &mv, "recommended")
-	if (iv == InstallerVersion{}) {
-		log.Continue("no recommended installer found for version %s. use the latest version?", mv.String())
-	}
-
-	iv = getVersion(&promos, &mv, "latest")
-
-ret:
-	if (iv == InstallerVersion{}) {
+	if (installer == InstallerVersion{}) {
 		log.RawError("could not get a valid installer version")
 	}
 
-	return mv, iv
+	return minecraft, installer
 }
 
-func getSpecificInstaller(mver string, iver string) (MinecraftVersion, InstallerVersion) {
+func getSpecificInstaller(version string, installer string) (MinecraftVersion, InstallerVersion) {
 	promos := getPromotions()
 
-	mv := parseMinecraftVersion(mver)
+	var minecraft MinecraftVersion
 
-	if iver == "latest" {
-		return mv, getVersion(&promos, &mv, "latest")
+	if version == "latest" {
+		minecraft = getLatestMinecraftVersion(&promos)
+	} else {
+		minecraft = parseMinecraftVersion(version)
 	}
 
-	return mv, InstallerVersion{
-		Version: iver,
+	if installer == "latest" {
+		return minecraft, getVersion(&promos, &minecraft, "latest")
+	}
+
+	return minecraft, InstallerVersion{
+		Version: installer,
 	}
 }
 
-func getVersion(promos *PromotionsSlim, mv *MinecraftVersion, t string) InstallerVersion {
-	promo, found := promos.Promos[fmt.Sprintf("%s-%s", mv.String(), t)]
+//nolint:interfacer
+func getVersion(promos *PromotionsSlim, minecraft *MinecraftVersion, installerType string) InstallerVersion {
+	promo, found := promos.Promos[fmt.Sprintf("%s-%s", minecraft.String(), installerType)]
+
 	if found {
 		return InstallerVersion{
 			Version: promo,
-			Type:    t,
+			Type:    installerType,
 		}
 	}
 

@@ -36,18 +36,18 @@ func (a ByVersion) Less(i, j int) bool {
 }
 func (a ByVersion) Swap(i, j int) { a[i], a[j] = a[j], a[i] }
 
-func (mver *MinecraftVersion) String() string {
-	mvs := fmt.Sprintf("%d.%d", mver.Major, mver.Minor)
+func (minecraft *MinecraftVersion) String() string {
+	builder := fmt.Sprintf("%d.%d", minecraft.Major, minecraft.Minor)
 
-	if mver.Patch != 0 {
-		mvs += fmt.Sprintf(".%d", mver.Patch)
+	if minecraft.Patch != 0 {
+		builder += fmt.Sprintf(".%d", minecraft.Patch)
 	}
 
-	if mver.IsPrerelease {
-		mvs += fmt.Sprintf("_pre%d", mver.PrereleaseVersion)
+	if minecraft.IsPrerelease {
+		builder += fmt.Sprintf("_pre%d", minecraft.PrereleaseVersion)
 	}
 
-	return mvs
+	return builder
 }
 
 type InstallerVersion struct {
