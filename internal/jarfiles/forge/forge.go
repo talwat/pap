@@ -18,7 +18,7 @@ func GetURL(mverInput, iverInput string, useLatest bool) string {
 	log.Log("using minecraft version %s", minecraft.String())
 	log.Log("using %s forge installer version %s", installer.Type, installer.Version)
 
-	url := BuildUrl(&minecraft, &installer)
+	url := BuildURL(&minecraft, &installer)
 
 	return url
 }

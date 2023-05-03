@@ -19,14 +19,14 @@ func TestURL(t *testing.T) {
 	}
 
 	installer = forge.GetURL("1.9", "", true)
-	want = "https://maven.minecraftforge.net/net/minecraftforge/forge/1.9-12.16.1.1938/forge-1.9-12.16.1.1938-installer.jar"
+	want = "https://maven.minecraftforge.net/net/minecraftforge/forge/1.9-12.16.1.1938-1.9.0/forge-1.9-12.16.1.1938-1.9.0-installer.jar"
 
 	if installer != want {
 		t.Errorf(`GetURL("1.9", "", true) = %s; want %s`, installer, want)
 	}
 
 	installer = forge.GetURL("1.7.10_pre4", "", true)
-	want = "https://maven.minecraftforge.net/net/minecraftforge/forge/1.7.10_pre4-10.12.2.1149/forge-1.7.10_pre4-10.12.2.1149-installer.jar"
+	want = "https://maven.minecraftforge.net/net/minecraftforge/forge/1.7.10_pre4-10.12.2.1149-prerelease/forge-1.7.10_pre4-10.12.2.1149-prerelease-installer.jar"
 
 	if installer != want {
 		t.Errorf(`GetURL("1.7.10_pre4", "", true) = %s; want %s`, installer, want)
@@ -90,7 +90,7 @@ func TestBuildURL(t *testing.T) {
 		Version: "12.16.1.1938",
 	}
 
-	url := forge.BuildUrl(&minecraft, &installer)
+	url := forge.BuildURL(&minecraft, &installer)
 	want := "https://maven.minecraftforge.net/net/minecraftforge/forge/1.9-12.16.1.1938-1.9.0/forge-1.9-12.16.1.1938-1.9.0-installer.jar"
 
 	if url != want {
@@ -107,7 +107,7 @@ func TestBuildURL(t *testing.T) {
 		Version: "36.2.39",
 	}
 
-	url = forge.BuildUrl(&minecraft, &installer)
+	url = forge.BuildURL(&minecraft, &installer)
 	want = "https://maven.minecraftforge.net/net/minecraftforge/forge/1.16.5-36.2.39/forge-1.16.5-36.2.39-installer.jar"
 
 	if url != want {
@@ -126,7 +126,7 @@ func TestBuildURL(t *testing.T) {
 		Version: "10.12.2.1149",
 	}
 
-	url = forge.BuildUrl(&minecraft, &installer)
+	url = forge.BuildURL(&minecraft, &installer)
 	want = "https://maven.minecraftforge.net/net/minecraftforge/forge/1.7.10_pre4-10.12.2.1149-prerelease/forge-1.7.10_pre4-10.12.2.1149-prerelease-installer.jar"
 
 	if url != want {

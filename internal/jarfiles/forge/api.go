@@ -8,29 +8,29 @@ import (
 	"github.com/talwat/pap/internal/net"
 )
 
-func BuildUrl(minecraft *MinecraftVersion, installer *InstallerVersion) string {
-	var returnUrl string
+func BuildURL(minecraft *MinecraftVersion, installer *InstallerVersion) string {
+	var returnURL string
 
-	returnUrl += "https://maven.minecraftforge.net/net/minecraftforge/forge"
-	returnUrl += fmt.Sprintf("/%s-%s", minecraft.String(), installer.Version)
-
-	if minecraft.Minor == 8 || minecraft.Minor == 9 {
-		returnUrl += fmt.Sprintf("-%d.%d.%d", minecraft.Major, minecraft.Minor, minecraft.Patch)
-	} else if minecraft.IsPrerelease {
-		returnUrl += "-prerelease"
-	}
-
-	returnUrl += fmt.Sprintf("/forge-%s-%s-", minecraft.String(), installer.Version)
+	returnURL += "https://maven.minecraftforge.net/net/minecraftforge/forge"
+	returnURL += fmt.Sprintf("/%s-%s", minecraft.String(), installer.Version)
 
 	if minecraft.Minor == 8 || minecraft.Minor == 9 {
-		returnUrl += fmt.Sprintf("%d.%d.%d-", minecraft.Major, minecraft.Minor, minecraft.Patch)
+		returnURL += fmt.Sprintf("-%d.%d.%d", minecraft.Major, minecraft.Minor, minecraft.Patch)
 	} else if minecraft.IsPrerelease {
-		returnUrl += "prerelease-"
+		returnURL += "-prerelease"
 	}
 
-	returnUrl += "installer.jar"
+	returnURL += fmt.Sprintf("/forge-%s-%s-", minecraft.String(), installer.Version)
 
-	return returnUrl
+	if minecraft.Minor == 8 || minecraft.Minor == 9 {
+		returnURL += fmt.Sprintf("%d.%d.%d-", minecraft.Major, minecraft.Minor, minecraft.Patch)
+	} else if minecraft.IsPrerelease {
+		returnURL += "prerelease-"
+	}
+
+	returnURL += "installer.jar"
+
+	return returnURL
 }
 
 func getPromotions() PromotionsSlim {
