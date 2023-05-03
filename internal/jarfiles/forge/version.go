@@ -71,12 +71,11 @@ func getLatestMinecraftVersion(promotions *PromotionsSlim) MinecraftVersion {
 		}
 	}
 
-	minecraftVersions := make([]MinecraftVersion, len(keymap))
+	keys := maps.Keys(keymap)
+	minecraftVersions := make([]MinecraftVersion, len(keys))
 
-	for key := range keymap {
-		parsed := parseMinecraftVersion(key)
-
-		minecraftVersions = append(minecraftVersions, parsed)
+	for i := 0; i < len(keys); i++ {
+		minecraftVersions[i] = parseMinecraftVersion(keys[i])
 	}
 
 	sort.Sort(ByVersion(minecraftVersions))

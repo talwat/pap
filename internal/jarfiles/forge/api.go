@@ -3,9 +3,35 @@ package forge
 import (
 	"fmt"
 
+	"github.com/talwat/pap/internal/jarfiles"
 	"github.com/talwat/pap/internal/log"
 	"github.com/talwat/pap/internal/net"
 )
+
+func BuildUrl(minecraft *MinecraftVersion, installer *InstallerVersion) string {
+	var returnUrl string
+
+	returnUrl += "https://maven.minecraftforge.net/net/minecraftforge/forge"
+	returnUrl += fmt.Sprintf("/%s-%s", minecraft.String(), installer.Version)
+
+	if minecraft.Minor == 8 || minecraft.Minor == 9 {
+		returnUrl += fmt.Sprintf("-%d.%d.%d", minecraft.Major, minecraft.Minor, minecraft.Patch)
+	} else if minecraft.IsPrerelease {
+		returnUrl += "-prerelease"
+	}
+
+	returnUrl += fmt.Sprintf("/forge-%s-%s-", minecraft.String(), installer.Version)
+
+	if minecraft.Minor == 8 || minecraft.Minor == 9 {
+		returnUrl += fmt.Sprintf("%d.%d.%d-", minecraft.Major, minecraft.Minor, minecraft.Patch)
+	} else if minecraft.IsPrerelease {
+		returnUrl += "prerelease-"
+	}
+
+	returnUrl += "installer.jar"
+
+	return returnUrl
+}
 
 func getPromotions() PromotionsSlim {
 	var promotions PromotionsSlim
@@ -26,14 +52,14 @@ func getInstaller(version string, useLatestInstaller bool) (MinecraftVersion, In
 
 	promos := getPromotions()
 
-	if version == "latest" {
+	if version == jarfiles.Latest {
 		minecraft = getLatestMinecraftVersion(&promos)
 	} else {
 		minecraft = parseMinecraftVersion(version)
 	}
 
 	if useLatestInstaller {
-		installer = getVersion(&promos, &minecraft, "latest")
+		installer = getVersion(&promos, &minecraft, jarfiles.Latest)
 	} else {
 		installer = getVersion(&promos, &minecraft, "recommended")
 
@@ -41,7 +67,7 @@ func getInstaller(version string, useLatestInstaller bool) (MinecraftVersion, In
 			log.Continue("no recommended installer found for version %s. use the latest version?", minecraft.String())
 		}
 
-		installer = getVersion(&promos, &minecraft, "latest")
+		installer = getVersion(&promos, &minecraft, jarfiles.Latest)
 	}
 
 	if (installer == InstallerVersion{}) {

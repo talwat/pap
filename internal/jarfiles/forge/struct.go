@@ -16,6 +16,8 @@ type MinecraftVersion struct {
 type ByVersion []MinecraftVersion
 
 func (a ByVersion) Len() int { return len(a) }
+
+//nolint:varnamelen
 func (a ByVersion) Less(i, j int) bool {
 	switch {
 	case a[i].Major < a[j].Major:
