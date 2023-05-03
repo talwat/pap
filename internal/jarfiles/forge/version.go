@@ -15,6 +15,9 @@ var (
 	typeRegex = regexp.MustCompile(`-[^"]*`)
 )
 
+// Avoid using a magic number
+const lenMajorAndMinorVersion int = 2
+
 func cleanMinecraftVersionString(version string, minecraft *MinecraftVersion) string {
 	preVersion := preRegex.FindString(version)
 	if preVersion != "" {
@@ -46,10 +49,7 @@ func parseMinecraftVersion(ver string) MinecraftVersion {
 	minecraft.Minor, err = strconv.Atoi(splitVersion[1])
 	log.Error(err, "failed to parse minor version")
 
-	// to avoid magic numbers
-	lenMajorAndMinor := 2
-
-	if len(splitVersion) > lenMajorAndMinor {
+	if len(splitVersion) > lenMajorAndMinorVersion {
 		minecraft.Patch, err = strconv.Atoi(splitVersion[2])
 		log.Error(err, "failed to parse minor version")
 	}

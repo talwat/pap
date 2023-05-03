@@ -97,6 +97,9 @@ func getSpecificInstaller(version string, installer string) (MinecraftVersion, I
 	}
 }
 
+// `golangci-lint` complains about *MinecraftVersion because this function only uses the string value
+// of the version. `interfacer` says we can use fmt.Stringer here, but that may lead to confusion.
+
 //nolint:interfacer
 func getVersion(promos *PromotionsSlim, minecraft *MinecraftVersion, installerType string) InstallerVersion {
 	promo, found := promos.Promos[fmt.Sprintf("%s-%s", minecraft.String(), installerType)]
