@@ -22,6 +22,15 @@ func BuildURL(minecraft *MinecraftVersion, installer *InstallerVersion) string {
 
 	returnURL += fmt.Sprintf("/forge-%s-%s-", minecraft.String(), installer.Version)
 
+	// Forge versioning scheme changes with these two specific versions:
+	// Versions 1.3 -> 1.7 and 1.10 -> latest use
+	// MinecraftVersion-InstallerVersion/forge-MinecraftVersion-InstallerVersion-installer.jar
+	// 1.19.4              45.0.57                 1.19.4           45.0.57
+	//
+	// While 1.8 and 1.9 use a different scheme
+	// MinecraftVersion-InstallerVersion-VersionTriple/forge-MinecraftVersion-InstallerVersion-VersionTriple-installer.jar
+	//     1.9            12.16.1.1938       1.9.0                 1.9          12.16.1.1938      1.9.0
+
 	if minecraft.Minor == 8 || minecraft.Minor == 9 {
 		returnURL += fmt.Sprintf("%d.%d.%d-", minecraft.Major, minecraft.Minor, minecraft.Patch)
 	} else if minecraft.IsPrerelease {
@@ -36,6 +45,8 @@ func BuildURL(minecraft *MinecraftVersion, installer *InstallerVersion) string {
 func getPromotions() PromotionsSlim {
 	var promotions PromotionsSlim
 
+	log.Log("getting promotions...")
+
 	net.Get(
 		"https://files.minecraftforge.net/maven/net/minecraftforge/forge/promotions_slim.json",
 		"could not retrieve promotions",
@@ -46,29 +57,29 @@ func getPromotions() PromotionsSlim {
 }
 
 func getInstaller(version string, useLatestInstaller bool) (MinecraftVersion, InstallerVersion) {
-	var minecraft MinecraftVersion
-
-	var installer InstallerVersion
+	if useLatestInstaller {
+		log.Debug("using latest installer version")
+		return getSpecificInstaller(version, jarfiles.Latest)
+	}
 
 	promos := getPromotions()
 
+	var minecraft MinecraftVersion
+
 	if version == jarfiles.Latest {
+		log.Debug("using latest minecraft version")
 		minecraft = getLatestMinecraftVersion(&promos)
 	} else {
 		minecraft = parseMinecraftVersion(version)
 	}
 
-	if useLatestInstaller {
-		installer = getVersion(&promos, &minecraft, jarfiles.Latest)
-	} else {
-		installer = getVersion(&promos, &minecraft, "recommended")
+	installer := getVersion(&promos, &minecraft, "recommended")
 
-		if (installer == InstallerVersion{}) {
-			log.Continue("no recommended installer found for version %s. use the latest version?", minecraft.String())
-		}
-
-		installer = getVersion(&promos, &minecraft, jarfiles.Latest)
+	if (installer == InstallerVersion{}) {
+		log.Continue("no recommended installer found for version %s. use the latest version?", minecraft.String())
 	}
+
+	installer = getVersion(&promos, &minecraft, jarfiles.Latest)
 
 	if (installer == InstallerVersion{}) {
 		log.RawError("could not get a valid installer version")
@@ -82,13 +93,15 @@ func getSpecificInstaller(version string, installer string) (MinecraftVersion, I
 
 	var minecraft MinecraftVersion
 
-	if version == "latest" {
+	if version == jarfiles.Latest {
+		log.Debug("using latest minecraft version")
 		minecraft = getLatestMinecraftVersion(&promos)
 	} else {
 		minecraft = parseMinecraftVersion(version)
 	}
 
-	if installer == "latest" {
+	if installer == jarfiles.Latest {
+		log.Debug("using latest installer version")
 		return minecraft, getVersion(&promos, &minecraft, "latest")
 	}
 

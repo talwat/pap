@@ -4,6 +4,9 @@ import (
 	"fmt"
 )
 
+// Forge Minecraft versions use a faux semantic versioning scheme (most of the time).
+// Major, minor and patch correspond to similar ones in semantic versioning: X.x.p.
+// Prerelease versions contain a _preX suffix, such as 1.7.10_pre4.
 type MinecraftVersion struct {
 	Major int
 	Minor int

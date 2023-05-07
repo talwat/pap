@@ -334,6 +334,7 @@ jobs:
            ./bin/pap -y -d download fabric --version 1.19.3 --snapshot
            ./bin/pap -y -d download fabric --version 20w22a
            ./bin/pap -y -d download fabric --version 1.16-pre8
+           
       - name: "Test forge downloading"
         run: |
            ./bin/pap -y -d download forge

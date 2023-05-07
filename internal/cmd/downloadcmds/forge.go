@@ -1,7 +1,7 @@
 package downloadcmds
 
 import (
-	"strings"
+	"fmt"
 
 	"github.com/talwat/pap/internal/fs"
 	"github.com/talwat/pap/internal/global"
@@ -18,12 +18,11 @@ func DownloadForgeCommand(cCtx *cli.Context) error {
 		global.ForgeInstallerVersion,
 		global.ForgeUseLatestInstaller,
 	)
-	surl := strings.Split(url, "/")
 
 	net.Download(
 		url,
-		"resolved forge-installer jarfile not found",
-		surl[len(surl)-1],
+		"resolved forge installer jarfile not found",
+		fmt.Sprintf("forge-%s-%s-installer.jar", global.MinecraftVersionInput, global.ForgeInstallerVersion),
 		"forge server installer jarfile",
 		nil,
 		fs.ReadWritePerm,
