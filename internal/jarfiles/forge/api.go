@@ -59,6 +59,7 @@ func getPromotions() PromotionsSlim {
 func getInstaller(version string, useLatestInstaller bool) (MinecraftVersion, InstallerVersion) {
 	if useLatestInstaller {
 		log.Debug("using latest installer version")
+
 		return getSpecificInstaller(version, jarfiles.Latest)
 	}
 
@@ -68,6 +69,7 @@ func getInstaller(version string, useLatestInstaller bool) (MinecraftVersion, In
 
 	if version == jarfiles.Latest {
 		log.Debug("using latest minecraft version")
+
 		minecraft = getLatestMinecraftVersion(&promos)
 	} else {
 		minecraft = parseMinecraftVersion(version)
@@ -95,6 +97,7 @@ func getSpecificInstaller(version string, installer string) (MinecraftVersion, I
 
 	if version == jarfiles.Latest {
 		log.Debug("using latest minecraft version")
+		
 		minecraft = getLatestMinecraftVersion(&promos)
 	} else {
 		minecraft = parseMinecraftVersion(version)
@@ -102,6 +105,7 @@ func getSpecificInstaller(version string, installer string) (MinecraftVersion, I
 
 	if installer == jarfiles.Latest {
 		log.Debug("using latest installer version")
+
 		return minecraft, getVersion(&promos, &minecraft, "latest")
 	}
 
