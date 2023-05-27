@@ -97,7 +97,7 @@ func getSpecificInstaller(version string, installer string) (MinecraftVersion, I
 
 	if version == jarfiles.Latest {
 		log.Debug("using latest minecraft version")
-		
+
 		minecraft = getLatestMinecraftVersion(&promos)
 	} else {
 		minecraft = parseMinecraftVersion(version)
