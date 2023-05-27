@@ -5,6 +5,7 @@ go 1.18
 require (
 	github.com/talwat/gobar v1.0.2
 	github.com/urfave/cli/v2 v2.25.1
+	golang.org/x/exp v0.0.0-20230420155640-133eef4313cb
 	golang.org/x/sys v0.7.0
 )
 

@@ -123,7 +123,7 @@ COPYRIGHT:
 					},
 					{
 						Name:    "fabric",
-						Aliases: []string{"f"},
+						Aliases: []string{"fa"},
 						Usage:   "download a fabric jarfile",
 						Action:  downloadcmds.DownloadFabricCommand,
 						Flags: []cli.Flag{
@@ -205,6 +205,35 @@ COPYRIGHT:
 								Usage:       "the minecraft version to download",
 								Aliases:     []string{"version", "v"},
 								Destination: &global.MinecraftVersionInput,
+							},
+						},
+					},
+					{
+						Name:    "forge",
+						Aliases: []string{"fo"},
+						Usage:   "download a forge jarfile",
+						Action:  downloadcmds.DownloadForgeCommand,
+						Flags: []cli.Flag{
+							&cli.BoolFlag{
+								Name:        "download-latest",
+								Value:       false,
+								Usage:       "download the latest forge installer instead of a recommended version",
+								Aliases:     []string{"latest", "l"},
+								Destination: &global.ForgeUseLatestInstaller,
+							},
+							&cli.StringFlag{
+								Name:        "minecraft-version",
+								Value:       "latest",
+								Usage:       "the minecraft version to download",
+								Aliases:     []string{"version", "v"},
+								Destination: &global.MinecraftVersionInput,
+							},
+							&cli.StringFlag{
+								Name:        "installer-version",
+								Value:       "latest",
+								Usage:       "the forge installer version to download",
+								Aliases:     []string{"installer", "i"},
+								Destination: &global.ForgeInstallerVersion,
 							},
 						},
 					},

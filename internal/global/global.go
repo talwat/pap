@@ -20,6 +20,8 @@ var (
 	FabricExperimentalLoaderVersion    = false
 	FabricLoaderVersion                = "latest"
 	FabricInstallerVersion             = "latest"
+	ForgeInstallerVersion              = "latest"
+	ForgeUseLatestInstaller            = false
 
 	// Script.
 

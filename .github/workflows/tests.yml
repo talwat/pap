@@ -334,6 +334,15 @@ jobs:
            ./bin/pap -y -d download fabric --version 1.19.3 --snapshot
            ./bin/pap -y -d download fabric --version 20w22a
            ./bin/pap -y -d download fabric --version 1.16-pre8
+           
+      - name: "Test forge downloading"
+        run: |
+           ./bin/pap -y -d download forge
+           ./bin/pap -y -d download forge --latest
+           ./bin/pap -y -d download forge --version 1.6.4
+           ./bin/pap -y -d download forge --version 1.9 --latest
+           ./bin/pap -y -d download forge --version 1.7.10_pre4 --latest
+           ./bin/pap -y -d download forge --version 1.19.3 --installer 44.1.0
 
       - name: "Test self updater"
         continue-on-error: true
